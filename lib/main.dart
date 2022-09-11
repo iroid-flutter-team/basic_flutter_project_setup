@@ -18,22 +18,17 @@ void main() async {
   await DenpendencyInjection.init();
 
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.dark.copyWith(
-      // statusBarColor: Colors.transparent,
+    SystemUiOverlayStyle.light.copyWith(
       statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent,
     ),
   );
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-  //   statusBarColor: Colors.cyan,
-  // ));
 
-  await SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ],
-  );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(App());
   configLoading();
@@ -57,11 +52,8 @@ class App extends StatelessWidget {
       getPages: AppPages.routes,
       initialBinding: AppBinding(),
       smartManagement: SmartManagement.keepFactory,
-      title: 'Emerald Sun Terot',
-      supportedLocales: [
-        const Locale('en', 'US'),
-      ],
-      theme: ThemeConfig.lightTheme,
+      title: 'Home Yogi Account Manager',
+      theme: ThemeConfig.darkTheme,
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
       translations: TranslationService(),

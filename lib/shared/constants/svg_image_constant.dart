@@ -1,16 +1,24 @@
-class SvgImageConstant {
-  static const profileUnselected =
-      "assets/images/svg/tab_icon_profile_unselected.svg";
-  static const profileSelected = "assets/images/svg/tab_icon_profile.svgg";
-  static const locationUnselected = "assets/images/svg/tab_icon_location.svg";
-  static const locationSelected = "assets/images/svg/location_selected.svg";
-  static const searchUnselected = "assets/images/svg/tab_icon_search.svg";
-  static const searchSelected = "assets/images/png/arrow_left.png";
-  static const chatUnselected = "assets/images/svg/tab_icon_chat.svg";
-  static const chatSelected = "assets/images/png/arrow_left.png";
-  static const notificationUnselected =
-      "assets/images/svg/tab_icon_notification.svg";
-  static const notificationSelected = "assets/images/png/arrow_left.png";
-  static const timeCircle = "assets/images/svg/time_circle.svg";
-  static const call = "assets/images/svg/call.svg";
+class SvgImageConstants {
+  static const home = "assets/images/svg/home.svg";
+
+  static const task = "assets/images/svg/task.svg";
+  static const bulb = "assets/images/svg/lamp.svg";
+  static const notification = "assets/images/svg/notification.svg";
+  static const setting = "assets/images/svg/setting.svg";
+  static const summer = "assets/images/svg/summer.svg";
+  static const fall = "assets/images/svg/fall.svg";
+  static const spring = "assets/images/svg/spring.svg";
+  static const winter = "assets/images/svg/win.svg";
+  static const clock = "assets/images/svg/clock.svg";
+  static const arrowRight = "assets/images/svg/arrow_right.svg";
+  static const arrowDown = "assets/images/svg/arrow_down.svg";
+  static const questions = "assets/images/svg/questions.svg";
+  static const mainBackground = "assets/images/svg/background.svg";
+  static const today = "assets/images/svg/today.svg";
+  static const lock = "assets/images/svg/lock.svg";
+  static const square = "assets/images/svg/square.svg";
+  static const arrow_up = "assets/images/svg/arrow_up.svg";
+  static const check = "assets/images/svg/check.svg";
+  static const tick = "assets/images/svg/tick.svg";
+  static const tick_white = "assets/images/svg/tick_white.svg";
 }

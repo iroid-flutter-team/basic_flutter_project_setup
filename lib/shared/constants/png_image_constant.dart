@@ -1,14 +1,20 @@
 class PngImageConstants {
   static const arrow_left = "assets/images/png/arrow_left.png";
-  static const upload_id = "assets/images/png/upload_id.png";
-  static const photo_capture = "assets/images/png/photo_capture.png";
-  static const photo_retake = "assets/images/png/photo_retake.png";
-  static const image_close = "assets/images/png/image_close.png";
-  static const flash = "assets/images/png/flash.png";
-  static const verify = "assets/images/png/verify.png";
-  static const demo = "assets/images/png/demo.png";
-  static const delete_image = "assets/images/png/delete_image.png";
-  static const add_image = "assets/images/png/add_image.png";
-  static const business_profile_background =
-      "assets/images/png/business_profile_background.png";
+  static const task = "assets/images/png/task.png";
+  static const smile = "assets/images/svg/smile.png";
+  static const taskSelected = "assets/images/png/task_selected.png";
+  static const homeSelected = "assets/images/png/home_selected.png";
+  static const notificationSelected = "assets/images/png/notification_selected.png";
+  static const settingSelected = "assets/images/png/setting_selected.png";
+  static const background = "assets/images/png/background.png";
+  static const level_badge = "assets/images/png/level_badge.png";
+  static const ellepse = "assets/images/png/ellipse.png";
+  static const backEllipse = "assets/images/png/back_ellipse.png";
+  static const upgradeArrow = "assets/images/png/upgrade_arrow.png";
+  static const gift = "assets/images/png/gift.png";
+  static const summer = "assets/images/png/summer.png";
+  static const splashHome = "assets/images/png/splash_home.png";
+  static const spring = "assets/images/png/spring.png";
+  static const spring1 = "assets/images/png/spring1.png";
+  static const spring2 = "assets/images/png/spring2.png";
 }

@@ -7,6 +7,7 @@ abstract class Routes {
   static const id4 = 4;
   static const id5 = 5;
   static const SPLASH = '/splash';
+  static const SIGNIN = '/sigin';
   static const AUTH = '/auth';
   static const LOGIN = '/login';
   static const REGISTER = '/register';

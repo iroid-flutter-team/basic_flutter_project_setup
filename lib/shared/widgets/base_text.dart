@@ -30,7 +30,7 @@ class BaseText extends StatelessWidget {
     this.fontWeight,
     this.letterSpacing,
     this.maxLines = 5,
-    this.fontFamily = 'Poppins',
+    this.fontFamily = 'Readex Pro',
     this.lineHeight,
     this.shadows,
   }) : super(key: key);
@@ -47,11 +47,11 @@ class BaseText extends StatelessWidget {
           TextStyle(
             height: lineHeight,
             shadows: shadows,
-            color: textColor ?? ColorConstants.black,
+            color: textColor ?? ColorConstants.white,
             decoration: textDecoration,
             fontFamily: fontFamily,
             fontSize: getFontSize(fontSize),
-            letterSpacing: letterSpacing ?? 0.5,
+            letterSpacing: letterSpacing ?? 0.0,
             fontWeight: fontWeight ?? FontWeight.w400,
           ),
     );

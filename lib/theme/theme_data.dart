@@ -1,114 +1,179 @@
+import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/gradient_borders.dart';
+import '../shared/constants/color_constants.dart';
+import '../shared/utils/math_utils.dart';
+import '../shared/widgets/common_boxshadow.dart';
+import '../shared/widgets/common_input_shadow.dart';
 
 class ThemeConfig {
   static ThemeData createTheme({
     required Brightness brightness,
+    required Color background,
+    required Color primaryText,
+    Color? secondaryText,
+    required Color accentColor,
+    Color? divider,
+    Color? buttonBackground,
+    required Color buttonText,
+    Color? cardBackground,
+    Color? disabled,
+    required Color error,
   }) {
-    // print("primaryColor : ${Theme.of(Get.context!).primaryColor}");
     return ThemeData(
-      fontFamily: 'Poppins',
-      // brightness: brightness,
-
-      //scaffoldBackgroundColor: ColorConstants.white,
-      // primaryColor: !DenpendencyInjection.isBusinessMode.value
-      //     ? Color(0xff8BC75A)
-      //     : Color(0xff008B8B),
-      // appBarTheme: AppBarTheme(
-      //   systemOverlayStyle: SystemUiOverlayStyle(
-      //     statusBarColor: Colors.transparent,
-      //     statusBarIconBrightness: Brightness.dark,
-      //     statusBarBrightness: Brightness.light,
-      //   ),
-      // ),
-      // inputDecorationTheme: InputDecorationTheme(
-      //   floatingLabelBehavior: FloatingLabelBehavior.auto,
-      //   border: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(14), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.grey1),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      //   errorBorder: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(14), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.redErrorColor),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      //   enabledBorder: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(14), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.grey1),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      //   disabledBorder: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(14), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.grey1),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      //   focusedErrorBorder: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(12), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.redErrorColor),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      //   focusedBorder: DecoratedInputBorder(
-      //     child: OutlineInputBorder(
-      //       borderRadius: SmoothBorderRadius.all(
-      //         SmoothRadius(cornerRadius: getSize(14), cornerSmoothing: 1),
-      //       ),
-      //       borderSide: BorderSide(color: ColorConstants.kPrimary),
-      //     ),
-      //     shadow: BoxShadow(
-      //       offset: Offset(15, 20),
-      //       blurRadius: 45,
-      //       color: ColorConstants.shadowColor.withOpacity(0.25),
-      //     ),
-      //   ),
-      // ),
+      scaffoldBackgroundColor: ColorConstants.darkScaffoldBackgroundColor,
+      fontFamily: 'Readex Pro',
+      brightness: brightness,
+      splashColor: Colors.transparent,
+      inputDecorationTheme: InputDecorationTheme(
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        border: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            width: 2,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 255, 255, 0.1),
+                Color.fromRGBO(255, 255, 255, 0.0),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+        errorBorder: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 78, 78, 1),
+                Color.fromRGBO(255, 78, 78, 1),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+        enabledBorder: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            width: 2,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 255, 255, 0.1),
+                Color.fromRGBO(255, 255, 255, 0.06),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+        disabledBorder: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            width: 2,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 255, 255, 0.1),
+                Color.fromRGBO(255, 255, 255, 0.06),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+        focusedErrorBorder: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 78, 78, 1),
+                Color.fromRGBO(255, 78, 78, 1),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+        focusedBorder: DecoratedInputBorder(
+          child: GradientOutlineInputBorder(
+            borderRadius: SmoothBorderRadius(
+              cornerRadius: getSize(14),
+              cornerSmoothing: 1,
+            ),
+            width: 2,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(255, 255, 255, 0.1),
+                Color.fromRGBO(255, 255, 255, 0.06),
+              ],
+              begin: Alignment(-1.0, -4.0),
+              end: Alignment(1.0, 4.0),
+            ),
+          ),
+          shadow: CommonBoxShadow.getBlackBackgroundBoxShadow(
+            Offset(5, 6),
+          ),
+        ),
+      ),
     );
   }
 
   static ThemeData get lightTheme => createTheme(
-        brightness: Brightness.light,
-      );
+    brightness: Brightness.light,
+    background: ColorConstants.lightScaffoldBackgroundColor,
+    cardBackground: ColorConstants.secondaryAppColor,
+    primaryText: Colors.black,
+    secondaryText: Colors.white,
+    accentColor: ColorConstants.secondaryAppColor,
+    divider: ColorConstants.secondaryAppColor,
+    buttonBackground: Colors.black38,
+    buttonText: ColorConstants.secondaryAppColor,
+    disabled: ColorConstants.secondaryAppColor,
+    error: Colors.red,
+  );
 
   static ThemeData get darkTheme => createTheme(
-        brightness: Brightness.dark,
-      );
+    brightness: Brightness.dark,
+    background: ColorConstants.summerGradient1,
+    cardBackground: ColorConstants.white,
+    primaryText: Colors.white,
+    secondaryText: Colors.black,
+    accentColor: ColorConstants.white,
+    divider: Colors.black45,
+    buttonBackground: Colors.white,
+    buttonText: ColorConstants.white,
+    disabled: ColorConstants.white,
+    error: Colors.red,
+  );
 }
