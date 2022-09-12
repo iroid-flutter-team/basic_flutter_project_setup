@@ -21,4 +21,5 @@ class SvgImageConstants {
   static const check = "assets/images/svg/check.svg";
   static const tick = "assets/images/svg/tick.svg";
   static const tick_white = "assets/images/svg/tick_white.svg";
+  static const message = "assets/images/svg/message.svg";
 }
