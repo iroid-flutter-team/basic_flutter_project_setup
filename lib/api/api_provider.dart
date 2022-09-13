@@ -33,11 +33,11 @@ class ApiProvider extends BaseProvider {
         }
       } else {
         EasyLoading.dismiss();
-        await EasyLoading.showToast(StringConstant.serverError);
+        await EasyLoading.showToast(StringConstants.serverError);
       }
     } else {
       EasyLoading.dismiss();
-      await EasyLoading.showToast(StringConstant.networkError);
+      await EasyLoading.showToast(StringConstants.networkError);
     }
 
     return commonResponse;
@@ -101,11 +101,11 @@ class ApiProvider extends BaseProvider {
         }
       } else {
         EasyLoading.dismiss();
-        await EasyLoading.showToast(StringConstant.serverError);
+        await EasyLoading.showToast(StringConstants.serverError);
       }
     } else {
       EasyLoading.dismiss();
-      await EasyLoading.showToast(StringConstant.networkError);
+      await EasyLoading.showToast(StringConstants.networkError);
     }
 
     return commonResponse;

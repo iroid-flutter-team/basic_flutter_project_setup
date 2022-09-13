@@ -1,4 +1,4 @@
-class StringConstant {
+class StringConstants {
   //auth
   static const String assetsTODO = '';
   static const String videoUrl =
@@ -8,6 +8,7 @@ class StringConstant {
   static const String createNewAccount = 'Create a new account';
   static const String name = 'Name';
   static const String emailAddress = 'Email Address';
+  static const String hintPhoneNumber = 'Enter PhoneNumber';
   static const String mobileNumder = 'Mobile Number';
   static const String enterMobileNumber = 'Please enter your mobile number';
   static const String enterUserName = 'Please enter your name';
@@ -103,6 +104,11 @@ class StringConstant {
   static const String additionalInfo = 'Additional Info';
 
   //core
-  static const String pressthebackbuttontoexit =
-      'Press the back button to exit';
+  static const String pressthebackbuttontoexit = 'Press the back button to exit';
+  static const String questions = 'Questions';
+  static const String summer = 'Summer';
+  static const String fall = 'Fall';
+  static const String winter = 'Winter';
+  static const String spring = 'Spring';
+  static const String examinations = 'Examinations';
 }

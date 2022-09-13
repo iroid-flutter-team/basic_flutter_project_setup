@@ -17,4 +17,6 @@ class PngImageConstants {
   static const spring = "assets/images/png/spring.png";
   static const spring1 = "assets/images/png/spring1.png";
   static const spring2 = "assets/images/png/spring2.png";
+  static const profile = "assets/images/png/profile.png";
+  static const futureJobs = "assets/images/png/future_jobs.png";
 }

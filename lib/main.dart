@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app_binding.dart';
 import 'di.dart';
 import 'lang/lang.dart';
+import 'modules/main/tabs/home/examination/examination_view.dart';
 import 'routes/routes.dart';
 import 'shared/constants/constants.dart';
 
@@ -47,7 +48,7 @@ class App extends StatelessWidget {
     print("Token : ${prefs.getString(StorageConstants.token)}");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.MAIN,
+      initialRoute: Routes.SIGN_IN,
       defaultTransition: Transition.native,
       getPages: AppPages.routes,
       initialBinding: AppBinding(),

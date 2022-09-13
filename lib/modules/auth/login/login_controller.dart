@@ -12,8 +12,9 @@ class SignInWithPhoneNumberController extends GetxController{
    final formKey = GlobalKey<FormState>();
   // Timer? timer;
    var resendOtpTime = 0.obs;
-   TextEditingController emailController = TextEditingController();
-   OtpFieldController otpController = OtpFieldController();
+   TextEditingController countryController = TextEditingController();
+   TextEditingController phoneNumberController = TextEditingController();
+  // OtpFieldController otpController = OtpFieldController();
   // final emailValue = ''.obs;
   // final otpValue = ''.obs;
   // RxBool buttonClickable = false.obs;

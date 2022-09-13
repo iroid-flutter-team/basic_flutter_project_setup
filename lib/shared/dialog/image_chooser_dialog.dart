@@ -13,7 +13,7 @@ class ImageChooserDialog {
       context: Get.context!,
       builder: (BuildContext context) => CupertinoActionSheet(
         title: const BaseText(
-          text: StringConstant.selectImage,
+          text: StringConstants.selectImage,
           textAlign: TextAlign.center,
         ),
         // message: const Text('Message'),
@@ -21,7 +21,7 @@ class ImageChooserDialog {
           CupertinoActionSheetAction(
             onPressed: takePhotoCallback,
             child: const BaseText(
-              text: StringConstant.takePhoto,
+              text: StringConstants.takePhoto,
             ),
             // onPressed: () {
             //   Get.back();
@@ -31,7 +31,7 @@ class ImageChooserDialog {
           CupertinoActionSheetAction(
             onPressed: selectPhotoCallback,
             child: const BaseText(
-              text: StringConstant.galleryPhoto,
+              text: StringConstants.galleryPhoto,
             ),
             // onPressed: () {
             //   Get.back();
@@ -41,7 +41,7 @@ class ImageChooserDialog {
         ],
         cancelButton: CupertinoActionSheetAction(
           child: const BaseText(
-            text: StringConstant.buttonCancel,
+            text: StringConstants.buttonCancel,
             fontSize: 18,
           ),
           onPressed: () {

@@ -1,4 +1,8 @@
 import 'package:align_flutter_app/api/api_repository.dart';
+import 'package:align_flutter_app/modules/main/tabs/history/history_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/notification/notification_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/setting/setting_view.dart';
 import 'package:align_flutter_app/shared/constants/string_constant.dart';
 import 'package:align_flutter_app/shared/widgets/base_text.dart';
 
@@ -12,14 +16,14 @@ import '../../routes/app_pages.dart';
 
 class MainController extends GetxController {
   final ApiRepository apiRepository;
-
   MainController({required this.apiRepository});
+
   var currentTabIndex = 0.obs;
   var pageIndex = 0.obs;
   var pageList = <Widget>[].obs;
   DateTime currentBackPressTime = DateTime.now();
   Widget? homePage;
-  Widget? checkListPage;
+  Widget? historyPage;
   Widget? notificationPage;
   Widget? settingPage;
   void switchTab(int index) async {
@@ -32,11 +36,11 @@ class MainController extends GetxController {
         pageIndex.value = pageList.indexOf(homePage);
         break;
       case 1:
-        if (!pageList.contains(checkListPage)) {
-          pageList.add(checkListPage!);
+        if (!pageList.contains(historyPage)) {
+          pageList.add(historyPage!);
         }
 
-        pageIndex.value = pageList.indexOf(checkListPage);
+        pageIndex.value = pageList.indexOf(historyPage);
         break;
       case 2:
         Container();
@@ -60,11 +64,11 @@ class MainController extends GetxController {
 
   @override
   void onInit() {
-    // homePage = HomeView();
-    // checkListPage = CheckListView();
-    // notificationPage = NotificationScreen();
-    // settingPage = SettingView();
-    //pageList.add(homePage);
+    homePage = HomeView();
+    historyPage = HistoryView();
+    notificationPage = NotificationView();
+    settingPage = SettingView();
+    pageList.add(homePage!);
     super.onInit();
   }
 }

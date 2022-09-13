@@ -10,7 +10,7 @@ class SvgImageConstants {
   static const spring = "assets/images/svg/spring.svg";
   static const winter = "assets/images/svg/win.svg";
   static const clock = "assets/images/svg/clock.svg";
-  static const arrowRight = "assets/images/svg/arrow_right.svg";
+  static const arrowRight1 = "assets/images/svg/arrow_right_1.svg";
   static const arrowDown = "assets/images/svg/arrow_down.svg";
   static const questions = "assets/images/svg/questions.svg";
   static const mainBackground = "assets/images/svg/background.svg";
@@ -22,4 +22,6 @@ class SvgImageConstants {
   static const tick = "assets/images/svg/tick.svg";
   static const tick_white = "assets/images/svg/tick_white.svg";
   static const message = "assets/images/svg/message.svg";
+  static const location = "assets/images/svg/location.svg";
+  static const arrowRight = "assets/images/svg/arrow_right.svg";
 }

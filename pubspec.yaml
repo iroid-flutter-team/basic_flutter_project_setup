@@ -48,6 +48,7 @@ dependencies:
   permission_handler: ^10.0.0
   connectivity_plus: ^2.3.5
   gradient_borders: ^0.2.0
+  percent_indicator: ^4.0.0
 
 
 dev_dependencies:
@@ -76,7 +77,7 @@ flutter:
   assets:
     - assets/images/png/
     - assets/images/svg/
-    - assets/images/gif/
+  #- assets/images/gif/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
