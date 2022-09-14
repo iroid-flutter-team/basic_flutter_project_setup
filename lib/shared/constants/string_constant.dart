@@ -111,4 +111,11 @@ class StringConstants {
   static const String winter = 'Winter';
   static const String spring = 'Spring';
   static const String examinations = 'Examinations';
+  static const String inspect = 'INSPECT';
+  static const String buttonSubmitted = 'SUBMITTED';
+
+  // settings tab
+  static const String pushNotification = 'Push Notification';
+  static const String aboutMe = 'About Me';
+  static const String signOut = 'Sign Out';
 }

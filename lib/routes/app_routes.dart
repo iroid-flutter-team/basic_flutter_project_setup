@@ -21,4 +21,6 @@ abstract class Routes {
   static const OTP_VERIFICATION = '/otpVerify';
   static const FUTURE_JOBS = '/futureJobs';
   static const EXAMINATION = '/examinationView';
+  static const QUESTION = '/question';
+  static const REVIEW = '/review';
 }

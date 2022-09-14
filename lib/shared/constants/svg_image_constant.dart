@@ -24,4 +24,7 @@ class SvgImageConstants {
   static const message = "assets/images/svg/message.svg";
   static const location = "assets/images/svg/location.svg";
   static const arrowRight = "assets/images/svg/arrow_right.svg";
+  static const star = "assets/images/svg/star.svg";
+  static const review = "assets/images/svg/review.svg";
+  static const calendar = "assets/images/svg/calendar.svg";
 }

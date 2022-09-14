@@ -1,18 +1,16 @@
-import 'package:align_flutter_app/api/api_repository.dart';
+
+
+
+
 import 'package:align_flutter_app/modules/main/tabs/history/history_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/notification/notification_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/setting/setting_view.dart';
-import 'package:align_flutter_app/shared/constants/string_constant.dart';
-import 'package:align_flutter_app/shared/widgets/base_text.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-import '../../routes/app_pages.dart';
-
+import '../../api/api_repository.dart';
 
 class MainController extends GetxController {
   final ApiRepository apiRepository;

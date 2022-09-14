@@ -29,7 +29,10 @@ class ExaminationView extends StatelessWidget {
         leading: IconButton(
           icon: SvgPicture.asset(
             getAssetsSVGImg('arrow_left'),
-          ), onPressed: () {  },
+          ),
+          onPressed: () {
+            Get.back();
+        },
         ),
       ),
       body: _buildMainBody(),
@@ -108,7 +111,7 @@ class ExaminationView extends StatelessWidget {
         onClickCallback: examinationModel.isLocked
             ? null
             : () {
-         // Get.toNamed(Routes.QUESTION,arguments: examinationModel);
+          Get.toNamed(Routes.QUESTION,arguments: examinationModel);
         },
         progressBar: null,
       ),

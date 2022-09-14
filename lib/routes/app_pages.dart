@@ -1,6 +1,10 @@
 import 'package:align_flutter_app/modules/main/tabs/history/history_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/history/review/review_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/history/review/review_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
@@ -75,6 +79,16 @@ class AppPages {
       name: Routes.EXAMINATION,
       page: () => ExaminationView(),
       binding: ExaminationBindings(),
+    ),
+    GetPage(
+      name: Routes.QUESTION,
+      page: () => QuestionView(),
+      binding: QuestionBinding(),
+    ),
+    GetPage(
+      name: Routes.REVIEW,
+      page: () => ReviewView(),
+      binding: ReviewBindings(),
     ),
   ];
 }
