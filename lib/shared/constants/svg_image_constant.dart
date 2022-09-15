@@ -27,4 +27,11 @@ class SvgImageConstants {
   static const star = "assets/images/svg/star.svg";
   static const review = "assets/images/svg/review.svg";
   static const calendar = "assets/images/svg/calendar.svg";
+  static const unselected_very_poor = "assets/images/svg/unselected_very_poor.svg";
+  static const unselected_poor = "assets/images/svg/unselected_poor.svg";
+  static const unselected_average = "assets/images/svg/unselected_average.svg";
+  static const unselected_good = "assets/images/svg/unselected_good.svg";
+  static const unselected_excellent = "assets/images/svg/unselected_excellent.svg";
+  static const add_photo = "assets/images/svg/add_photo.svg";
+  static const add = "assets/images/svg/add.svg";
 }

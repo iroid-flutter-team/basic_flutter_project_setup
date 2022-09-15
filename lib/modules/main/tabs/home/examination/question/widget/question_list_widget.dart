@@ -1,3 +1,5 @@
+import 'package:align_flutter_app/routes/routes.dart';
+import 'package:align_flutter_app/shared/constants/svg_image_constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +11,7 @@ import '../../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../../shared/widgets/base_elevated_button.dart';
 import '../../../../../../../shared/widgets/base_text.dart';
 import '../../../../../../../shared/widgets/common_container_shadow.dart';
+import '../../../../../../../shared/widgets/common_linear_progress.dart';
 import '../model/question_model.dart';
 import '../question_controller.dart';
 import 'animated_card.dart';
@@ -19,19 +22,21 @@ class QuestionListWidget extends GetView<QuestionController> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: controller.questionModelList.map((questionModel) {
-        return Builder(
-          builder: (BuildContext context) {
-            return CommonContainerWithShadow(
-              width: Get.width,
-              margin: EdgeInsets.symmetric(
-                horizontal: getSize(10.0),
-              ),
-              child: _buildItem(questionModel),
-            );
-          },
-        );
-      }).toList(),
+      items: controller.questionModelList.map(
+        (questionModel) {
+          return Builder(
+            builder: (BuildContext context) {
+              return CommonContainerWithShadow(
+                width: Get.width,
+                margin: EdgeInsets.symmetric(
+                  horizontal: getSize(10.0),
+                ),
+                child: _buildItem(questionModel),
+              );
+            },
+          );
+        },
+      ).toList(),
       options: CarouselOptions(
         onPageChanged: (index, reason) {
           controller.currentQuestion.value = index;
@@ -62,7 +67,6 @@ class QuestionListWidget extends GetView<QuestionController> {
           SizedBox(
             height: getSize(20.0),
           ),
-
           AnimatedCard(
             questionModel: questionModel,
           ),
@@ -85,6 +89,9 @@ class QuestionListWidget extends GetView<QuestionController> {
           //     textAlign: TextAlign.center,
           //   );
           // }),
+          SizedBox(
+            height: getSize(20),
+          ),
           _buildSubmitView(questionModel: questionModel),
         ],
       ),
@@ -94,8 +101,60 @@ class QuestionListWidget extends GetView<QuestionController> {
   _buildReviewSliderView() {
     return Column(
       children: [
-        Row(),
-        Row(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _commonRatingImageView(SvgImageConstants.unselected_very_poor),
+            _commonRatingImageView(SvgImageConstants.unselected_poor),
+            _commonRatingImageView(SvgImageConstants.unselected_average),
+            _commonRatingImageView(SvgImageConstants.unselected_good),
+            _commonRatingImageView(SvgImageConstants.unselected_excellent),
+          ],
+        ),
+        SizedBox(
+          height: getSize(12),
+        ),
+        Padding(
+          padding:  EdgeInsets.only(left: 14),
+          child: CommonLinearProgressWidget(
+            width: getSize(230),
+            total: 100,
+            remaining: 10,),
+        ),
+        // SliderTheme(
+        //   data: SliderThemeData(
+        //     thumbColor: Color(0XFF86E2FF),
+        //     activeTrackColor: Color(0XFF86E2FF),
+        //     inactiveTrackColor: Color(0XFF3D4D71),
+        //     activeTickMarkColor: Colors.transparent,
+        //     inactiveTickMarkColor: Colors.transparent,
+        //     trackHeight: 9,
+        //     overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
+        //   ),
+        //   child: Obx(
+        //     () {
+        //       return Slider(
+        //         max: 100.0,
+        //         value: controller.distanceValue.value,
+        //         divisions: 4,
+        //         //activeColor: Color(0XFF3D4D71),
+        //         onChanged: (double value) {
+        //           controller.distanceValue.value = value.toDouble();
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ),
+        SizedBox(
+          height: getSize(16),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: getSize(10), left: getSize(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(5, (index) => commonCircle(index: index)),
+          ),
+        ),
       ],
     );
   }
@@ -103,74 +162,80 @@ class QuestionListWidget extends GetView<QuestionController> {
   _buildSubmitView({required QuestionModel questionModel}) {
     return questionModel.questionSubmitted
         ? BaseElevatedButton(
-      //width: 40,
-      height: 30,
-      borderRadius: BorderRadius.circular(getSize(8.0),),
-      onPressed: null,
-      gradient: LinearGradient(
-        colors: [
-          ColorConstants.buttonSubmittedStart,
-          ColorConstants.buttonSubmittedEnd,
-          // Color.fromRGBO(16, 89, 146, 1),
-        ],
-        begin: Alignment(93.75, 15),
-        end: Alignment(31.25, 15),
-        //begin: Alignment.topCenter,
-        //end: Alignment.bottomCenter,
-      ),
-      child: Opacity(
-        opacity: 0.5,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              getAssetsSVGImg('tick_circle'),
-              color: ColorConstants.white,
+            //width: 40,
+            height: 30,
+            borderRadius: BorderRadius.circular(
+              getSize(8.0),
             ),
-            SizedBox(
-              width: getSize(5.0),
+            onPressed: null,
+            gradient: LinearGradient(
+              colors: [
+                ColorConstants.buttonSubmittedStart,
+                ColorConstants.buttonSubmittedEnd,
+                // Color.fromRGBO(16, 89, 146, 1),
+              ],
+              begin: Alignment(93.75, 15),
+              end: Alignment(31.25, 15),
+              //begin: Alignment.topCenter,
+              //end: Alignment.bottomCenter,
             ),
-            BaseText(
-              text: StringConstants.buttonSubmitted,
-              fontWeight: FontWeight.w500,
+            child: Opacity(
+              opacity: 0.5,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    getAssetsSVGImg('tick_circle'),
+                    color: ColorConstants.white,
+                  ),
+                  SizedBox(
+                    width: getSize(5.0),
+                  ),
+                  BaseText(
+                    text: StringConstants.buttonSubmitted,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-
-    )
+          )
         : Obx(() {
-      return Opacity(
-        opacity: questionModel.localImagePathList.isEmpty ? 0.3 : 1,
-        child: BaseElevatedButton(
-          //width: 40,
-          height: getSize(30.0),
-          borderRadius: BorderRadius.circular(getSize(8.0),),
-          // onPressed: (){
-          //   _showDialog();
-          // },
-          onPressed: questionModel.localImagePathList.isEmpty
-              ? null
-              : () {
-            //_showDialog();
-          },
-          child: BaseText(
-            text: StringConstants.inspect,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      );
-    });
+            return BaseElevatedButton(
+              width: getSize(186),
+              height: getSize(30.0),
+              borderRadius: BorderRadius.circular(
+                getSize(8.0),
+              ),
+              // onPressed: (){
+              //   _showDialog();
+              // },
+              onPressed: () {
+                Get.toNamed(Routes.ADD_INSPECT);
+              },
+              child: BaseText(
+                text: StringConstants.inspect,
+                fontWeight: FontWeight.w500,
+              ),
+            );
+          });
   }
 
-  // _showDialog() {
-  //   Get.dialog(
-  //     CongratsDialog(
-  //       coin: 5,
-  //       continueCallBack: () {
-  //         Get.back();
-  //       },
-  //     ),
-  //   );
-  // }
+  _commonRatingImageView(String image) {
+    return SvgPicture.asset(
+      image,
+    );
+  }
+
+  commonCircle({required int index}) {
+    return Container(
+      margin: EdgeInsets.only(right: 5, left: 5),
+      height: 8,
+      width: 8,
+      decoration: BoxDecoration(
+        color: ColorConstants.white.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(50),
+        // border: Border.all(color: ColorConstants.white),
+      ),
+    );
+  }
 }

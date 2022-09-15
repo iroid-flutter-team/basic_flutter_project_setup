@@ -1,6 +1,8 @@
 import 'package:align_flutter_app/modules/main/tabs/history/history_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/history/review/review_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/history/review/review_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/add_inspect_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/add_inspect_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_binding.dart';
@@ -89,6 +91,11 @@ class AppPages {
       name: Routes.REVIEW,
       page: () => ReviewView(),
       binding: ReviewBindings(),
+    ),
+    GetPage(
+      name: Routes.ADD_INSPECT,
+      page: () => AddInspectView(),
+      binding: AddInspectBindings(),
     ),
   ];
 }

@@ -23,4 +23,5 @@ abstract class Routes {
   static const EXAMINATION = '/examinationView';
   static const QUESTION = '/question';
   static const REVIEW = '/review';
+  static const ADD_INSPECT = '/addInspect';
 }
