@@ -40,9 +40,12 @@ class HomeView extends StatelessWidget {
           ],
         ),
         actions: [
-          SvgPicture.asset(
-            SvgImageConstants.message,
-            height: getSize(25),
+          Padding(
+            padding:  EdgeInsets.only(right: getSize(25)),
+            child: SvgPicture.asset(
+              SvgImageConstants.message,
+              height: getSize(25),
+            ),
           ),
         ],
       ),

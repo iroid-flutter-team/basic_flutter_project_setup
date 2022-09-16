@@ -13,4 +13,6 @@ class AddInspectController extends GetxController{
   RxDouble distanceValue = 0.0.obs;
   TextEditingController addNoteController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+
+  final RxList<String> localImagePathList = <String>[].obs;
 }

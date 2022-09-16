@@ -24,4 +24,5 @@ abstract class Routes {
   static const QUESTION = '/question';
   static const REVIEW = '/review';
   static const ADD_INSPECT = '/addInspect';
+  static const SUMMARY_REPORT = '/summaryReport';
 }

@@ -58,7 +58,7 @@ class QuestionListWidget extends GetView<QuestionController> {
   _buildItem(QuestionModel questionModel) {
     return Padding(
       padding: EdgeInsets.all(
-        getSize(20.0),
+        getSize(16.0),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,8 +199,7 @@ class QuestionListWidget extends GetView<QuestionController> {
               ),
             ),
           )
-        : Obx(() {
-            return BaseElevatedButton(
+        : BaseElevatedButton(
               width: getSize(186),
               height: getSize(30.0),
               borderRadius: BorderRadius.circular(
@@ -217,7 +216,7 @@ class QuestionListWidget extends GetView<QuestionController> {
                 fontWeight: FontWeight.w500,
               ),
             );
-          });
+
   }
 
   _commonRatingImageView(String image) {

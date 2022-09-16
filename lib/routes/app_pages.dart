@@ -7,6 +7,8 @@ import 'package:align_flutter_app/modules/main/tabs/home/examination/examination
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_view.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/summary_report_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/summary_report_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
@@ -96,6 +98,11 @@ class AppPages {
       name: Routes.ADD_INSPECT,
       page: () => AddInspectView(),
       binding: AddInspectBindings(),
+    ),
+    GetPage(
+      name: Routes.SUMMARY_REPORT,
+      page: () => SummaryReportView(),
+      binding: SummaryReportBindings(),
     ),
   ];
 }

@@ -157,6 +157,7 @@ class InputTextField extends StatelessWidget {
               color: ColorConstants.white.withOpacity(0.5),
             ),
             prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
           ),
           validator: validator,
         ),

@@ -34,4 +34,8 @@ class SvgImageConstants {
   static const unselected_excellent = "assets/images/svg/unselected_excellent.svg";
   static const add_photo = "assets/images/svg/add_photo.svg";
   static const add = "assets/images/svg/add.svg";
+  static const close_circle = "assets/images/svg/close_circle.svg";
+  static const send = "assets/images/svg/send.svg";
+  static const radio_circle = "assets/images/svg/radio_circle.svg";
+  static const radio_circle_fill = "assets/images/svg/radio_circle_fill.svg";
 }

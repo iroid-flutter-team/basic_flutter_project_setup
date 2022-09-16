@@ -1,4 +1,5 @@
 import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/add_inspect_controller.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/widget/inspect_animated_card.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/model/question_model.dart';
 import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
 import 'package:align_flutter_app/shared/widgets/base_elevated_button.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../../../shared/constants/color_constants.dart';
 import '../../../../../../shared/constants/svg_image_constant.dart';
+import '../../../../../../shared/dialog/add_tag_dialog.dart';
 import '../../../../../../shared/utils/image_utils.dart';
 import '../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../shared/widgets/input_field.dart';
@@ -96,22 +98,29 @@ class AddInspectView extends GetView<AddInspectController> {
             dashPattern: [8, 8],
             color: Color(0xffB7B7B7).withOpacity(0.75),
             radius: Radius.circular(getSize(24)),
-            child: Container(
-              height: getSize(140),
-              width: Get.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstants.add_photo,
-                  ),
-                  BaseText(
-                    text: "Take Photo",
-                    fontSize: 16,
-                  ),
-                ],
-              ),
-            ),
+            child: InspectAnimatedCard()
+
+            // Container(
+            //   height: getSize(140),
+            //   width: Get.width,
+            //   child: InkWell(
+            //     onTap: (){
+            //
+            //     },
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         SvgPicture.asset(
+            //           SvgImageConstants.add_photo,
+            //         ),
+            //         BaseText(
+            //           text: "Take Photo",
+            //           fontSize: 16,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ),
           SizedBox(
             height: getSize(30),
@@ -139,25 +148,36 @@ class AddInspectView extends GetView<AddInspectController> {
           SizedBox(
             height: getSize(20),
           ),
-          // CommonContainerWithShadow(
-          //   height: getSize(30),
-          //   width: getSize(80),
-          //   child: Padding(
-          //     padding: EdgeInsets.symmetric(
-          //       horizontal: getSize(14),
-          //       vertical: getSize(6),
-          //     ),
-          //     child: Row(
-          //       children: [
-          //         SvgPicture.asset(SvgImageConstants.add),
-          //         BaseText(
-          //           text: "Add Tag",
-          //           fontSize: 14,
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: (){
+                showEmailVerifyDialog();
+              },
+              child: CommonContainerWithShadow(
+                height: getSize(30),
+                width: getSize(108),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(14),
+                    vertical: getSize(6),
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(SvgImageConstants.add),
+                      SizedBox(
+                        width: getSize(9),
+                      ),
+                      BaseText(
+                        text: "Add Tag",
+                        fontSize: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: getSize(30),
           ),
@@ -269,6 +289,21 @@ class AddInspectView extends GetView<AddInspectController> {
         borderRadius: BorderRadius.circular(50),
         // border: Border.all(color: ColorConstants.white),
       ),
+    );
+  }
+
+  showEmailVerifyDialog() {
+    Get.dialog(
+      AddTagDialog(
+        continueCallBack: () {
+          Get.back();
+          // Get.offAll(
+          //   UserDetailScreen(),
+          //   binding: UserDetailBindings(),
+          // );
+        },
+      ),
+      barrierDismissible: false,
     );
   }
 }
