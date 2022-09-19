@@ -4,6 +4,7 @@ import 'package:align_flutter_app/shared/widgets/common_container_shadow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
@@ -41,14 +42,18 @@ class SummaryReportView extends GetView<SummaryReportController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        CommonContainerWithShadow(
-          child: Padding(
-            padding: EdgeInsets.all(18.0),
-            child: BaseText(
-              textAlign: TextAlign.center,
-              text: "Add your suggestions on problems\nyou find in the Inspection",
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: CommonContainerWithShadow(
+            width: Get.width,
+            child: Padding(
+              padding: EdgeInsets.all(18.0),
+              child: BaseText(
+                textAlign: TextAlign.center,
+                text: "Add your suggestions on problems\nyou find in the Inspection",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

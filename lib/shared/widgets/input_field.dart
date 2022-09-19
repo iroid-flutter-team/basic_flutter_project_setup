@@ -13,6 +13,7 @@ class InputTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final Color? textColor;
+  final Color? fillColor;
   final TextEditingController controller;
   final TextInputType? textInputType;
   final int? errorMaxLines;
@@ -34,6 +35,7 @@ class InputTextField extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.prefixIcon,
+    this.fillColor,
     this.suffixIcon,
     this.validator,
     this.textColor,
@@ -132,14 +134,13 @@ class InputTextField extends StatelessWidget {
             labelText: labelText,
             errorText: errorText,
             focusColor: ColorConstants.white,
-
             contentPadding: contentPadding ??
                 EdgeInsets.symmetric(
                   vertical: getSize(20),
                   horizontal: getSize(20),
                 ),
             hintText: hintText,
-            fillColor: ColorConstants.darkContainerBlack,
+            fillColor: fillColor ?? ColorConstants.darkContainerBlack,
             errorMaxLines: errorMaxLines ?? 1,
             filled: true,
             //    prefixIconConstraints: BoxConstraints(maxHeight: getSize(50)),

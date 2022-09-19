@@ -144,6 +144,9 @@ class TodayJobsView extends StatelessWidget {
                       SvgPicture.asset(
                         SvgImageConstants.location,
                       ),
+                      SizedBox(
+                        width: getSize(7),
+                      ),
                       BaseText(
                         text:
                         "2873 Mulberry Lane, Fort Lauderdale,\nFlorida, 33301",

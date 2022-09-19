@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:align_flutter_app/modules/main/tabs/setting/setting_controller.dart';
 import 'package:align_flutter_app/modules/main/tabs/setting/widget/common_list_tile.dart';
 import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../shared/constants/color_constants.dart';
+import '../../../../shared/constants/string_constant.dart';
 import '../../../../shared/utils/image_utils.dart';
 import '../../../../shared/utils/math_utils.dart';
 import '../../../../shared/widgets/base_text.dart';
@@ -20,27 +23,30 @@ class SettingView extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
-        title: "Setting",
-        leading: Container(),
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: _buildMainBody(),
-      )
-    );
+        appBar: BaseAppBar(
+          title: "Setting",
+          leading: Container(),
+        ),
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: _buildMainBody(),
+        ));
   }
 
   _buildMainBody() {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: getSize(20)),
+      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: Column(
         children: [
           _buildProfileView(),
           SizedBox(
             height: getSize(20),
           ),
-          BaseText(text: "Albert Flores",fontWeight: FontWeight.w600,fontSize: 20,),
+          BaseText(
+            text: "Albert Flores",
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
           SizedBox(
             height: getSize(8),
           ),
@@ -52,10 +58,11 @@ class SettingView extends GetView<SettingController> {
             allowHalfRating: true,
             itemCount: 5,
             glow: false,
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
+            itemBuilder: (context, _) =>
+                Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
             onRatingUpdate: (rating) {
               print(rating);
             },
@@ -78,13 +85,16 @@ class SettingView extends GetView<SettingController> {
       child: Center(
         child: Stack(
           children: [
-            CircleAvatar(
-              radius: 70,
-              child: Image.asset(
-                PngImageConstants.level_badge,
-                fit: BoxFit.cover,
-              ),
-            ),
+            Obx(() {
+             // print("controller.pickedImagePath.value ==============${controller.pickedImagePath.value}");
+              return CircleAvatar(
+                radius: 70,
+                child: Image.file(
+                  File(controller.pickedImagePath.value),
+                  fit: BoxFit.cover,
+                ),
+              );
+            }),
             Positioned(
               child: _buildEditButton(),
               bottom: 0,
@@ -99,7 +109,7 @@ class SettingView extends GetView<SettingController> {
   _buildEditButton() {
     return GestureDetector(
       onTap: () async {
-        //showImageChooserDialog();
+        showImageChooserDialog();
       },
       child: CommonContainerWithShadow(
         height: getSize(40),
@@ -124,14 +134,15 @@ class SettingView extends GetView<SettingController> {
       itemCount: controller.settingList.length,
       itemBuilder: (BuildContext context, int index) {
         return CommonListTitle(
-            title: controller.settingList[index].title,
-            leadingIcon: controller.settingList[index].icon,
-            trailing: getTrailing(index),
-            onTap: index == 0 ? null
-                : () {
-              _navigateScreen(index);
-            },
-          );
+          title: controller.settingList[index].title,
+          leadingIcon: controller.settingList[index].icon,
+          trailing: getTrailing(index),
+          onTap: index == 0
+              ? null
+              : () {
+            _navigateScreen(index);
+          },
+        );
       },
     );
   }
@@ -183,6 +194,49 @@ class SettingView extends GetView<SettingController> {
         controller.switchValue.value = val;
         print("toggle--------${val}");
       },
+    );
+  }
+
+  showImageChooserDialog() {
+    showCupertinoModalPopup<void>(
+      context: Get.context!,
+      builder: (BuildContext context) =>
+          CupertinoActionSheet(
+            // title: const BaseText(
+            //   text: "",
+            //   textAlign: TextAlign.center,
+            // ),
+            // message: const Text('Message'),
+            actions: <CupertinoActionSheetAction>[
+              CupertinoActionSheetAction(
+                child: const BaseText(
+                  text: StringConstants.takePhoto,
+                ),
+                onPressed: () {
+                  Get.back();
+                  controller.pickImage(imageSource: ImageSource.camera);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: const BaseText(
+                  text: StringConstants.galleryPhoto,
+                ),
+                onPressed: () {
+                  Get.back();
+                  controller.pickImage(imageSource: ImageSource.gallery);
+                },
+              ),
+            ],
+            cancelButton: CupertinoActionSheetAction(
+              child: const BaseText(
+                text: StringConstants.buttonCancel,
+                fontSize: 18,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
     );
   }
 }

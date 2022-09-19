@@ -26,7 +26,6 @@ class _AddTagDialogState extends State<AddTagDialog> {
   final double borderRadius = 25.0;
 
   List<String> values = [];
-
   List<bool> selected = [];
 
   @override

@@ -111,7 +111,7 @@ class ExaminationView extends StatelessWidget {
         onClickCallback: examinationModel.isLocked
             ? null
             : () {
-          Get.toNamed(Routes.SUMMARY_REPORT,arguments: examinationModel);
+          Get.toNamed(Routes.ADD_INSPECT,arguments: examinationModel);
         },
         progressBar: null,
       ),

@@ -23,21 +23,24 @@ class HomeView extends StatelessWidget {
       appBar: BaseAppBar(
         title: '',
         leadingWidth: getSize(150),
-        leading: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BaseText(
-              text: "Good morning",
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              textColor: ColorConstants.white.withOpacity(0.6),
-            ),
-            BaseText(
-              text: "Albert Flores,",
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ],
+        leading: Padding(
+          padding: EdgeInsets.only(left: getSize(25)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText(
+                text: "Good morning",
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                textColor: ColorConstants.white.withOpacity(0.6),
+              ),
+              BaseText(
+                text: "Albert Flores,",
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
         ),
         actions: [
           Padding(

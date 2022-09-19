@@ -152,7 +152,7 @@ class AddInspectView extends GetView<AddInspectController> {
             alignment: Alignment.centerLeft,
             child: InkWell(
               onTap: (){
-                showEmailVerifyDialog();
+                showAddTagDialog();
               },
               child: CommonContainerWithShadow(
                 height: getSize(30),
@@ -292,7 +292,7 @@ class AddInspectView extends GetView<AddInspectController> {
     );
   }
 
-  showEmailVerifyDialog() {
+  showAddTagDialog() {
     Get.dialog(
       AddTagDialog(
         continueCallBack: () {
