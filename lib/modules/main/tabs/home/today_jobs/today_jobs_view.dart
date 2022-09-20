@@ -79,9 +79,14 @@ class TodayJobsView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       Spacer(),
-                      SvgPicture.asset(
-                        SvgImageConstants.message,
-                        height: getSize(24),
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed(Routes.MESSAGE);
+                        },
+                        child: SvgPicture.asset(
+                          SvgImageConstants.message,
+                          height: getSize(24),
+                        ),
                       ),
                     ],
                   ),

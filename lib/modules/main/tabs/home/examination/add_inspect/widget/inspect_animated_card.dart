@@ -24,7 +24,7 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
     InfiniteCardsController? _infiniteCardsController;
     return Obx(() {
       printInfo(info: 'build() called...');
-      return _buildAnimationSlider(0, _infiniteCardsController);
+      return _buildAnimationSlider(controller.localImagePathList.length, _infiniteCardsController);
     });
   }
 
@@ -33,9 +33,9 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
     _infiniteCardsController = InfiniteCardsController(
       itemCount: _getItemCount(),
       itemBuilder: (BuildContext context, int index) {
-        return  [].isEmpty ? _buildTakePhotoView1()
+        return  controller.localImagePathList.isEmpty ? _buildTakePhotoView1()
                 : _buildTakePhotoView2(
-            imagePath: '',
+            imagePath: controller.localImagePathList[index],
             index: index,
             infiniteCardsController: _infiniteCardsController!);
       },
@@ -225,7 +225,8 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
 
           if (imagePath.isEmpty) {
             controller.localImagePathList.insert(0, result['imagePath']);
-          } else {
+          }
+          else {
             controller.localImagePathList.isNotEmpty
                 ? controller.localImagePathList
                 .removeAt(index) //removes the item at index

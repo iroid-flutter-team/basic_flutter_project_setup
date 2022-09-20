@@ -27,7 +27,7 @@ class QuestionController extends GetxController {
     questionModelList.add(
       QuestionModel(
         id: 1,
-        title: 'Air conditioner 1',
+        title: 'Windows',
         imagePathList: [],
         question:
         'Inspect the unit to make sure it’s in good working condition?',

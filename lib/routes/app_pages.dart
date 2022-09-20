@@ -13,6 +13,8 @@ import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/message/message_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/message/message_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/today_jobs/today_jobs_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/today_jobs/today_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/notification/notification_binding.dart';
@@ -103,6 +105,11 @@ class AppPages {
       name: Routes.SUMMARY_REPORT,
       page: () => SummaryReportView(),
       binding: SummaryReportBindings(),
+    ),
+    GetPage(
+      name: Routes.MESSAGE,
+      page: () => MessageView(),
+      binding: MessageBindings(),
     ),
   ];
 }
