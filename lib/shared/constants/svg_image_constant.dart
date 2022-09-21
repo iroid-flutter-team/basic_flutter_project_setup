@@ -38,4 +38,9 @@ class SvgImageConstants {
   static const send = "assets/images/svg/send.svg";
   static const radio_circle = "assets/images/svg/radio_circle.svg";
   static const radio_circle_fill = "assets/images/svg/radio_circle_fill.svg";
+  static const good = "assets/images/svg/good.svg";
+  static const average = "assets/images/svg/average.svg";
+  static const very_poor = "assets/images/svg/very_poor.svg";
+  static const poor = "assets/images/svg/poor.svg";
+  static const excellent = "assets/images/svg/excellent.svg";
 }

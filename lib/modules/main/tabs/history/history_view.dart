@@ -23,11 +23,16 @@ class HistoryView extends StatelessWidget {
         leading: Container(),
         actions: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Get.toNamed(Routes.REVIEW);
             },
-            child: SvgPicture.asset(
-              SvgImageConstants.review,
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: getSize(22),
+              ),
+              child: SvgPicture.asset(
+                SvgImageConstants.review,
+              ),
             ),
           ),
         ],
@@ -38,7 +43,7 @@ class HistoryView extends StatelessWidget {
 
   _buildMainBody() {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: getSize(25)),
+      padding: EdgeInsets.symmetric(horizontal: getSize(25)),
       child: ListView(
         children: [
           BaseText(
@@ -77,7 +82,11 @@ class HistoryView extends StatelessWidget {
       itemBuilder: (context, index) {
         return CommonContainerWithShadow(
           child: Padding(
-            padding: EdgeInsets.only(top: getSize(10), right: getSize(18), left: getSize(18), bottom: getSize(16)),
+            padding: EdgeInsets.only(
+                top: getSize(10),
+                right: getSize(18),
+                left: getSize(18),
+                bottom: getSize(16)),
             child: Column(
               children: [
                 Row(

@@ -81,7 +81,7 @@ class QuestionListWidget extends GetView<QuestionController> {
           SizedBox(
             height: getSize(20.0),
           ),
-          _buildReviewSliderView(),
+          _buildLinearProgressView(),
           // Obx(() {
           //   return BaseText(
           //     text: 'Total Image = ${questionModel.localImagePathList.length}',
@@ -98,7 +98,7 @@ class QuestionListWidget extends GetView<QuestionController> {
     );
   }
 
-  _buildReviewSliderView() {
+  _buildLinearProgressView() {
     return Column(
       children: [
         Row(
@@ -115,9 +115,9 @@ class QuestionListWidget extends GetView<QuestionController> {
           height: getSize(12),
         ),
         Padding(
-          padding:  EdgeInsets.only(left: 14),
+          padding: const EdgeInsets.all(20.0),
           child: CommonLinearProgressWidget(
-            width: getSize(230),
+            width: Get.width,
             total: 100,
             remaining: 10,),
         ),
@@ -162,8 +162,8 @@ class QuestionListWidget extends GetView<QuestionController> {
   _buildSubmitView({required QuestionModel questionModel}) {
     return questionModel.questionSubmitted
         ? BaseElevatedButton(
-            //width: 40,
-            height: 30,
+      width: getSize(186),
+      height: getSize(30.0),
             borderRadius: BorderRadius.circular(
               getSize(8.0),
             ),

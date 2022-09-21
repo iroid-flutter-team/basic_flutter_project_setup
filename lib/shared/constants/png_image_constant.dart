@@ -20,4 +20,9 @@ class PngImageConstants {
   static const profile = "assets/images/png/profile.png";
   static const futureJobs = "assets/images/png/future_jobs.png";
   static const user = "assets/images/png/user.png";
+  static const doors = "assets/images/png/doors.png";
+  static const wall = "assets/images/png/wall.png";
+  static const windows = "assets/images/png/windows.png";
+  static const celling = "assets/images/png/celling.png";
+  static const bez = "assets/images/png/bez.png";
 }

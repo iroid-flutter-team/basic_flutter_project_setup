@@ -41,87 +41,87 @@ class AddInspectView extends GetView<AddInspectController> {
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
-          Obx(() {
-            return Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    controller.isCheck.value = !controller.isCheck.value;
-                  },
+          Obx(
+                () {
+              return ListTile(
+                dense: true,
+                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                contentPadding: EdgeInsets.zero,
+                minLeadingWidth: getSize(20),
+                onTap: () {
+                  controller.isCheck.value = !controller.isCheck.value;
+                },
+                title: BaseText(
+                  text: "A. Examine your window caulking",
+                  fontSize: 14,
+                ),
+                leading: SizedBox(
+                  height: double.infinity,
                   child: SvgPicture.asset(
                     controller.isCheck.value
                         ? SvgImageConstants.check
                         : SvgImageConstants.square,
                   ),
                 ),
-                SizedBox(
-                  width: getSize(20),
-                ),
-                BaseText(
-                  text: "A. Examine your window caulking",
+              );
+            },
+          ),
+          Obx(
+            () {
+              return ListTile(
+                dense: true,
+                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                contentPadding: EdgeInsets.zero,
+                minLeadingWidth: getSize(20),
+                onTap: () {
+                  controller.isCheck1.value = !controller.isCheck1.value;
+                },
+                title: BaseText(
+                  text: "B. Examine your window seals",
                   fontSize: 14,
                 ),
-              ],
-            );
-          }),
-          SizedBox(
-            height: getSize(10),
-          ),
-          Obx(() {
-            return Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    controller.isCheck1.value = !controller.isCheck1.value;
-                  },
+                leading: SizedBox(
+                  height: double.infinity,
                   child: SvgPicture.asset(
                     controller.isCheck1.value
                         ? SvgImageConstants.check
                         : SvgImageConstants.square,
                   ),
                 ),
-                SizedBox(
-                  width: getSize(20),
-                ),
-                BaseText(
-                  text: "B. Examine your window seals",
-                  fontSize: 14,
-                ),
-              ],
-            );
-          }),
+              );
+            },
+          ),
           SizedBox(
             height: getSize(30),
           ),
           DottedBorder(
-            borderType: BorderType.RRect,
-            dashPattern: [8, 8],
-            color: Color(0xffB7B7B7).withOpacity(0.75),
-            radius: Radius.circular(getSize(24)),
-            child: InspectAnimatedCard()
-
-            // Container(
-            //   height: getSize(140),
-            //   width: Get.width,
-            //   child: InkWell(
-            //     onTap: (){
-            //
-            //     },
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         SvgPicture.asset(
-            //           SvgImageConstants.add_photo,
-            //         ),
-            //         BaseText(
-            //           text: "Take Photo",
-            //           fontSize: 16,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-          ),
+              borderType: BorderType.RRect,
+              dashPattern: [8, 8],
+              color: Color(0xffB7B7B7).withOpacity(0.75),
+              radius: Radius.circular(getSize(24)),
+              child: InspectAnimatedCard()
+              // Container(
+              //   height: getSize(140),
+              //   width: Get.width,
+              //   child: InkWell(
+              //     onTap: (){
+              //
+              //     },
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         SvgPicture.asset(
+              //           SvgImageConstants.add_photo,
+              //         ),
+              //         BaseText(
+              //           text: "Take Photo",
+              //           fontSize: 16,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              ),
           SizedBox(
             height: getSize(30),
           ),
@@ -135,7 +135,7 @@ class AddInspectView extends GetView<AddInspectController> {
           InputTextField(
             controller: controller.addNoteController,
             textInputType: TextInputType.multiline,
-            textInputAction: TextInputAction.newline,
+            textInputAction: TextInputAction.done,
             maxLines: 8,
             minLines: 7,
             // validator: (value) {
@@ -151,12 +151,12 @@ class AddInspectView extends GetView<AddInspectController> {
           Align(
             alignment: Alignment.centerLeft,
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 showAddTagDialog();
               },
               child: CommonContainerWithShadow(
                 height: getSize(30),
-                width: getSize(108),
+                width: getSize(112),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: getSize(14),
@@ -191,9 +191,9 @@ class AddInspectView extends GetView<AddInspectController> {
           InputTextField(
             controller: controller.locationController,
             textInputType: TextInputType.multiline,
-            textInputAction: TextInputAction.newline,
+            textInputAction: TextInputAction.done,
             maxLines: 3,
-            minLines: 2,
+            minLines: 1,
             // validator: (value) {
             //   if (value == null || value.isEmpty) {
             //     return 'Please enter details.';
@@ -214,6 +214,9 @@ class AddInspectView extends GetView<AddInspectController> {
               text: "ADD",
             ),
           ),
+          SizedBox(
+            height: getSize(20),
+          ),
         ],
       ),
     );
@@ -222,15 +225,34 @@ class AddInspectView extends GetView<AddInspectController> {
   _buildReviewSliderView() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _commonRatingImageView(SvgImageConstants.unselected_very_poor),
-            _commonRatingImageView(SvgImageConstants.unselected_poor),
-            _commonRatingImageView(SvgImageConstants.unselected_average),
-            _commonRatingImageView(SvgImageConstants.unselected_good),
-            _commonRatingImageView(SvgImageConstants.unselected_excellent),
-          ],
+        Obx(
+          () {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                controller.distanceValue.value == 0.0
+                    ? _commonRatingImageView(SvgImageConstants.very_poor, 40)
+                    : _commonRatingImageView(
+                        SvgImageConstants.unselected_very_poor, 30),
+                controller.distanceValue.value == 1.0
+                    ? _commonRatingImageView(SvgImageConstants.poor, 40)
+                    : _commonRatingImageView(
+                        SvgImageConstants.unselected_poor, 30),
+                controller.distanceValue.value == 2.0
+                    ? _commonRatingImageView(SvgImageConstants.average, 40)
+                    : _commonRatingImageView(
+                        SvgImageConstants.unselected_average, 30),
+                controller.distanceValue.value == 3.0
+                    ? _commonRatingImageView(SvgImageConstants.good, 40)
+                    : _commonRatingImageView(
+                        SvgImageConstants.unselected_good, 30),
+                controller.distanceValue.value == 4.0
+                    ? _commonRatingImageView(SvgImageConstants.excellent, 40)
+                    : _commonRatingImageView(
+                        SvgImageConstants.unselected_excellent, 30),
+              ],
+            );
+          },
         ),
         SizedBox(
           height: getSize(12),
@@ -248,12 +270,14 @@ class AddInspectView extends GetView<AddInspectController> {
           child: Obx(
             () {
               return Slider(
-                max: 100.0,
+                min: 0,
+                max: controller.values.length - 1,
                 value: controller.distanceValue.value,
-                divisions: 4,
+                divisions: controller.values.length - 1,
                 //activeColor: Color(0XFF3D4D71),
                 onChanged: (double value) {
                   controller.distanceValue.value = value.toDouble();
+                  print("distanceValue ======== ${controller.distanceValue}");
                 },
               );
             },
@@ -273,23 +297,39 @@ class AddInspectView extends GetView<AddInspectController> {
     );
   }
 
-  _commonRatingImageView(String image) {
+  _commonRatingImageView(String image, double height) {
     return SvgPicture.asset(
       image,
+      height: height,
     );
   }
 
   commonCircle({required int index}) {
-    return Container(
-      margin: EdgeInsets.only(right: 5, left: 5),
-      height: 8,
-      width: 8,
-      decoration: BoxDecoration(
-        color: ColorConstants.white.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(50),
-        // border: Border.all(color: ColorConstants.white),
-      ),
-    );
+    return Obx(() {
+      return Container(
+        margin: EdgeInsets.only(right: 5, left: 5),
+        height: 8,
+        width: 8,
+        decoration: BoxDecoration(
+          color: controller.distanceValue.value == index
+              ? ColorConstants.white
+              : ColorConstants.white.withOpacity(0.4),
+          // controller.distanceValue.value == 0.5
+          //     ? ColorConstants.white
+          //     : controller.distanceValue.value == 1.0
+          //         ? ColorConstants.white
+          //         : controller.distanceValue.value == 2.0
+          //             ? ColorConstants.white
+          //             : controller.distanceValue.value == 3.0
+          //                 ? ColorConstants.white
+          //                 : controller.distanceValue.value == 4.0
+          //                     ? ColorConstants.white
+          //                     : ColorConstants.white.withOpacity(0.4),
+          borderRadius: BorderRadius.circular(50),
+          // border: Border.all(color: ColorConstants.white),
+        ),
+      );
+    });
   }
 
   showAddTagDialog() {

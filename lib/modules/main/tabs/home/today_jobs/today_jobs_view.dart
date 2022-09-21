@@ -33,6 +33,9 @@ class TodayJobsView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(25)),
       child: ListView(
         children: [
+          SizedBox(
+            height: getSize(20),
+          ),
           BaseText(
             textAlign: TextAlign.center,
             text: "29/04/2022",
@@ -47,7 +50,7 @@ class TodayJobsView extends StatelessWidget {
   }
   _buildListView(){
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       shrinkWrap: true,
       itemCount: 2,
       itemBuilder: (context, index) {
@@ -99,7 +102,7 @@ class TodayJobsView extends StatelessWidget {
                         text: "Date",
                         fontWeight: FontWeight.w500,
                         fontSize: 10,
-                        textColor: ColorConstants.white.withOpacity(0.8),
+                        textColor: ColorConstants.white.withOpacity(0.6),
                       ),
                       SizedBox(
                         width: getSize(74),
@@ -108,7 +111,7 @@ class TodayJobsView extends StatelessWidget {
                         text: "Time",
                         fontWeight: FontWeight.w500,
                         fontSize: 10,
-                        textColor: ColorConstants.white.withOpacity(0.8),
+                        textColor: ColorConstants.white.withOpacity(0.6),
                       ),
                     ],
                   ),
@@ -139,7 +142,7 @@ class TodayJobsView extends StatelessWidget {
                     text: "Place",
                     fontWeight: FontWeight.w500,
                     fontSize: 10,
-                    textColor: ColorConstants.white.withOpacity(0.8),
+                    textColor: ColorConstants.white.withOpacity(0.6),
                   ),
                   SizedBox(
                     height: getSize(4),

@@ -1,5 +1,5 @@
-import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/summary_report_controller.dart';
-import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/widget/question_list_widget1.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/summary_report_controller.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/question_list_widget1.dart';
 import 'package:align_flutter_app/shared/widgets/common_container_shadow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +8,12 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-import '../../../../../../shared/utils/image_utils.dart';
-import '../../../../../../shared/utils/math_utils.dart';
-import '../../../../../../shared/widgets/base_text.dart';
-import '../../../../../../shared/widgets/common_appbar.dart';
-import '../../../../../../shared/widgets/gradiant_container_with_image.dart';
-import '../model/examination_model.dart';
-import '../question/question_controller.dart';
-import '../question/widget/question_list_widget.dart';
+import '../../../../../../../shared/utils/image_utils.dart';
+import '../../../../../../../shared/utils/math_utils.dart';
+import '../../../../../../../shared/widgets/base_text.dart';
+import '../../../../../../../shared/widgets/common_appbar.dart';
+import '../../model/examination_model.dart';
+
 
 class SummaryReportView extends GetView<SummaryReportController> {
   const SummaryReportView({Key? key}) : super(key: key);

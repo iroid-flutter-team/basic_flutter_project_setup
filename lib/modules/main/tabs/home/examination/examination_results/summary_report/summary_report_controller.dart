@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../api/api_repository.dart';
-import '../question/model/question_model.dart';
+import '../../../../../../../api/api_repository.dart';
+import '../../question/model/question_model.dart';
+
 
 class SummaryReportController extends GetxController{
   final ApiRepository apiRepository;

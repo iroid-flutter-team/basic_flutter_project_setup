@@ -5,20 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-
-import '../../../../../../../routes/app_pages.dart';
-import '../../../../../../../shared/constants/color_constants.dart';
-import '../../../../../../../shared/constants/string_constant.dart';
-import '../../../../../../../shared/constants/svg_image_constant.dart';
-import '../../../../../../../shared/utils/image_utils.dart';
-import '../../../../../../../shared/utils/math_utils.dart';
-import '../../../../../../../shared/widgets/base_elevated_button.dart';
-import '../../../../../../../shared/widgets/base_text.dart';
-import '../../../../../../../shared/widgets/common_container_shadow.dart';
-import '../../../../../../../shared/widgets/common_linear_progress.dart';
-import '../../../../../../../shared/widgets/input_field.dart';
-import '../../question/model/question_model.dart';
-import '../../question/widget/animated_card.dart';
+import '../../../../../../../../shared/constants/color_constants.dart';
+import '../../../../../../../../shared/utils/image_utils.dart';
+import '../../../../../../../../shared/utils/math_utils.dart';
+import '../../../../../../../../shared/widgets/base_text.dart';
+import '../../../../../../../../shared/widgets/common_container_shadow.dart';
+import '../../../../../../../../shared/widgets/input_field.dart';
+import '../../../question/model/question_model.dart';
+import '../../../question/widget/animated_card.dart';
 import '../summary_report_controller.dart';
 
 class QuestionListWidget1 extends GetView<SummaryReportController> {

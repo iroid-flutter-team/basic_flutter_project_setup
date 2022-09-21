@@ -34,6 +34,9 @@ class HomeView extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 textColor: ColorConstants.white.withOpacity(0.6),
               ),
+              SizedBox(
+                height: getSize(4),
+              ),
               BaseText(
                 text: "Albert Flores,",
                 fontSize: 16,
@@ -63,6 +66,9 @@ class HomeView extends StatelessWidget {
       ),
       child: Column(
         children: [
+          SizedBox(
+            height: getSize(25),
+          ),
           CommonContainerWithShadow(
             width: Get.width,
             height: getSize(38),

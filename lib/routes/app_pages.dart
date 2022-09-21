@@ -4,11 +4,11 @@ import 'package:align_flutter_app/modules/main/tabs/history/review/review_view.d
 import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/add_inspect_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/add_inspect_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/examination_results_binding.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/examination_results_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_view.dart';
-import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/summary_report_binding.dart';
-import 'package:align_flutter_app/modules/main/tabs/home/examination/summary_report/summary_report_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_binding.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view.dart';
@@ -29,6 +29,8 @@ import '../modules/auth/otp_verify/otp_verify_view.dart';
 import '../modules/main/main_binding.dart';
 import '../modules/main/main_tab.dart';
 import '../modules/main/tabs/history/history_view.dart';
+import '../modules/main/tabs/home/examination/examination_results/summary_report/summary_report_binding.dart';
+import '../modules/main/tabs/home/examination/examination_results/summary_report/summary_report_view.dart';
 import '../modules/main/tabs/setting/setting_binding.dart';
 
 part 'app_routes.dart';
@@ -110,6 +112,11 @@ class AppPages {
       name: Routes.MESSAGE,
       page: () => MessageView(),
       binding: MessageBindings(),
+    ),
+    GetPage(
+      name: Routes.EXAMINATION_RESULT,
+      page: () => ExaminationResultsView(),
+      binding: ExaminationResultsBinding(),
     ),
   ];
 }

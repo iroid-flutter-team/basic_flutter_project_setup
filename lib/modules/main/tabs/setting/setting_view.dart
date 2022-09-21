@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../shared/constants/color_constants.dart';
 import '../../../../shared/constants/string_constant.dart';
+import '../../../../shared/dialog/sign_out.dart';
 import '../../../../shared/utils/image_utils.dart';
 import '../../../../shared/utils/math_utils.dart';
 import '../../../../shared/widgets/base_text.dart';
@@ -89,7 +90,7 @@ class SettingView extends GetView<SettingController> {
              // print("controller.pickedImagePath.value ==============${controller.pickedImagePath.value}");
               return CircleAvatar(
                 radius: 70,
-                child: Image.file(
+                child: controller.pickedImagePath.isEmpty ? Image.asset(PngImageConstants.bez):Image.file(
                   File(controller.pickedImagePath.value),
                   fit: BoxFit.cover,
                 ),
@@ -176,6 +177,7 @@ class SettingView extends GetView<SettingController> {
       case 2:
         break;
       case 3:
+        _showSignOutDialog();
         break;
     }
   }
@@ -237,6 +239,28 @@ class SettingView extends GetView<SettingController> {
               },
             ),
           ),
+    );
+  }
+
+  _showSignOutDialog() {
+    showDialog(
+      barrierColor: Colors.black26,
+      context: Get.context!,
+      builder: (context) {
+        return CustomAlertDialog(
+          title: StringConstants.signOutAlertMessage,
+          cancelCallBack: () {
+            Get.back();
+          },
+          signOutCallBack: () {
+            Get.back();
+            // Get.offAll(
+            //   SignInWithEmailScreen(),
+            //   binding: SignInWithEmailBindings(),
+            // );
+          },
+        );
+      },
     );
   }
 }

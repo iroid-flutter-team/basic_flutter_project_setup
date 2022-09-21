@@ -118,4 +118,5 @@ class StringConstants {
   static const String pushNotification = 'Push Notification';
   static const String aboutMe = 'About Me';
   static const String signOut = 'Sign Out';
+  static const String signOutAlertMessage = 'Are you sure you want to sign out?';
 }

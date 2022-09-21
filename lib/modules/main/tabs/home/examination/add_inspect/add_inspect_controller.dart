@@ -12,9 +12,11 @@ class AddInspectController extends GetxController{
   RxBool isCheck = false.obs;
   RxBool isCheck1 = false.obs;
   RxDouble distanceValue = 0.0.obs;
+  RxInt divisionValue = 4.obs;
   TextEditingController addNoteController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   final RxList<String> localImagePathList = <String>[].obs;
+  final RxList<double> values = [0.0, 1.0, 2.0, 3.0, 4.0].obs;
 
   initQuestions() {
     addInspectionModelList.clear();
