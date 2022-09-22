@@ -17,6 +17,7 @@ class AddInspectController extends GetxController{
   TextEditingController locationController = TextEditingController();
   final RxList<String> localImagePathList = <String>[].obs;
   final RxList<double> values = [0.0, 1.0, 2.0, 3.0, 4.0].obs;
+  RxList res1 = <String>[].obs;
 
   initQuestions() {
     addInspectionModelList.clear();
@@ -51,5 +52,6 @@ class AddInspectController extends GetxController{
     );
 
   }
+
 
 }

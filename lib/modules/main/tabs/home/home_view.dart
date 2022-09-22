@@ -24,7 +24,7 @@ class HomeView extends StatelessWidget {
         title: '',
         leadingWidth: getSize(150),
         leading: Padding(
-          padding: EdgeInsets.only(left: getSize(25)),
+          padding: EdgeInsets.only(left: getSize(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,10 +37,13 @@ class HomeView extends StatelessWidget {
               SizedBox(
                 height: getSize(4),
               ),
-              BaseText(
-                text: "Albert Flores,",
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+              Expanded(
+                child: BaseText(
+                  text: "Albert Flores,",
+                  fontSize: 18,
+                  maxLines: 1,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),

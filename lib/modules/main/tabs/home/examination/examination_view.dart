@@ -81,11 +81,11 @@ class ExaminationView extends StatelessWidget {
         titleText: examinationModel.titleText,
         isLocked: examinationModel.isLocked,
         rowWidget: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SvgPicture.asset(SvgImageConstants.questions),
             SizedBox(
-              width: getSize(7.0),
+              width: getSize(8.0),
             ),
             BaseText(
               text: StringConstants.questions,
@@ -105,7 +105,7 @@ class ExaminationView extends StatelessWidget {
           ],
         ),
         height: getSize(73),
-        width: getSize(73),
+        width: getSize(66),
         percentage: 10.0,
         gradientContainerColor: examinationModel.gradientContainerColor,
         onClickCallback: examinationModel.isLocked

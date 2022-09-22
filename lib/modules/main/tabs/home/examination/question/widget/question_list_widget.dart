@@ -99,71 +99,72 @@ class QuestionListWidget extends GetView<QuestionController> {
   }
 
   _buildLinearProgressView() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _commonRatingImageView(SvgImageConstants.unselected_very_poor),
-            _commonRatingImageView(SvgImageConstants.unselected_poor),
-            _commonRatingImageView(SvgImageConstants.unselected_average),
-            _commonRatingImageView(SvgImageConstants.unselected_good),
-            _commonRatingImageView(SvgImageConstants.unselected_excellent),
-          ],
-        ),
-        SizedBox(
-          height: getSize(12),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: CommonLinearProgressWidget(
-            width: Get.width,
-            total: 100,
-            remaining: 10,),
-        ),
-        // SliderTheme(
-        //   data: SliderThemeData(
-        //     thumbColor: Color(0XFF86E2FF),
-        //     activeTrackColor: Color(0XFF86E2FF),
-        //     inactiveTrackColor: Color(0XFF3D4D71),
-        //     activeTickMarkColor: Colors.transparent,
-        //     inactiveTickMarkColor: Colors.transparent,
-        //     trackHeight: 9,
-        //     overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
-        //   ),
-        //   child: Obx(
-        //     () {
-        //       return Slider(
-        //         max: 100.0,
-        //         value: controller.distanceValue.value,
-        //         divisions: 4,
-        //         //activeColor: Color(0XFF3D4D71),
-        //         onChanged: (double value) {
-        //           controller.distanceValue.value = value.toDouble();
-        //         },
-        //       );
-        //     },
-        //   ),
-        // ),
-        SizedBox(
-          height: getSize(16),
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: getSize(10), left: getSize(10)),
-          child: Row(
+    return Expanded(
+      child: Column(
+        //mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(5, (index) => commonCircle(index: index)),
+            children: [
+              _commonRatingImageView(SvgImageConstants.unselected_very_poor),
+              _commonRatingImageView(SvgImageConstants.unselected_poor),
+              _commonRatingImageView(SvgImageConstants.unselected_average),
+              _commonRatingImageView(SvgImageConstants.unselected_good),
+              _commonRatingImageView(SvgImageConstants.unselected_excellent),
+            ],
           ),
-        ),
-      ],
+          SizedBox(
+            height: getSize(12),
+          ),
+          CommonLinearProgressWidget(
+            width: Get.width - getSize(146),
+            total: 100,
+            remaining: 10,
+          ),
+          // SliderTheme(
+          //   data: SliderThemeData(
+          //     thumbColor: Color(0XFF86E2FF),
+          //     activeTrackColor: Color(0XFF86E2FF),
+          //     inactiveTrackColor: Color(0XFF3D4D71),
+          //     activeTickMarkColor: Colors.transparent,
+          //     inactiveTickMarkColor: Colors.transparent,
+          //     trackHeight: 9,
+          //     overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
+          //   ),
+          //   child: Obx(
+          //     () {
+          //       return Slider(
+          //         max: 100.0,
+          //         value: controller.distanceValue.value,
+          //         divisions: 4,
+          //         //activeColor: Color(0XFF3D4D71),
+          //         onChanged: (double value) {
+          //           controller.distanceValue.value = value.toDouble();
+          //         },
+          //       );
+          //     },
+          //   ),
+          // ),
+          SizedBox(
+            height: getSize(16),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: getSize(10), left: getSize(10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(5, (index) => commonCircle(index: index)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   _buildSubmitView({required QuestionModel questionModel}) {
     return questionModel.questionSubmitted
         ? BaseElevatedButton(
-      width: getSize(186),
-      height: getSize(30.0),
+            width: getSize(186),
+            height: getSize(30.0),
             borderRadius: BorderRadius.circular(
               getSize(8.0),
             ),
@@ -200,23 +201,22 @@ class QuestionListWidget extends GetView<QuestionController> {
             ),
           )
         : BaseElevatedButton(
-              width: getSize(186),
-              height: getSize(30.0),
-              borderRadius: BorderRadius.circular(
-                getSize(8.0),
-              ),
-              // onPressed: (){
-              //   _showDialog();
-              // },
-              onPressed: () {
-                Get.toNamed(Routes.ADD_INSPECT);
-              },
-              child: BaseText(
-                text: StringConstants.inspect,
-                fontWeight: FontWeight.w500,
-              ),
-            );
-
+            width: getSize(186),
+            height: getSize(30.0),
+            borderRadius: BorderRadius.circular(
+              getSize(8.0),
+            ),
+            // onPressed: (){
+            //   _showDialog();
+            // },
+            onPressed: () {
+              Get.toNamed(Routes.ADD_INSPECT);
+            },
+            child: BaseText(
+              text: StringConstants.inspect,
+              fontWeight: FontWeight.w500,
+            ),
+          );
   }
 
   _commonRatingImageView(String image) {

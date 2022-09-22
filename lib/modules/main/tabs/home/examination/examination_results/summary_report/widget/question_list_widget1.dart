@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/summary_animated_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +66,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
           SizedBox(
             height: getSize(20.0),
           ),
-          AnimatedCard(
-            questionModel: questionModel,
-          ),
+          SummaryAnimatedCard(),
           SizedBox(
             height: getSize(20),
           ),

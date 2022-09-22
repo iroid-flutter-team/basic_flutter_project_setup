@@ -31,11 +31,11 @@ class SummaryReportView extends GetView<SummaryReportController> {
         title: "Summary report",
         actions: [],
       ),
-      body: _buildMainBody(_examinationModel!),
+      body: _buildMainBody(),
     );
   }
 
-  _buildMainBody(ExaminationModel _examinationModel) {
+  _buildMainBody() {
     controller.initQuestions();
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:align_flutter_app/shared/constants/svg_image_constant.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,10 @@ import '../widgets/input_field.dart';
 class AddTagDialog extends StatefulWidget {
   const AddTagDialog({
     Key? key,
-    required this.continueCallBack,
+   // required this.continueCallBack,
   }) : super(key: key);
 
-  final VoidCallback continueCallBack;
+ // final VoidCallback continueCallBack;
 
   @override
   State<AddTagDialog> createState() => _AddTagDialogState();
@@ -25,8 +26,10 @@ class _AddTagDialogState extends State<AddTagDialog> {
   TextEditingController addTagController = TextEditingController();
   final double borderRadius = 25.0;
 
-  List<String> values = [];
+  RxList values = [].obs;
   List<bool> selected = [];
+  List<Widget> chips = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +122,9 @@ class _AddTagDialogState extends State<AddTagDialog> {
                   child: BaseElevatedButton(
                     width: getSize(214.0),
                     onPressed: () {
-                      widget.continueCallBack();
+                      Get.back(result: values);
+                       //widget.continueCallBack();
+                      //values.add(addTagController.text);
                     },
                     borderRadius: BorderRadius.circular(15.0),
                     child: Padding(
@@ -140,7 +145,6 @@ class _AddTagDialogState extends State<AddTagDialog> {
   }
 
   Widget buildChips() {
-    List<Widget> chips = [];
     for (int i = 0; i < values.length; i++) {
       ChipTheme actionChip = ChipTheme(
         data: ChipTheme.of(context).copyWith(),

@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import '../../../../../../shared/constants/color_constants.dart';
 import '../../../../../../shared/constants/svg_image_constant.dart';
 import '../../../../../../shared/dialog/add_tag_dialog.dart';
+import '../../../../../../shared/utils/focus.dart';
 import '../../../../../../shared/utils/image_utils.dart';
 import '../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../shared/widgets/input_field.dart';
@@ -28,11 +29,11 @@ class AddInspectView extends GetView<AddInspectController> {
       appBar: BaseAppBar(
         title: 'Windows',
       ),
-      body: _buildMainBody(),
+      body: _buildMainBody(context),
     );
   }
 
-  _buildMainBody() {
+  _buildMainBody(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: getSize(30),
@@ -67,7 +68,7 @@ class AddInspectView extends GetView<AddInspectController> {
             },
           ),
           Obx(
-            () {
+                () {
               return ListTile(
                 dense: true,
                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
@@ -100,28 +101,28 @@ class AddInspectView extends GetView<AddInspectController> {
               color: Color(0xffB7B7B7).withOpacity(0.75),
               radius: Radius.circular(getSize(24)),
               child: InspectAnimatedCard()
-              // Container(
-              //   height: getSize(140),
-              //   width: Get.width,
-              //   child: InkWell(
-              //     onTap: (){
-              //
-              //     },
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         SvgPicture.asset(
-              //           SvgImageConstants.add_photo,
-              //         ),
-              //         BaseText(
-              //           text: "Take Photo",
-              //           fontSize: 16,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              ),
+            // Container(
+            //   height: getSize(140),
+            //   width: Get.width,
+            //   child: InkWell(
+            //     onTap: (){
+            //
+            //     },
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         SvgPicture.asset(
+            //           SvgImageConstants.add_photo,
+            //         ),
+            //         BaseText(
+            //           text: "Take Photo",
+            //           fontSize: 16,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          ),
           SizedBox(
             height: getSize(30),
           ),
@@ -151,8 +152,15 @@ class AddInspectView extends GetView<AddInspectController> {
           Align(
             alignment: Alignment.centerLeft,
             child: InkWell(
-              onTap: () {
-                showAddTagDialog();
+              onTap: () async {
+                var res = await Get.dialog(
+                  AddTagDialog(),
+                );
+                if (res != null) {
+                  controller.res1 = res;
+                }
+                print("res =======${controller.res1[0]}");
+                //showAddTagDialog();
               },
               child: CommonContainerWithShadow(
                 height: getSize(30),
@@ -178,6 +186,20 @@ class AddInspectView extends GetView<AddInspectController> {
               ),
             ),
           ),
+          Obx(() {
+            return SizedBox(
+              height: getSize(50),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.res1.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return BaseText(
+                      text: controller.res1[index].toString());
+                },
+              ),
+            );
+          }),
           SizedBox(
             height: getSize(30),
           ),
@@ -194,6 +216,9 @@ class AddInspectView extends GetView<AddInspectController> {
             textInputAction: TextInputAction.done,
             maxLines: 3,
             minLines: 1,
+            onTap: () {
+              AppFocus.unfocus(context);
+            },
             // validator: (value) {
             //   if (value == null || value.isEmpty) {
             //     return 'Please enter details.';
@@ -226,30 +251,30 @@ class AddInspectView extends GetView<AddInspectController> {
     return Column(
       children: [
         Obx(
-          () {
+              () {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 controller.distanceValue.value == 0.0
                     ? _commonRatingImageView(SvgImageConstants.very_poor, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_very_poor, 30),
+                    SvgImageConstants.unselected_very_poor, 30),
                 controller.distanceValue.value == 1.0
                     ? _commonRatingImageView(SvgImageConstants.poor, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_poor, 30),
+                    SvgImageConstants.unselected_poor, 30),
                 controller.distanceValue.value == 2.0
                     ? _commonRatingImageView(SvgImageConstants.average, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_average, 30),
+                    SvgImageConstants.unselected_average, 30),
                 controller.distanceValue.value == 3.0
                     ? _commonRatingImageView(SvgImageConstants.good, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_good, 30),
+                    SvgImageConstants.unselected_good, 30),
                 controller.distanceValue.value == 4.0
                     ? _commonRatingImageView(SvgImageConstants.excellent, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_excellent, 30),
+                    SvgImageConstants.unselected_excellent, 30),
               ],
             );
           },
@@ -268,7 +293,7 @@ class AddInspectView extends GetView<AddInspectController> {
             overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
           ),
           child: Obx(
-            () {
+                () {
               return Slider(
                 min: 0,
                 max: controller.values.length - 1,
@@ -332,18 +357,18 @@ class AddInspectView extends GetView<AddInspectController> {
     });
   }
 
-  showAddTagDialog() {
-    Get.dialog(
-      AddTagDialog(
-        continueCallBack: () {
-          Get.back();
-          // Get.offAll(
-          //   UserDetailScreen(),
-          //   binding: UserDetailBindings(),
-          // );
-        },
-      ),
-      barrierDismissible: false,
-    );
-  }
+// showAddTagDialog() async {
+//   var res = await Get.dialog(
+//     AddTagDialog(
+//         // continueCallBack: () {
+//         //   Get.back();
+//         //   // Get.offAll(
+//         //   //   UserDetailScreen(),
+//         //   //   binding: UserDetailBindings(),
+//         //   // );
+//         // },
+//         ),
+//     barrierDismissible: false,
+//   );
+// }
 }
