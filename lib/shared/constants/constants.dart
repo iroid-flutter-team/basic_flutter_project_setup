@@ -1,4 +1,4 @@
-export 'color_constants.dart';
-export 'common_text.dart';
+export 'colors.dart';
+export 'common.dart';
 export 'string_constant.dart';
 export 'storage.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../constants/color_constants.dart';
+import '../constants/colors.dart';
 import '../utils/math_utils.dart';
 
 class InputTextField extends StatelessWidget {
@@ -13,7 +13,6 @@ class InputTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final Color? textColor;
-  final Color? fillColor;
   final TextEditingController controller;
   final TextInputType? textInputType;
   final int? errorMaxLines;
@@ -35,7 +34,6 @@ class InputTextField extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.prefixIcon,
-    this.fillColor,
     this.suffixIcon,
     this.validator,
     this.textColor,
@@ -134,13 +132,14 @@ class InputTextField extends StatelessWidget {
             labelText: labelText,
             errorText: errorText,
             focusColor: ColorConstants.white,
+
             contentPadding: contentPadding ??
                 EdgeInsets.symmetric(
                   vertical: getSize(20),
                   horizontal: getSize(20),
                 ),
             hintText: hintText,
-            fillColor: fillColor ?? ColorConstants.darkContainerBlack,
+            fillColor: ColorConstants.darkContainerBlack,
             errorMaxLines: errorMaxLines ?? 1,
             filled: true,
             //    prefixIconConstraints: BoxConstraints(maxHeight: getSize(50)),
@@ -158,7 +157,6 @@ class InputTextField extends StatelessWidget {
               color: ColorConstants.white.withOpacity(0.5),
             ),
             prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
           ),
           validator: validator,
         ),

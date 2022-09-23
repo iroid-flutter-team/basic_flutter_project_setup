@@ -1,158 +1,159 @@
-import 'package:align_flutter_app/modules/main/tabs/home/today_jobs/today_jobs_binding.dart';
-import 'package:align_flutter_app/modules/main/tabs/home/today_jobs/today_jobs_view.dart';
-import 'package:align_flutter_app/shared/constants/color_constants.dart';
-import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
-import 'package:align_flutter_app/shared/constants/svg_image_constant.dart';
-import 'package:align_flutter_app/shared/utils/math_utils.dart';
-import 'package:align_flutter_app/shared/widgets/base_text.dart';
-import 'package:align_flutter_app/shared/widgets/common_appbar.dart';
-import 'package:align_flutter_app/shared/widgets/common_container_shadow.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:home_yogi_flutter/di.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/examination/examination_view.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/home_controller.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/premium/widget/premium_services_widget.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/widgets/examination_list.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/widgets/home_appbar.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/widgets/progress_report_widget.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/widgets/to_do_list_widget.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/widgets/upgrade_widget.dart';
+import 'package:home_yogi_flutter/routes/app_pages.dart';
+import 'package:home_yogi_flutter/shared/constants/constants.dart';
+import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
+import 'package:home_yogi_flutter/shared/widgets/base_text.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../routes/app_pages.dart';
-
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: '',
-        leadingWidth: getSize(150),
-        leading: Padding(
-          padding: EdgeInsets.only(left: getSize(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        body: Column(
             children: [
-              BaseText(
-                text: "Good morning",
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: ColorConstants.white.withOpacity(0.6),
+              SizedBox(
+                height: getSize(50),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(24)),
+                child: HomeAppbarWidget(),
               ),
               SizedBox(
-                height: getSize(4),
+                height: getSize(20),
               ),
               Expanded(
-                child: BaseText(
-                  text: "Albert Flores,",
-                  fontSize: 18,
-                  maxLines: 1,
-                  fontWeight: FontWeight.w600,
+                child: SmartRefresher(
+                  physics: BouncingScrollPhysics(),
+                  controller: controller.refreshController,
+                  onRefresh: () {
+                    controller.getProgressReport();
+                    controller.refreshController.refreshCompleted();
+                  },
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      Obx(() {
+                       // print("DependencyInjection123===========${DependencyInjection.userResponse.value.isPremium?.value}");
+                        return Visibility(
+                          visible: DependencyInjection.userResponse.value.isPremium?.value == true ? true : false,
+                        //  visible: DependencyInjection.userResponse.value.isPremium?.value == true,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(24)),
+                            child: PremiumServicesWidget(
+                              premiumServiceEnable: DependencyInjection
+                                  .userResponse.value.isPremium?.value == true
+                                  ? true
+                                  : false,
+                            ),
+                          ),
+                        );
+                      },),
+                      getTitleText('Examinations', showSeeAll: true,
+                          onTapSeeAll: () {
+                            Get.to(() => ExaminationView());
+                          }),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      SizedBox(
+                        height: getSize(85),
+                        child: ExaminationListWidget(),
+                      ),
+                      SizedBox(
+                        height: getSize(30),
+                      ),
+                      getTitleText("Progress report"),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(24)),
+                        child: ProgressReportWidget(),
+                      ),
+                      SizedBox(
+                        height: getSize(30),
+                      ),
+                      getTitleText(StringConstants.toDoList, showSeeAll: true,
+                          onTapSeeAll: () {
+                            printInfo(info: 'Open To Do List');
+                            Get.toNamed(Routes.TO_DO_LIST);
+                          }),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      SizedBox(height: getSize(90), child: ToDoListWidget()),
+                      SizedBox(
+                        height: getSize(30),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(24)),
+                        child: UpgradeWidget(),
+                      ),
+                      Obx(() {
+                        return Visibility(
+                          visible: DependencyInjection.userResponse.value
+                              .isPremium
+                              ?.value == true ? false : true,
+                          //visible: DependencyInjection.userResponse.value.isPremium!.value,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(24), vertical: getSize(30)),
+                            child: PremiumServicesWidget(
+                              premiumServiceEnable: false,
+                            ),
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ),
-        actions: [
-          Padding(
-            padding:  EdgeInsets.only(right: getSize(25)),
-            child: SvgPicture.asset(
-              SvgImageConstants.message,
-              height: getSize(25),
-            ),
-          ),
-        ],
+
       ),
-      body: _buildMainBody(),
     );
   }
 
-  _buildMainBody() {
+  getTitleText(String title,
+      {bool showSeeAll = false, Function()? onTapSeeAll}) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(25),
-      ),
-      child: Column(
+      padding: EdgeInsets.symmetric(horizontal: getSize(24)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: getSize(25),
+          BaseText(
+            text: title,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
           ),
-          CommonContainerWithShadow(
-            width: Get.width,
-            height: getSize(38),
-            child: Center(
+          if (showSeeAll)
+            InkWell(
+              onTap: onTapSeeAll,
               child: BaseText(
-                text: "let’s help you finish your workday",
+                text: StringConstants.seeAll,
                 fontSize: 14,
+                fontWeight: FontWeight.w400,
+                textColor: ColorConstants.blueShadow,
               ),
-            ),
-          ),
-          SizedBox(
-            height: getSize(30),
-          ),
-          InkWell(
-            onTap: () {
-              Get.toNamed(Routes.TODAY_JOBS);
-              // Get.off(
-              //   TodayJobsView(),
-              //   binding: TodayJobsBindings(),
-              // );
-            },
-            child: CommonContainerWithShadow(
-              height: getSize(74),
-              child: Padding(
-                padding: EdgeInsets.only(right: getSize(30), left: getSize(12)),
-                child: Row(
-                  children: [
-                    BaseText(
-                      text: "Today jobs",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
-                      width: getSize(10),
-                    ),
-                    BaseText(
-                      text: "2",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    Spacer(),
-                    SvgPicture.asset(
-                      SvgImageConstants.arrowRight1,
-                      height: getSize(20),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: getSize(20),
-          ),
-          CommonContainerWithShadow(
-            height: getSize(74),
-            child: Padding(
-              padding: EdgeInsets.only(right: getSize(30), left: getSize(12)),
-              child: Row(
-                children: [
-                  BaseText(
-                    text: "Future jobs",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  BaseText(
-                    text: "0",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  Spacer(),
-                  SvgPicture.asset(
-                    SvgImageConstants.arrowRight1,
-                    height: getSize(20),
-                  ),
-                ],
-              ),
-            ),
-          ),
+            )
         ],
       ),
     );

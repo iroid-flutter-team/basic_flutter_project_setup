@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../constants/string_constant.dart';
+import '../utils/focus.dart';
 import '../widgets/base_text.dart';
 
 class ImageChooserDialog {
@@ -12,31 +12,18 @@ class ImageChooserDialog {
     showCupertinoModalPopup<void>(
       context: Get.context!,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const BaseText(
-          text: StringConstants.selectImage,
-          textAlign: TextAlign.center,
-        ),
-        // message: const Text('Message'),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: takePhotoCallback,
             child: const BaseText(
               text: StringConstants.takePhoto,
             ),
-            // onPressed: () {
-            //   Get.back();
-            //   controller.pickImage(imageSource: ImageSource.camera);
-            // },
           ),
           CupertinoActionSheetAction(
             onPressed: selectPhotoCallback,
             child: const BaseText(
               text: StringConstants.galleryPhoto,
             ),
-            // onPressed: () {
-            //   Get.back();
-            //   controller.pickImage(imageSource: ImageSource.gallery);
-            // },
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
@@ -46,6 +33,7 @@ class ImageChooserDialog {
           ),
           onPressed: () {
             Get.back();
+            AppFocus.unFocus();
           },
         ),
       ),

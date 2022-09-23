@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/color_constants.dart';
+import '../constants/colors.dart';
 
 class CommonBoxShadow {
   static getBlackBackgroundBoxShadow(Offset offset) {

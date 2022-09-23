@@ -1,12 +1,13 @@
 import 'dart:io';
-import 'package:align_flutter_app/modules/main/tabs/home/examination/question/takephoto/take_photo_controller.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import '../../../../../../../shared/utils/image_utils.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/examination/question/takephoto/take_photo_controller.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../../../../../shared/utils/math_utils.dart';
-import '../../../../../../../shared/widgets/common_appbar.dart';
+import '../../../../../../../shared/widgets/common_app_bar.dart';
 import '../../../../../../../shared/widgets/common_container_shadow.dart';
 
 class TakePhotoView extends GetView<TakePhotoController> {
@@ -26,15 +27,7 @@ class TakePhotoView extends GetView<TakePhotoController> {
       appBar: BaseAppBar(
         title: '',
         actions: [
-          photoPath.isNotEmpty
-              ? IconButton(
-              icon: SvgPicture.asset(
-                getAssetsSVGImg('trash'),
-              ),
-              onPressed: () {
-                Get.back(result: {'action': 'DELETE'});
-              })
-              : Container(),
+          getActionIcon(),
         ],
       ),
       // You must wait until the controller is initialized before displaying the
@@ -44,8 +37,21 @@ class TakePhotoView extends GetView<TakePhotoController> {
     );
   }
 
+  getActionIcon() {
+    return photoPath.isNotEmpty
+        ? IconButton(
+        icon: SvgPicture.asset(
+          getAssetsSVGImg('trash'),
+        ),
+        onPressed: () {
+          Get.back(result: {'action': 'DELETE'});
+        })
+        : Container();
+  }
+
   _buildMainBody() {
     return Obx(() {
+      print("imagepath ========${controller.imagePath}");
       return Column(
         children: [
           Expanded(
@@ -54,13 +60,17 @@ class TakePhotoView extends GetView<TakePhotoController> {
                 ? _buildCameraPreview()
                 : _buildImageView(),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              //child: _buildRetakeDoneView(),
-              child: controller.imagePath.isEmpty
-                  ? _buildCapturePhotoView()
-                  : _buildRetakeDoneView(),
+
+          Visibility(
+            visible: photoPath.isEmpty,
+            child: Expanded(
+              flex: 1,
+              child: Container(
+                //child: _buildRetakeDoneView(),
+                child: controller.imagePath.isEmpty
+                    ? _buildCapturePhotoView()
+                    : _buildRetakeDoneView(),
+              ),
             ),
           ),
         ],
@@ -107,7 +117,10 @@ class TakePhotoView extends GetView<TakePhotoController> {
               // where it was saved.
               final image = await controller.cameraController.takePicture();
 
+              //controller.cameraController.dispose();
               controller.imagePath.value = image.path;
+
+
             } catch (e) {
               // If an error occurs, log the error to the console.
               print(e);
@@ -129,6 +142,8 @@ class TakePhotoView extends GetView<TakePhotoController> {
         GestureDetector(
           onTap: () {
             controller.imagePath.value = '';
+            controller.init(cameraDescription: cameraDescription, photoPath: photoPath);
+           // controller.init(cameraDescription: cameraDescription, photoPath: '');
           },
           child: CommonContainerWithShadow(
             height: getSize(50),
@@ -148,7 +163,7 @@ class TakePhotoView extends GetView<TakePhotoController> {
           width: getSize(30.0),
         ),
         GestureDetector(
-          onTap: ()  {
+          onTap: () {
             Get.back(result: {
               'action': 'ADD',
               'imagePath': controller.imagePath.value
@@ -172,5 +187,3 @@ class TakePhotoView extends GetView<TakePhotoController> {
     );
   }
 }
-
-

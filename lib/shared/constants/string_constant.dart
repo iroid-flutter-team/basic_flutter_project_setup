@@ -1,122 +1,106 @@
 class StringConstants {
-  //auth
   static const String assetsTODO = '';
-  static const String videoUrl =
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
-  static const String termsAndCondition = 'Terms and Condition';
-  static const String hiThere = 'Hi there!';
-  static const String createNewAccount = 'Create a new account';
-  static const String name = 'Name';
-  static const String emailAddress = 'Email Address';
-  static const String hintPhoneNumber = 'Enter PhoneNumber';
-  static const String mobileNumder = 'Mobile Number';
-  static const String enterMobileNumber = 'Please enter your mobile number';
-  static const String enterUserName = 'Please enter your name';
-  static const String enterEmail = 'Please enter your email address';
-  static const String password = 'Password';
-  static const String enterPassword = 'Please enter password';
-  static const String hintPassword = '.........';
-  static const String retypePassword = 'Re-type password';
-  static const String enterYourPassword = 'Please re-type your password';
-  static const String signup = 'Sign Up';
-  static const String facebook = 'FACEBOOK';
-  static const String google = 'GOOGLE';
-  static const String byClicking = 'By clicking Sign Up, you agree to our ';
-  static const String termsCondition = '\nTerms & Conditions';
-  static const String privacyPolicy = ' Privacy Policy';
-  static const String alreadyAccount = 'Already have an account? ';
-  static const String signIn = 'Sign In';
-  static const String userNameEmpty = 'Enter username';
-  static const String ageEmpty = 'Enter age';
-  static const String enterValidAge = 'Enter valid age';
-  static const String emailEmpty = 'Enter email address';
-  static const String emailValidError = 'Enter valid email address';
-  static const String mobileEmpty = 'Enter mobile number';
-  static const String mobileNumberShouldBe10Digit =
-      'Mobile number should be 10 digit long';
-  static const String passwordEmpty = 'Enter password';
-  static const String retypePasswordEmpty = 'Enter re-type password';
-  static const String retypePasswordShouldSame =
-      'Password and re-type password must be same';
-  static const String passwordReset = 'Password reset';
+  static const String toDoList = 'To do List';
+  static const String seeAll = 'See All';
+  static const String today = 'Today';
+  static const String indoor = 'Indoor';
+  static const String outdoor = 'Outdoor';
+  static const String leftToDo = 'Left to do';
+  static const String ongoing = 'Ongoing';
+  static const String completed = 'Completed';
 
-  static const String next = 'Next';
-  static const String skip = 'Skip';
-  static const String aboutYou = 'About You';
-  static const String aboutYouMessage = 'Please enter informations about you.';
-  static const String aboutYouEmpty = 'Enter about you';
-  static const String homeTownEmpty = 'Enter home town';
-  static const String nickname = 'Nickname';
-  static const String age = 'Age';
-  static const String or = 'or';
+  // AppBar Title
+  static const String titleCheckList = 'checklist';
+  static const String titleNotification = 'Notification';
+  static const String titleSettings = 'Settings';
 
-  static const String chooseOne = 'Choose One';
-  static const String otherSexualIdentity = 'Other sexual identity';
-  static const String apply = 'Apply';
+  static const String titleExaminations = 'examinations';
+  static const String titleToDoList = 'To do list';
+  static const String titleAddTask = 'Add task';
+  static const String titleEditTask = 'Edit task';
+  static const String titleEditProfile = 'Edit profile';
 
-  static const String verificationCode = 'Verification code';
-  static const String enterVerificationCodeTo =
-      'Please enter your verification code sent to';
-  static const String didNotRecieveACode = 'Didn’t recieve a code? ';
-  static const String resend = 'Resend';
-  static const String verify = 'Verify';
-  static const String welcomeback = 'Welcome back!';
-  static const String logInToContinue = 'Log in to continue';
-  static const String forgotPassword = 'Forgot password?';
-  static const String logIn = 'Log In';
-  static const String createNewPassword = 'Create new password';
-  static const String pleaseCreateNewPassword = 'Please create a new password';
-  static const String newPassword = 'New Password';
-  static const String pleaseEnterNewPassword = 'Please enter your new password';
-  static const String reTypePassword = 'Re-type password';
+  static const String checklistAll = 'ALL';
+  static const String checklistIndoor = 'Indoor';
+  static const String checklistOutdoor = 'Outdoor';
+  static const String progress = 'Progress';
 
-  static const String resetPassword = 'Reset Password';
+  static const String summer = 'Summer';
+  static const String fall = 'Fall';
+  static const String winter = 'Winter';
+  static const String spring = 'Spring';
+  static const String homeYogi = 'Home Yogi';
+  static const String homeYogiDesc = 'Is your Home Healthy?';
+  static const String continued = 'continue';
+// upgrade
+  static const String upgradeDesc =
+      'A professional inspection can\nsave you money down the road';
+  static const String accountManager = 'Account Manager';
+  static const String routineExams = 'Routine Exams';
 
+  static const String upgrade = 'Upgrade';
+
+  //Examination View
+  static const String examinations = 'Examinations';
+  static const String questions = 'Questions';
+
+  static const String examination = 'Examination';
+  static const String checklist = 'Checklist';
+
+  //Onboarding
+  static const String sendOtp = 'SEND OTP';
+  static const String verifyOtp = 'verify';
+  static const String setHomeAddress = 'Set home address';
+  static const String haveAReferralCode = 'Have a referral code?';
+
+  // settings tab
+  static const String pushNotification = 'Push Notification';
+  static const String planAndBilling = 'Plan & Billing';
+  static const String referAndEarn = 'Refer and Earn';
+  static const String voiceSupport = 'Voice Support';
+  static const String termsAndCondition = 'Terms & Conditions';
+  static const String signOut = 'Sign Out';
+  static const String signOutAlertMessage = 'Are you sure you want to sign out?';
+
+  // edit profile
+  static const String labelUsername = 'User name';
+  static const String hintUsername = 'Enter username';
+  static const String validationUsername = 'Please enter username.';
+  static const String labelEmail = 'E-mail';
+  static const String hintEmail = 'Enter email address';
+  static const String labelContactNo = 'Contact no.';
+  static const String hintContactNo = 'Enter contact number';
+  static const String validationContactNo = 'Please enter contact number.';
+  static const String labelLocation = 'Location';
+  static const String hintLocation = 'Enter address';
+  static const String validationLocation = 'Please enter address.';
+  static const String buttonSave = 'Save';
   static const String selectImage = 'Select Image';
   static const String takePhoto = 'Take Photo';
   static const String galleryPhoto = 'Choose From Gallery';
   static const String buttonCancel = 'Cancel';
 
-  static const String fromSignUp = 'fromSignUp';
-  static const String fromResetPassword = 'fromResetPassword';
+  // refer and earn
+  static const String buttonShare = 'Share';
 
-  static const String male = 'Male';
-  static const String female = 'Female';
-  static const String custom = 'Custom';
-  static const String student = 'Student';
-  static const String workingProfessional = 'Working Professional';
-  static const String pleaseEnterNickname = 'Please enter your nickname';
+  // terms and condition
+  static const String developedBy = 'Developed by ';
+  static const String iroidSolutions = 'iRoid Solutions';
 
-  static const String serverError = 'something went wrong please try again';
-  static const String networkError = 'Please check your internet connectivity';
-
-  //profile
-
-  static const String myCasualProfile = 'My Casual Profile';
-  static const String myBusinessProfile = 'My Business Profile';
-  static const String casual = 'Casual';
-  static const String buiseness = 'Business';
-  static const String editCasualProfile = 'Edit Casual Profile';
-  static const String basicInfo = 'Basic Infos';
-  static const String editBusinessProfile = 'Edit Business Profile';
-  static const String photos = 'Photos';
-  static const String prompts = 'Prompts';
-  static const String additionalInfo = 'Additional Info';
-
-  //core
-  static const String pressthebackbuttontoexit = 'Press the back button to exit';
-  static const String questions = 'Questions';
-  static const String summer = 'Summer';
-  static const String fall = 'Fall';
-  static const String winter = 'Winter';
-  static const String spring = 'Spring';
-  static const String examinations = 'Examinations';
-  static const String inspect = 'INSPECT';
+  static const String buttonSubmit = 'SUBMIT';
   static const String buttonSubmitted = 'SUBMITTED';
 
-  // settings tab
-  static const String pushNotification = 'Push Notification';
-  static const String aboutMe = 'About Me';
-  static const String signOut = 'Sign Out';
-  static const String signOutAlertMessage = 'Are you sure you want to sign out?';
+  //EditProfile
+  // static const String userName = 'User name';
+  // static const String email = 'E-mail';
+  // static const String contactNo = 'Contact no.';
+  static const String address = 'Address';
+  static const String editOnMap = 'Edit on map';
+
+  //Setting
+  static const String setting = 'Settings';
+  static const String editProfile = 'Edit profile';
+
+  // Image chooser dialog
+  static const String imageNotSelect = 'Image not selected';
 }

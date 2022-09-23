@@ -1,6 +1,6 @@
-import 'package:align_flutter_app/shared/constants/color_constants.dart';
-import 'package:align_flutter_app/shared/utils/math_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:home_yogi_flutter/shared/shared.dart';
+import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
 
 class BaseText extends StatelessWidget {
   final String text;

@@ -1,6 +1,7 @@
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-import '../utils/math_utils.dart';
+import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
+
 import 'common_boxshadow.dart';
 
 class GradiantContainerWithImage extends StatelessWidget {

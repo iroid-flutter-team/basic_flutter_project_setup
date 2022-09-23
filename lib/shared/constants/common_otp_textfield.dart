@@ -1,11 +1,11 @@
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:home_yogi_flutter/shared/constants/colors.dart';
+import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
+import 'package:home_yogi_flutter/shared/widgets/common_boxshadow.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
-import '../utils/math_utils.dart';
-import '../widgets/common_boxshadow.dart';
-import 'color_constants.dart';
 
 class CommonOTPTextField extends StatefulWidget {
   /// TextField Controller

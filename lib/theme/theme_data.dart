@@ -1,10 +1,11 @@
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import '../shared/constants/color_constants.dart';
-import '../shared/utils/math_utils.dart';
-import '../shared/widgets/common_boxshadow.dart';
-import '../shared/widgets/common_input_shadow.dart';
+import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
+import 'package:home_yogi_flutter/shared/widgets/common_boxshadow.dart';
+import 'package:home_yogi_flutter/shared/widgets/shadow_input_border.dart';
+
+import '../shared/constants/colors.dart';
 
 class ThemeConfig {
   static ThemeData createTheme({
@@ -150,30 +151,30 @@ class ThemeConfig {
   }
 
   static ThemeData get lightTheme => createTheme(
-    brightness: Brightness.light,
-    background: ColorConstants.lightScaffoldBackgroundColor,
-    cardBackground: ColorConstants.secondaryAppColor,
-    primaryText: Colors.black,
-    secondaryText: Colors.white,
-    accentColor: ColorConstants.secondaryAppColor,
-    divider: ColorConstants.secondaryAppColor,
-    buttonBackground: Colors.black38,
-    buttonText: ColorConstants.secondaryAppColor,
-    disabled: ColorConstants.secondaryAppColor,
-    error: Colors.red,
-  );
+        brightness: Brightness.light,
+        background: ColorConstants.lightScaffoldBackgroundColor,
+        cardBackground: ColorConstants.secondaryAppColor,
+        primaryText: Colors.black,
+        secondaryText: Colors.white,
+        accentColor: ColorConstants.secondaryAppColor,
+        divider: ColorConstants.secondaryAppColor,
+        buttonBackground: Colors.black38,
+        buttonText: ColorConstants.secondaryAppColor,
+        disabled: ColorConstants.secondaryAppColor,
+        error: Colors.red,
+      );
 
   static ThemeData get darkTheme => createTheme(
-    brightness: Brightness.dark,
-    background: ColorConstants.summerGradient1,
-    cardBackground: ColorConstants.white,
-    primaryText: Colors.white,
-    secondaryText: Colors.black,
-    accentColor: ColorConstants.white,
-    divider: Colors.black45,
-    buttonBackground: Colors.white,
-    buttonText: ColorConstants.white,
-    disabled: ColorConstants.white,
-    error: Colors.red,
-  );
+        brightness: Brightness.dark,
+        background: ColorConstants.summerGradient1,
+        cardBackground: ColorConstants.white,
+        primaryText: Colors.white,
+        secondaryText: Colors.black,
+        accentColor: ColorConstants.white,
+        divider: Colors.black45,
+        buttonBackground: Colors.white,
+        buttonText: ColorConstants.white,
+        disabled: ColorConstants.white,
+        error: Colors.red,
+      );
 }

@@ -1,35 +1,29 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/home/home_view.dart';
+import 'package:home_yogi_flutter/shared/constants/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'shared/services/storage_service.dart';
+import 'models/response/auth/user_detail_response.dart';
+import 'shared/services/services.dart';
 
-class DenpendencyInjection {
-  static final prefs = Get.find<SharedPreferences>();
-  static var isBusinessMode = false.obs;
-  static var showLoader = true.obs;
+class DependencyInjection {
   static Future<void> init() async {
     await Get.putAsync(() => StorageService().init());
-    // if (prefs.getString(StorageConstants.profileType) == null) {
-    //   await prefs.setString(
-    //       StorageConstants.profileType, StringConstant.casual);
-    // }
-
-    /// getUserData();
-
-    ///  getTheme();
+    getUserData();
   }
 
-  // static var userResponse = UserResponse().obs;
+  static var userResponse = UserDetailResponse().obs;
+  static getUserData() {
+    final prefs = Get.find<SharedPreferences>();
 
-  // static getUserData() {
-  //   if (prefs.getString(StorageConstants.userData) != null) {
-  //     userResponse.value = UserResponse.fromJson(
-  //       jsonDecode(
-  //         prefs.getString(StorageConstants.userData)!,
-  //       ),
-  //     );
+    if (prefs.getString(StorageConstants.userData) != null) {
+      userResponse.value = UserDetailResponse.fromJson(
+        jsonDecode(prefs.getString(StorageConstants.userData)!),
+      );
 
-  //     print("UserData : ${userResponse.toJson()}");
-  //   }
-  // }
+      print("UserData : ${userResponse.toJson()}");
+    }
+  }
 }

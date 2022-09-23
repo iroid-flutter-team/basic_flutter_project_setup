@@ -1,5 +1,4 @@
 class PngImageConstants {
-  static const arrow_left = "assets/images/png/arrow_left.png";
   static const task = "assets/images/png/task.png";
   static const smile = "assets/images/svg/smile.png";
   static const taskSelected = "assets/images/png/task_selected.png";
@@ -17,12 +16,48 @@ class PngImageConstants {
   static const spring = "assets/images/png/spring.png";
   static const spring1 = "assets/images/png/spring1.png";
   static const spring2 = "assets/images/png/spring2.png";
+  static const spring3 = "assets/images/png/spring3.png";
+
+  static const intro_spring = "assets/images/png/intro_spring.png";
+  static const intro_summer = "assets/images/png/intro_summer.png";
+  static const intro_fall = "assets/images/png/intro_fall.png";
+  static const intro_winter = "assets/images/png/intro_winter.png";
+
+  static const show_coin = "assets/images/png/coin.png";
+  static const coupon_background = "assets/images/png/coupon_background.png";
+  static const close = "assets/images/png/close.png";
+  static const discount_logo = "assets/images/png/discount_logo.png";
+  static const discount_logo1 = "assets/images/png/discount_logo1.png";
+  static const discount_logo2 = "assets/images/png/discount_logo2.png";
+  static const discount_logo3 = "assets/images/png/discount_logo3.png";
+  static const discount_logo4 = "assets/images/png/discount_logo4.png";
+  static const leader_board = "assets/images/png/leader_board.png";
+  static const home = "assets/images/png/home.png";
+  static const bez = "assets/images/png/bez.png";
+  static const bez2 = "assets/images/png/bez2.png";
+  static const bez3 = "assets/images/png/bez3.png";
+  static const bez4 = "assets/images/png/bez4.png";
+  static const bez5 = "assets/images/png/bez5.png";
+  static const level_dialog_background = "assets/images/png/level_dialog_background.png";
+  static const reward_coupon = "assets/images/png/reward_coupon.png";
+  static const bronze_medal = "assets/images/png/bronze_medal.png";
+  static const silver_medal = "assets/images/png/silver_medal.png";
+  static const gold_medal = "assets/images/png/gold_medal.png";
+  static const level_background = "assets/images/png/level_background.png";
+  static const googleMapMarker = "assets/images/png/google_map_marker.png";
+  static const verify = "assets/images/png/verify.png";
+  static const voice_chat = "assets/images/png/voice_chat.png";
+  static const manager = "assets/images/png/manager.png";
+  static const coin_without_shadow = "assets/images/png/coin_without_shadow.png";
+  static const refresh_circle = "assets/images/png/refresh_circle.png";
+  static const booking_confirm = "assets/images/png/booking_confirm.png";
   static const profile = "assets/images/png/profile.png";
-  static const futureJobs = "assets/images/png/future_jobs.png";
-  static const user = "assets/images/png/user.png";
-  static const doors = "assets/images/png/doors.png";
-  static const wall = "assets/images/png/wall.png";
   static const windows = "assets/images/png/windows.png";
   static const celling = "assets/images/png/celling.png";
-  static const bez = "assets/images/png/bez.png";
+  static const doors = "assets/images/png/doors.png";
+  static const wall = "assets/images/png/wall.png";
+  static const tips_image = "assets/images/png/tips_image.png";
+  static const summary_image1 = "assets/images/png/summary_image1.png";
+  static const summary_image2 = "assets/images/png/summary_image2.png";
+  static const answer_done = "assets/images/png/answer_done.png";
 }

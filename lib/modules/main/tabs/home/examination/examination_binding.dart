@@ -4,12 +4,10 @@ import 'package:get/get_instance/src/bindings_interface.dart';
 
 import 'examination_controller.dart';
 
-class ExaminationBindings implements Bindings {
+class ExaminationBinding extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<ExaminationController>(() => ExaminationController(
-      apiRepository: Get.find(),
-    ),
-    );
+    Get.lazyPut<ExaminationController>(() => ExaminationController());
   }
+
 }

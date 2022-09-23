@@ -1,64 +1,113 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../../../api/api_repository.dart';
-import '../../../../shared/constants/string_constant.dart';
-import 'model/setting_model.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:home_yogi_flutter/api/api_repository.dart';
+import 'package:home_yogi_flutter/models/response/home/setting_notification_response.dart';
+import 'package:home_yogi_flutter/modules/main/tabs/setting/model/setting_model.dart';
+import 'package:home_yogi_flutter/shared/constants/string_constant.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../models/response/auth/user_detail_response.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../shared/constants/storage.dart';
+import 'edit_profile/edit_profile_controller.dart';
 
-class SettingController extends GetxController{
-  final ApiRepository apiRepository;
-  SettingController({required this.apiRepository});
+class SettingController extends GetxController {
+  final ApiRepository repository;
+  UserDetailResponse userDetailResponse = UserDetailResponse();
+  var settingNotificationResponse = SettingNotificationResponse();
+  final RefreshController refreshController = RefreshController();
+  final prefs = Get.find<SharedPreferences>();
+  SettingController({required this.repository});
+  var data1 = Get.put(EditProfileController);
+  //var title = "Setting".obs;
 
   RxBool switchValue = false.obs;
-  final picker = ImagePicker();
-  final double imageMaxWidth = Get.width;
-  final double imageMaxHeight = Get.height;
-  final int imageQuality = 50;
-  var locationValue = ''.obs;
-  var pickedImagePath = ''.obs;
+  RxString name = ''.obs;
+  String image = '';
+  EditProfileController editProfileController =
+      Get.put(EditProfileController(repository: Get.find()));
 
   List<SettingModel> settingList = [
-    SettingModel(icon: 'notification_bing',  title: StringConstants.pushNotification),
-    SettingModel(icon: 'about_me',    title: StringConstants.aboutMe),
-    SettingModel(icon: 'shield_tick',  title: StringConstants.termsAndCondition),
-    SettingModel(icon: 'logout',   title: StringConstants.signOut),
+    SettingModel(
+        icon: 'notification_bing', title: StringConstants.pushNotification),
+    SettingModel(icon: 'star', title: StringConstants.planAndBilling),
+    SettingModel(icon: 'crown', title: StringConstants.referAndEarn),
+    SettingModel(icon: 'voice_assistants', title: StringConstants.voiceSupport),
+    SettingModel(icon: 'shield_tick', title: StringConstants.termsAndCondition),
+    SettingModel(icon: 'logout', title: StringConstants.signOut),
   ];
 
-  void pickImage({required ImageSource imageSource}) async {
-    try {
-      final pickedImage = await picker.pickImage(
-        source: imageSource,
-        // maxWidth: imageMaxWidth,
-        // maxHeight: imageMaxHeight,
-        imageQuality: imageQuality,
+  getUsersData() async {
+    final prefs = Get.find<SharedPreferences>();
+    if (prefs.getString(StorageConstants.userData) != null) {
+      userDetailResponse = UserDetailResponse.fromJson(
+        jsonDecode(prefs.getString(StorageConstants.userData)!),
       );
-
-      if (pickedImage != null) {
-        //pickedImageFile?.value = File(pickedImage.path) ;
-        pickedImagePath.value = pickedImage.path;
-        // DependencyInjection.userResponse.value.profileImage?.value =
-        //     pickedImagePath.value;
-        print(
-            "pickedImagePath.value.....................${pickedImagePath.value}");
-        File imageFile = File(pickedImage.path);
-
-        print('File path = ${pickedImage.path}');
-        print(
-            'File size = ${(imageFile.lengthSync() / 1024).toStringAsFixed(2)} KB');
-      } else {
-        print('No image selected.');
-        Get.snackbar(
-          'Error',
-          'No Image Selected.',
-        );
-      }
-    } catch (ex) {
-      print('Error ===> ${ex.toString()}');
+      name.value = userDetailResponse.fullname.toString();
+      image = userDetailResponse.profileImage.toString();
     }
   }
 
+  // loginOutUser() async {
+  //   var get = await repository.logOut({
+  //     "deviceId": "G4urR2TanUp92389lpvcN9a3",
+  //   });
+  //   print("getLogOut${get?.dioMessage}");
+  // }
+
+  void logOutUser() async {
+    try {
+      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      String? deviceId;
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidDeviceInfo =
+            await deviceInfoPlugin.androidInfo;
+        deviceId = androidDeviceInfo.id;
+        printInfo(info: 'deviceId123 ==> $deviceId');
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+        deviceId = iosDeviceInfo.identifierForVendor;
+      }
+
+      printInfo(info: 'deviceId ==> $deviceId');
+      if (deviceId != null) {
+        var commonResponse = await repository.logOut({'deviceId': deviceId});
+        printInfo(info: 'commonResponse ==> ${commonResponse?.dioMessage}');
+        if (commonResponse!.dioMessage!.contains('logout successfully')) {
+          // final prefs = Get.find<SharedPreferences>();
+          await prefs.clear();
+          await prefs.setBool(StorageConstants.showOnBoarding, true);
+          Get.offAllNamed(Routes.SIGNIN);
+
+          ;
+        }
+      }
+    } catch (ex) {
+      printInfo(info: 'error ==> ${ex.toString()}');
+    }
+  }
+
+  getSettingNotification() async {
+    var res = await repository.getSettingNotification();
+    if (res != null) {
+      settingNotificationResponse = res;
+    }
+    print("settingNotificationResponse============${res}");
+  }
+
+  updateSettingNotification(bool val) async {
+    //print("reqVal========${val}");
+    var res = await repository.updateSettingNotification({"all": val});
+    print("updateSettingNotification${res}");
+  }
+
+  @override
+  void onInit() {
+    getUsersData();
+    super.onInit();
+  }
 }

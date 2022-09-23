@@ -2,7 +2,8 @@ import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../../shared/constants/color_constants.dart';
+
+import '../../shared/constants/colors.dart';
 import '../../shared/constants/png_image_constant.dart';
 import '../../shared/constants/svg_image_constant.dart';
 import '../../shared/utils/math_utils.dart';
@@ -16,7 +17,7 @@ class MainTab extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => WillPopScope(
+      () => WillPopScope(
         onWillPop: () async {
           return false;
           // final isFirstRouteInCurrentTab = !(await controller
@@ -66,7 +67,7 @@ class MainTab extends GetView<MainController> {
     return SlidingClippedNavBar(
       backgroundColor: Colors.transparent,
       onButtonPressed: (index) =>
-      index == 2 ? null : controller.switchTab(index),
+          index == 2 ? null : controller.switchTab(index),
       iconSize: getSize(24),
       activeColor: Colors.white,
       selectedIndex: controller.currentTabIndex.value,
@@ -94,8 +95,8 @@ class MainTab extends GetView<MainController> {
 
   _buildBarItem(
       {required String normalIcon,
-        required String selectedIcon,
-        required String title}) {
+      required String selectedIcon,
+      required String title}) {
     return NavBarItem(
       normalIcon: SvgPicture.asset(
         normalIcon,
@@ -173,80 +174,3 @@ class MainTab extends GetView<MainController> {
 //   );
 // }
 }
-
-
-
-// class MainTab extends GetView<MainController> {
-//   const MainTab({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Obx(
-//       () => WillPopScope(
-//         onWillPop: () {
-//           return controller.onWillPop();
-//         },
-//         child: _buildWidget(),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildWidget() {
-//     return Scaffold(
-//       body: IndexedStack(
-//         index: controller.pageIndex.value,
-//         children: List<Widget>.generate(
-//           controller.pageList.length,
-//           (int index) {
-//             return Navigator(
-//               onGenerateRoute: (RouteSettings settings) {
-//                 return controller.onGenerateRoute(
-//                     settings, controller.pageList[index]);
-//               },
-//             );
-//           },
-//         ),
-//       ),
-//       // bottomNavigationBar: BottomNavigationDot(
-//       //   paddingBottomCircle: getSize(14),
-//       //   currentIndex: controller.currentTabIndex.value,
-//       //   activeColor: ColorConstants.kPrimary,
-//       //   color: ColorConstants.unSelectedIconColor,
-//       //   items: [
-//       //     BottomNavigationDotItem(
-//       //       icon: getAssetsSVGImg('tab_icon_profile'),
-//       //       onTap: () {
-//       //         controller.switchTab(0);
-//       //         // changePage("flutter");
-//       //       },
-//       //     ),
-//       //     BottomNavigationDotItem(
-//       //       icon: getAssetsSVGImg('tab_icon_location'),
-//       //       onTap: () {
-//       //         controller.switchTab(1);
-//       //       },
-//       //     ),
-//       //     BottomNavigationDotItem(
-//       //       icon: getAssetsSVGImg('tab_icon_search'),
-//       //       onTap: () {
-//       //         controller.switchTab(2);
-//       //       },
-//       //     ),
-//       //     BottomNavigationDotItem(
-//       //       icon: getAssetsSVGImg('tab_icon_chat'),
-//       //       onTap: () {
-//       //         controller.switchTab(3);
-//       //       },
-//       //     ),
-//       //     BottomNavigationDotItem(
-//       //       icon: getAssetsSVGImg('tab_icon_notification'),
-//       //       onTap: () {
-//       //         controller.switchTab(4);
-//       //       },
-//       //     ),
-//       //   ],
-//       //   milliseconds: 400,
-//       // ),
-//     );
-//   }
-// }

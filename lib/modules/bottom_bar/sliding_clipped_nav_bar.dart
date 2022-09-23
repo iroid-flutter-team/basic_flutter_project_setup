@@ -2,7 +2,7 @@ library sliding_clipped_nav_bar;
 
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-import '../../shared/constants/color_constants.dart';
+import '../../shared/constants/colors.dart';
 import '../../shared/utils/math_utils.dart';
 import '../../shared/widgets/common_boxshadow.dart';
 import 'nav_bar_body.dart';

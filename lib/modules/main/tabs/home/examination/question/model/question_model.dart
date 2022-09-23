@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 
 class QuestionModel {
-  final int id;
-  final String title;
-  final List<String> imagePathList;
-  final RxList<String> localImagePathList = <String>[].obs;
-  final String question;
-  final String tip;
-  final int coin;
-  final bool questionSubmitted;
+   int id;
+   String title;
+   List<String> imagePathList;
+   RxList<String> localImagePathList = <String>[].obs;
+   String question;
+   String tip;
+   int coin;
+   RxBool questionSubmitted;
 
   QuestionModel({
     required this.id,

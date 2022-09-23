@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../../../shared/widgets/common_appbar.dart';
+import '../../../../../../../shared/widgets/common_app_bar.dart';
 
 class ViewPhotoScreen extends StatelessWidget {
   const ViewPhotoScreen({
@@ -36,4 +35,3 @@ class ViewPhotoScreen extends StatelessWidget {
     );
   }
 }
-

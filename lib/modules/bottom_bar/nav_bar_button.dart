@@ -1,6 +1,6 @@
-import 'package:align_flutter_app/shared/widgets/base_text.dart';
 import 'package:flutter/material.dart';
-import '../../shared/constants/color_constants.dart';
+import 'package:home_yogi_flutter/shared/constants/colors.dart';
+
 import '../../shared/utils/math_utils.dart';
 import 'nav_bar_body.dart';
 
@@ -107,7 +107,7 @@ class _NavBarButtonState extends State<NavBarButton>
                   widget.isSelected ? widget.selectedIcon : widget.normalIcon,
             ),
             Positioned(
-              bottom: getSize(20),
+              bottom: getSize(10),
               child: Transform.translate(
                 offset: const Offset(
                   0,
@@ -123,10 +123,24 @@ class _NavBarButtonState extends State<NavBarButton>
                       ),
                     ),
                   ),
-                  child: BaseText(
-                    text: widget.index == 0 ? "Home" :widget.index == 1 ? "History" : widget.index == 3 ? "Notification" : widget.index == 4 ? "Setting" : "",
-                    fontSize: widget.index == 3 ? 12 : 12,
-                    fontWeight: FontWeight.w500,
+                  child: Container(
+                    height: getSize(15),
+                    width: getSize(42),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: ColorConstants.progressColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.elliptical(getSize(42), getSize(12)),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 0),
+                          blurRadius: 10,
+                          spreadRadius: 5,
+                          color: ColorConstants.progressColor.withOpacity(0.5),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

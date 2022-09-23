@@ -1,4 +1,4 @@
-const Map<String, String> pt_BR = {
+const Map<String, String> ptBR = {
   'covid': 'Corona Vírus',
   'total_confirmed': 'Total confirmado',
   'total_deaths': 'Total de mortes',
