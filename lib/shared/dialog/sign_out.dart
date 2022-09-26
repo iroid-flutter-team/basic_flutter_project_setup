@@ -1,10 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:home_yogi_flutter/shared/constants/colors.dart';
-import 'package:home_yogi_flutter/shared/shared.dart';
-import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
-import 'package:home_yogi_flutter/shared/widgets/base_text.dart';
+import '../constants/color_constants.dart';
+import '../utils/math_utils.dart';
 import '../widgets/base_elevated_button.dart';
+import '../widgets/base_text.dart';
 import '../widgets/common_container_shadow.dart';
 
 class CustomAlertDialog extends StatelessWidget {

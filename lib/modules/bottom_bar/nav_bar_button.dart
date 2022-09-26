@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:home_yogi_flutter/shared/constants/colors.dart';
 
+import 'package:flutter/material.dart';
+import '../../shared/constants/color_constants.dart';
 import '../../shared/utils/math_utils.dart';
+import '../../shared/widgets/base_text.dart';
 import 'nav_bar_body.dart';
 
 class NavBarButton extends StatefulWidget {
+  final String title;
   final Widget normalIcon;
   final Widget selectedIcon;
   final bool isSelected;
@@ -19,6 +21,7 @@ class NavBarButton extends StatefulWidget {
 
   const NavBarButton({
     Key? key,
+    required this.title,
     required this.normalIcon,
     required this.selectedIcon,
     required this.size,
@@ -107,7 +110,7 @@ class _NavBarButtonState extends State<NavBarButton>
                   widget.isSelected ? widget.selectedIcon : widget.normalIcon,
             ),
             Positioned(
-              bottom: getSize(10),
+              bottom: getSize(20),
               child: Transform.translate(
                 offset: const Offset(
                   0,
@@ -123,24 +126,10 @@ class _NavBarButtonState extends State<NavBarButton>
                       ),
                     ),
                   ),
-                  child: Container(
-                    height: getSize(15),
-                    width: getSize(42),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: ColorConstants.progressColor,
-                      borderRadius: BorderRadius.all(
-                        Radius.elliptical(getSize(42), getSize(12)),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 0),
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                          color: ColorConstants.progressColor.withOpacity(0.5),
-                        ),
-                      ],
-                    ),
+                  child: BaseText(
+                    text: widget.index == 0 ? "Home" :widget.index == 1 ? "History" : widget.index == 3 ? "Notification" : widget.index == 4 ? "Setting" : "",
+                    fontSize: widget.index == 3 ? 12 : 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

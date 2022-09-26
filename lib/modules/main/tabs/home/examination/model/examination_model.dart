@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_yogi_flutter/shared/constants/constants.dart';
-import 'package:home_yogi_flutter/shared/constants/svg_image_constant.dart';
+import '../../../../../../shared/constants/color_constants.dart';
+import '../../../../../../shared/constants/string_constant.dart';
+import '../../../../../../shared/constants/svg_image_constant.dart';
 
 class ExaminationModel {
   final String image;

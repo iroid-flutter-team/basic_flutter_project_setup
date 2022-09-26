@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
-class ExaminationController  extends GetxController{
-  
+import '../../../../../api/api_repository.dart';
+
+class ExaminationController extends GetxController{
+  final ApiRepository apiRepository;
+  ExaminationController({required this.apiRepository});
+
 }

@@ -18,12 +18,12 @@ class CommonResponse<T> {
   });
 
   CommonResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    status = json['success'];
     dioMessage = json['message'];
     data = json['data'];
+    print(data);
     errors = json['errors'] != null ? Errors.fromJson(json['errors']) : null;
-    print("jsonMeta =========${json['meta']}");
-    if ( json["meta"] != null) {
+    if (json.containsKey("meta") && json["meta"] != null) {
       meta = Meta.fromJson(json['meta']);
     }
   }
@@ -85,12 +85,12 @@ class Errors {
 
   Errors(
       {this.firstName,
-        this.lastName,
-        this.email,
-        this.birthDate,
-        this.lookingFor,
-        this.gender,
-        this.lookingGender});
+      this.lastName,
+      this.email,
+      this.birthDate,
+      this.lookingFor,
+      this.gender,
+      this.lookingGender});
 
   Errors.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name']?.cast<String>();
@@ -128,7 +128,7 @@ class ErrorResponse {
   ErrorResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message =
-    json['message'] != null ? Message.fromJson(json['message']) : null;
+        json['message'] != null ? Message.fromJson(json['message']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -207,7 +207,7 @@ class ErrorSimpleResponse {
 
 class Meta {
   int? total;
-  int? totalPage;
+  int? lastPage;
   int? perPage;
   int? currentPage;
   int? from;
@@ -215,15 +215,15 @@ class Meta {
 
   Meta(
       {this.total,
-        this.totalPage,
-        this.perPage,
-        this.currentPage,
-        this.from,
-        this.to});
+      this.lastPage,
+      this.perPage,
+      this.currentPage,
+      this.from,
+      this.to});
 
   Meta.fromJson(Map<String, dynamic> json) {
     total = json['total'];
-    totalPage = json['totalPage'];
+    lastPage = json['lastPage'];
     perPage = json['perPage'];
     currentPage = json['currentPage'];
     from = json['from'];
@@ -233,7 +233,7 @@ class Meta {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['total'] = total;
-    data['totalPage'] = totalPage;
+    data['lastPage'] = lastPage;
     data['perPage'] = perPage;
     data['currentPage'] = currentPage;
     data['from'] = from;

@@ -1,9 +1,11 @@
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import 'package:home_yogi_flutter/shared/shared.dart';
-import 'package:home_yogi_flutter/shared/utils/math_utils.dart';
-import 'package:home_yogi_flutter/shared/widgets/common_boxshadow.dart';
+
+
+import '../constants/color_constants.dart';
+import '../utils/math_utils.dart';
+import 'common_boxshadow.dart';
 
 class CommonContainerWithShadow extends StatelessWidget {
   final double? height;

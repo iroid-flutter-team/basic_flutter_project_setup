@@ -59,30 +59,34 @@ class NavBarBody extends StatelessWidget {
           final int buttonIndex = barItems.indexOf(item);
 
           return item is NavBarItem
-              ? NavBarButton(
-                  normalIcon: item.normalIcon,
-                  selectedIcon: item.selectedIcon,
-                  size: iconSize,
-                  index: buttonIndex,
-                  isSelected: buttonIndex == selectedIndex ? true : false,
-                  onTap: onButtonPress,
-                  slidingCardColor: backgroundColor,
-                  itemCount: barItems.length,
-                  fontSize: fontSize,
-                  fontWeight: fontWeight,
-                  fontStyle: fontStyle,
-                )
+              ? Expanded(
+                child: NavBarButton(
+                    normalIcon: item.normalIcon,
+                    selectedIcon: item.selectedIcon,
+                    size: iconSize,
+                    index: buttonIndex,
+                    isSelected: buttonIndex == selectedIndex ? true : false,
+                    onTap: onButtonPress,
+                    slidingCardColor: backgroundColor,
+                    itemCount: barItems.length,
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                    fontStyle: fontStyle,
+                    title: '',
+                  ),
+              )
               : Padding(
-                  padding: EdgeInsets.zero,
-                  child: item,
-                );
+                    padding: EdgeInsets.zero,
+                    child: item,
+
+              );
         },
       ).toList(),
     );
   }
 
   buildCenterBulbWidget() {
-    //   return BottomNavigationBarItem(
+          //   return BottomNavigationBarItem(
     //     icon: Container(
     //       height: getSize(44),
     //       width: getSize(44),

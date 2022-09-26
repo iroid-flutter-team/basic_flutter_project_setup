@@ -1,4 +1,4 @@
-const Map<String, String> enUS = {
+const Map<String, String> en_US = {
   'covid': 'Corona Virus',
   'total_confirmed': 'Total Confirmed',
   'total_deaths': 'Total Deaths',

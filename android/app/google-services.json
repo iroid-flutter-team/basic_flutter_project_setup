@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "736017034632",
+    "project_id": "home-yogi-e45fa",
+    "storage_bucket": "home-yogi-e45fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736017034632:android:973739a4b6c2551aa15e3d",
+        "android_client_info": {
+          "package_name": "com.iroid.account_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736017034632-j8ck4d6i9tjcbni8ia6kv3c1jv6it9im.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwnvX47mNDFOREyHMTlFcTDpPq2EMKtjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736017034632-j8ck4d6i9tjcbni8ia6kv3c1jv6it9im.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

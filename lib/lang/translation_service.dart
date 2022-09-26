@@ -9,7 +9,7 @@ class TranslationService extends Translations {
   static final fallbackLocale = Locale('en', 'US');
   @override
   Map<String, Map<String, String>> get keys => {
-        'en_US': enUS,
-        'pt_BR': ptBR,
+        'en_US': en_US,
+        'pt_BR': pt_BR,
       };
 }

@@ -1,12 +1,12 @@
-import 'package:get/instance_manager.dart';
-import 'package:home_yogi_flutter/modules/main/tabs/setting/setting_controller.dart';
+
+import 'package:align_flutter_app/modules/main/tabs/setting/setting_controller.dart';
+import 'package:get/get.dart';
 
 class SettingBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SettingController>(
-      () => SettingController(
-        repository: Get.find(),
+    Get.lazyPut<SettingController>(() => SettingController(
+      apiRepository: Get.find(),
       ),
     );
   }
