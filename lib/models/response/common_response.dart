@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class CommonResponse<T> {
   bool? status;
+  bool? isExist;
   String? dioMessage;
   T? data;
   List<T>? listData;
@@ -10,6 +11,7 @@ class CommonResponse<T> {
 
   CommonResponse({
     this.status,
+    this.isExist,
     this.dioMessage,
     this.data,
     this.listData,
@@ -19,6 +21,7 @@ class CommonResponse<T> {
 
   CommonResponse.fromJson(Map<String, dynamic> json) {
     status = json['success'];
+    isExist = json['isExist'];
     dioMessage = json['message'];
     data = json['data'];
     print(data);
@@ -31,6 +34,7 @@ class CommonResponse<T> {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = status;
+    data['isExist'] = isExist;
     data['message'] = dioMessage;
     data['data'] = data;
     data['errors'] = errors;

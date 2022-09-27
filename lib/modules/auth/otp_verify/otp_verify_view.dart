@@ -1,6 +1,7 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -18,7 +19,10 @@ import '../../main/main_tab.dart';
 import 'otp_verify_controller.dart';
 
 class OtpVerifyView extends GetView<OtpVerifyController> {
-  const OtpVerifyView({Key? key}) : super(key: key);
+  final String verify;
+  final TextEditingController phoneController;
+  final TextEditingController countryCodeController;
+  const OtpVerifyView({Key? key, required this.verify, required this.phoneController, required this.countryCodeController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                     ),
                     BaseText(
                       textAlign: TextAlign.center,
-                      text: "+1 230-333-0181",
+                      text: "${countryCodeController.text} ${phoneController.text}",
                       fontSize: 14,
                     ),
                   ],
@@ -103,11 +107,11 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
         // opacity: controller.resendOtpTime.value == 0 ? 0.4 : 1,
         Center(
           child: AbsorbPointer(
-            absorbing:false,
+            absorbing: false,
             child: CommonOTPTextField(
               keyboardType: TextInputType.number,
               controller: controller.otpController,
-              length: 5,
+              length: 6,
               isDense: true,
               width: Get.size.width,
               textFieldAlignment: MainAxisAlignment.spaceAround,
@@ -130,6 +134,7 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                 ],
               ),
               onChanged: (pin) {
+                controller.code = pin;
                 // print("Changed: " + pin);
                 // controller.otpValue.value = pin;
                 // if (controller.otpValue.value.length < 5) {
@@ -151,6 +156,19 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
           child: Align(
             alignment: Alignment.centerRight,
             child: InkWell(
+              onTap: ()async{
+                await FirebaseAuth.instance.verifyPhoneNumber(
+                  phoneNumber: countryCodeController.text + phoneController.text,
+                  verificationCompleted: (PhoneAuthCredential credential) {
+                  },
+                  verificationFailed: (FirebaseAuthException e) {
+                  },
+                  codeSent: (String verificationId, int? resendToken) {
+                  },
+                  codeAutoRetrievalTimeout: (String verificationId) {
+                  },
+                );
+              },
               // onTap: (controller.resendOtpTime.value == 0 &&
               //     controller.sendOtpView.value == false)
               //     ? () {
@@ -172,7 +190,16 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
   _buttonSendOTP() {
     return BaseElevatedButton(
       width: Get.width,
-      onPressed: () {
+      onPressed: () async {
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: verify, smsCode: controller.code);
+        // Sign the user in (or link) with the credential
+        var res = await controller.auth.signInWithCredential(credential);
+        var idToken = await res.user?.getIdToken();
+        if(idToken != null){
+          controller.login(idToken!);
+        }
+       // print("idToken========$idToken");
         // Get.offAll(
         //   MainTab(),
         //   binding: MainBindings(),

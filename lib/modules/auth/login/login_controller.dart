@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_repository.dart';
 import '../../../shared/constants/common_otp_textfield.dart';
+import '../otp_verify/otp_verify_binding.dart';
+import '../otp_verify/otp_verify_view.dart';
 
 class SignInWithPhoneNumberController extends GetxController{
   final ApiRepository repository;
@@ -15,6 +19,37 @@ class SignInWithPhoneNumberController extends GetxController{
    TextEditingController countryController = TextEditingController();
    TextEditingController phoneNumberController = TextEditingController();
    var phone = "";
+
+   checkManagerExist() async{
+     var res = await repository.checkManagerExist(
+       {
+         "phoneNumber": countryController.text + phoneNumberController.text,
+       }
+     );
+      if(res?.dioMessage == "success"){
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: countryController.text + phoneNumberController.text,
+
+          verificationCompleted: (PhoneAuthCredential credential) {
+            print("token===================${credential.token}");
+            EasyLoading.showToast("Success");
+          },
+          verificationFailed: (FirebaseAuthException e) {
+              EasyLoading.showToast("Failed");
+          },
+          codeSent: (String verificationId, int? resendToken) {
+            Get.offAll(
+              OtpVerifyView(verify: verificationId,countryCodeController: countryController, phoneController: phoneNumberController,),
+              binding: OtpVerifyBindings(),
+            );
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+          },
+        );
+      }
+
+   }
+
   @override
   void onInit() {
     countryController.text = "+91";
@@ -22,52 +57,6 @@ class SignInWithPhoneNumberController extends GetxController{
     super.onInit();
   }
 
-
-  // OtpFieldController otpController = OtpFieldController();
-  // final emailValue = ''.obs;
-  // final otpValue = ''.obs;
-  // RxBool buttonClickable = false.obs;
-  // RxBool sendOtpView = true.obs;
-  // final prefs = Get.find<SharedPreferences>();
-  //
-  // isValidEmail() {
-  //   if (emailValue.isEmpty) {
-  //     return false;
-  //   } else if (!Regex.isEmail(emailValue.value)) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-  //
-  // @override
-  // void onClose() {
-  //   timer?.cancel();
-  //   super.onClose();
-  // }
-  //
-  // void startTimer() {
-  //   resendOtpTime.value = 60;
-  //   const oneSec = Duration(seconds: 1);
-  //   timer = Timer.periodic(
-  //     oneSec,
-  //         (Timer timer) {
-  //       if (resendOtpTime.value == 0) {
-  //         timer.cancel();
-  //       } else {
-  //         resendOtpTime.value--;
-  //       }
-  //     },
-  //   );
-  // }
-  //
-  showResendTime() {
-    String strDigits(int n) => n.toString().padLeft(2, '0');
-    return '00 : ' +
-        strDigits(
-          resendOtpTime.value.remainder(60),
-        );
-  }
-  //
   // loginUser({bool fromResendOtp = false}) async {
   //   var get = await repository.login({
   //     "email": emailController.text,

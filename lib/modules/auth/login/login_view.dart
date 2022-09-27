@@ -104,14 +104,7 @@ class SignInWithPhoneNumberScreen
                 controller: controller.countryController,
                 textInputType: TextInputType.text,
                 enable: true,
-                //  prefixIcon: Padding(padding: EdgeInsets.all(12.0), child: SvgPicture.asset(getAssetsSVGImg('email'),),),
                 textInputAction: TextInputAction.next,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please enter email address.';
-                //   }
-                //   return null;
-                // },
               ),
             ),
             SizedBox(
@@ -119,9 +112,6 @@ class SignInWithPhoneNumberScreen
             ),
             Expanded(
               child: InputTextField(
-                // onChanged: (value){
-                //   controller.phone = value;
-                // },
                 controller: controller.phoneNumberController,
                 textInputType: TextInputType.number,
                 hintText: StringConstants.hintPhoneNumber,
@@ -146,24 +136,26 @@ class SignInWithPhoneNumberScreen
     return BaseElevatedButton(
       width: Get.width,
       onPressed: () async{
-        await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: controller.countryController.text + controller.phoneNumberController.text,
-
-          verificationCompleted: (PhoneAuthCredential credential) {
-            print("${credential.token}");
-            EasyLoading.showToast("Success");
-          },
-          verificationFailed: (FirebaseAuthException e) {
-            EasyLoading.showToast("Failed");
-          },
-          codeSent: (String verificationId, int? resendToken) {
-            Get.offAll(
-              OtpVerifyView(),
-              binding: OtpVerifyBindings(),
-            );
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {},
-        );
+        controller.checkManagerExist();
+        // await FirebaseAuth.instance.verifyPhoneNumber(
+        //   phoneNumber: controller.countryController.text + controller.phoneNumberController.text,
+        //
+        //   verificationCompleted: (PhoneAuthCredential credential) {
+        //     print("token===================${credential.token}");
+        //     EasyLoading.showToast("Success");
+        //   },
+        //   verificationFailed: (FirebaseAuthException e) {
+        //     EasyLoading.showToast("Failed");
+        //   },
+        //   codeSent: (String verificationId, int? resendToken) {
+        //
+        //     // Get.offAll(
+        //     //   OtpVerifyView(),
+        //     //   binding: OtpVerifyBindings(),
+        //     // );
+        //   },
+        //   codeAutoRetrievalTimeout: (String verificationId) {},
+        // );
       },
       child: BaseText(
         text: "SEND OTP",

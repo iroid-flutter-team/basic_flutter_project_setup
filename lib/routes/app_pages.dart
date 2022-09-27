@@ -69,11 +69,11 @@ class AppPages {
       page: () => SettingView(),
       binding: SettingBindings(),
     ),
-    GetPage(
-      name: Routes.OTP_VERIFICATION,
-      page: () => OtpVerifyView(),
-      binding: OtpVerifyBindings(),
-    ),
+    // GetPage(
+    //   name: Routes.OTP_VERIFICATION,
+    //   page: () => OtpVerifyView(),
+    //   binding: OtpVerifyBindings(),
+    // ),
     GetPage(
       name: Routes.TODAY_JOBS,
       page: () => TodayJobsView(),

@@ -10,16 +10,18 @@ import 'base_provider.dart';
 class ApiProvider extends BaseProvider {
   CommonResponse commonResponse = CommonResponse();
   final NetworkManager networkManager = Get.put(NetworkManager());
+
   Future<CommonResponse> postMethod(String path, dynamic data,
       {bool isMultipart = false, FormData? formData}) async {
     printInfo(info: "API Request ======= $data");
 
-    if (networkManager.connectionType.value != 0) {
+    {
       Response response = await post(
         path,
         isMultipart ? formData : data,
         headers: {
           'accept': 'application/json',
+          'Content-Type': 'application/json'
         },
       ).catchError((error) {
         print(error);
@@ -28,18 +30,20 @@ class ApiProvider extends BaseProvider {
 
       if (response.body != null && response.statusCode == 200) {
         commonResponse = CommonResponse.fromJson(response.body);
-
-        if (commonResponse.dioMessage != null) {
+        if (commonResponse.dioMessage != null ) {
           await EasyLoading.showToast(commonResponse.dioMessage!);
         }
       } else {
         EasyLoading.dismiss();
-        await EasyLoading.showToast(StringConstants.serverError);
+        await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
       }
-    } else {
-      EasyLoading.dismiss();
-      await EasyLoading.showToast(StringConstants.networkError);
+      print("CommonResponse12==========${commonResponse.dioMessage}");
     }
+    print("CommonResponse==========${commonResponse.dioMessage}");
+    // else {
+    //   EasyLoading.dismiss();
+    //   await EasyLoading.showToast(StringConstants.networkError);
+    // }
 
     return commonResponse;
   }
