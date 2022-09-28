@@ -31,7 +31,7 @@ class SignInWithPhoneNumberController extends GetxController{
           phoneNumber: countryController.text + phoneNumberController.text,
 
           verificationCompleted: (PhoneAuthCredential credential) {
-            print("token===================${credential.token}");
+           // print("token===================${credential.token}");
             EasyLoading.showToast("Success");
           },
           verificationFailed: (FirebaseAuthException e) {

@@ -1,8 +1,11 @@
+import 'package:align_flutter_app/shared/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api/api_repository.dart';
+import '../../../models/response/auth/login_response.dart';
 import '../../../shared/constants/common_otp_textfield.dart';
 
 class OtpVerifyController extends GetxController{
@@ -10,14 +13,14 @@ class OtpVerifyController extends GetxController{
   OtpVerifyController({required this.repository});
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
+  final prefs = Get.find<SharedPreferences>();
 
   OtpFieldController otpController = OtpFieldController();
   final formKey = GlobalKey<FormState>();
   // Timer? timer;
   var resendOtpTime = 0.obs;
   var code = "";
-
+  var loginResponse = LoginResponse().obs;
 
   showResendTime() {
     String strDigits(int n) => n.toString().padLeft(2, '0');
@@ -31,8 +34,9 @@ class OtpVerifyController extends GetxController{
     var res = await repository.login({
       "idToken" : token,
     });
-    print("res===========${res?.data}");
+     if(res != null){
+       loginResponse.value = res;
+       await prefs.setString(StorageConstants.token, res.authentication!.accessToken!);
+     }
   }
-
-
 }

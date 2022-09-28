@@ -1,20 +1,20 @@
-class JobsResponse {
+class JobResponse {
   List<TodayJobs>? todayJobs;
   List<TodayJobs>? futureJobs;
 
-  JobsResponse({this.todayJobs, this.futureJobs});
+  JobResponse({this.todayJobs, this.futureJobs});
 
-  JobsResponse.fromJson(Map<String, dynamic> json) {
+  JobResponse.fromJson(Map<String, dynamic> json) {
     if (json['todayJobs'] != null) {
       todayJobs = <TodayJobs>[];
       json['todayJobs'].forEach((v) {
-        todayJobs!.add(new TodayJobs.fromJson(v));
+        todayJobs!.add(TodayJobs.fromJson(v));
       });
     }
     if (json['futureJobs'] != null) {
       futureJobs = <TodayJobs>[];
       json['futureJobs'].forEach((v) {
-        futureJobs!.add(new TodayJobs.fromJson(v));
+        futureJobs!.add(TodayJobs.fromJson(v));
       });
     }
   }
@@ -43,7 +43,7 @@ class TodayJobs {
     jobId = json['jobId'];
     notes = json['notes'];
     inspectionDate = json['inspectionDate'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -98,3 +98,4 @@ class User {
     return data;
   }
 }
+

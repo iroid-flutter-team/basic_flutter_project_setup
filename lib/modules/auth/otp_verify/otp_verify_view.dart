@@ -196,14 +196,15 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
         // Sign the user in (or link) with the credential
         var res = await controller.auth.signInWithCredential(credential);
         var idToken = await res.user?.getIdToken();
+        print("idToken========$idToken");
         if(idToken != null){
-          controller.login(idToken!);
+          controller.login(idToken);
+          Get.offAll(
+            MainTab(),
+            binding: MainBindings(),
+          );
         }
-       // print("idToken========$idToken");
-        // Get.offAll(
-        //   MainTab(),
-        //   binding: MainBindings(),
-        // );
+
       },
       child: BaseText(
         text: "SUBMIT",

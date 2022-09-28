@@ -1,6 +1,7 @@
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/response/common_response.dart';
 import '../network/network_manger.dart';
@@ -8,6 +9,7 @@ import '../shared/constants/constants.dart';
 import 'base_provider.dart';
 
 class ApiProvider extends BaseProvider {
+  final prefs = Get.find<SharedPreferences>();
   CommonResponse commonResponse = CommonResponse();
   final NetworkManager networkManager = Get.put(NetworkManager());
 
@@ -37,9 +39,9 @@ class ApiProvider extends BaseProvider {
         EasyLoading.dismiss();
         await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
       }
-      print("CommonResponse12==========${commonResponse.dioMessage}");
+    //  print("CommonResponse12==========${commonResponse.dioMessage}");
     }
-    print("CommonResponse==========${commonResponse.dioMessage}");
+   // print("CommonResponse==========${commonResponse.dioMessage}");
     // else {
     //   EasyLoading.dismiss();
     //   await EasyLoading.showToast(StringConstants.networkError);
@@ -54,7 +56,8 @@ class ApiProvider extends BaseProvider {
       path,
       headers: {
         'accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ${prefs.getString(StorageConstants.token)}',
+        //'Content-Type': 'application/json'
       },
     ).catchError((e) {
       print("==ERROR===${e.toString()}");

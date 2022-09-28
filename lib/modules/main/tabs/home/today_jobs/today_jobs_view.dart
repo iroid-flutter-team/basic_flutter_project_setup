@@ -1,4 +1,5 @@
 
+import 'package:align_flutter_app/modules/main/tabs/home/home_view_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,7 +15,7 @@ import '../../../../../shared/widgets/base_text.dart';
 import '../../../../../shared/widgets/common_appbar.dart';
 import '../../../../../shared/widgets/common_container_shadow.dart';
 
-class TodayJobsView extends StatelessWidget {
+class TodayJobsView extends GetView<HomeController> {
   const TodayJobsView({Key? key}) : super(key: key);
 
   @override
@@ -51,7 +52,7 @@ class TodayJobsView extends StatelessWidget {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 2,
+      itemCount: controller.jobsResponse.value.todayJobs?.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(top: getSize(30)),
@@ -76,7 +77,7 @@ class TodayJobsView extends StatelessWidget {
                         width: getSize(20),
                       ),
                       BaseText(
-                        text: "John Andrew",
+                        text: controller.jobsResponse.value.todayJobs![index].user?.fullname.toString() ?? "",
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -155,8 +156,7 @@ class TodayJobsView extends StatelessWidget {
                         width: getSize(7),
                       ),
                       BaseText(
-                        text:
-                        "2873 Mulberry Lane, Fort Lauderdale,\nFlorida, 33301",
+                        text: controller.jobsResponse.value.todayJobs![index].user?.address.toString() ?? "",
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),

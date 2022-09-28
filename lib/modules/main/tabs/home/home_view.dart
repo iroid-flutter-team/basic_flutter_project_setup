@@ -1,4 +1,4 @@
-
+import 'package:align_flutter_app/modules/main/tabs/home/home_view_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +12,7 @@ import '../../../../shared/widgets/base_text.dart';
 import '../../../../shared/widgets/common_appbar.dart';
 import '../../../../shared/widgets/common_container_shadow.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding:  EdgeInsets.only(right: getSize(25), bottom: getSize(10)),
+            padding: EdgeInsets.only(right: getSize(25), bottom: getSize(10)),
             child: SvgPicture.asset(
               SvgImageConstants.message1,
               height: getSize(30),
@@ -74,9 +74,16 @@ class HomeView extends StatelessWidget {
             width: Get.width,
             height: getSize(38),
             child: Center(
-              child: BaseText(
-                text: "let’s help you finish your workday",
-                fontSize: 14,
+              child: Obx(
+                () {
+                  return BaseText(
+                    text: controller.jobsResponse.value.futureJobs == null
+                        ? "let’s help you finish your workday"
+                        : controller.jobsResponse.value.futureJobs![0].user
+                            .toString(),
+                    fontSize: 14,
+                  );
+                },
               ),
             ),
           ),
@@ -86,10 +93,6 @@ class HomeView extends StatelessWidget {
           InkWell(
             onTap: () {
               Get.toNamed(Routes.TODAY_JOBS);
-              // Get.off(
-              //   TodayJobsView(),
-              //   binding: TodayJobsBindings(),
-              // );
             },
             child: CommonContainerWithShadow(
               height: getSize(74),

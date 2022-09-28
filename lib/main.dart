@@ -6,16 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'app_binding.dart';
 import 'di.dart';
 import 'lang/lang.dart';
 import 'routes/routes.dart';
 import 'shared/constants/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+ // Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
   await DenpendencyInjection.init();
 
   SystemChrome.setSystemUIOverlayStyle(
