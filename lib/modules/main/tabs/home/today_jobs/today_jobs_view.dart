@@ -1,10 +1,11 @@
-
+import 'package:align_flutter_app/models/response/home/job_response.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view_controller.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/today_jobs/today_jobs_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../../routes/app_pages.dart';
 import '../../../../../shared/constants/color_constants.dart';
 import '../../../../../shared/constants/png_image_constant.dart';
@@ -15,8 +16,11 @@ import '../../../../../shared/widgets/base_text.dart';
 import '../../../../../shared/widgets/common_appbar.dart';
 import '../../../../../shared/widgets/common_container_shadow.dart';
 
-class TodayJobsView extends GetView<HomeController> {
-  const TodayJobsView({Key? key}) : super(key: key);
+class TodayJobsView extends GetView<TodayJobsController> {
+  // final List<TodayJobs> listData;
+  const TodayJobsView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,11 @@ class TodayJobsView extends GetView<HomeController> {
           ),
           BaseText(
             textAlign: TextAlign.center,
-            text: "29/04/2022",
+            text: //"29/04/2022"
+            DateFormat('dd/MM/yyyy').format(
+              DateTime.fromMillisecondsSinceEpoch(
+                  controller.listData[0].inspectionDate?.toInt() ?? 0),)
+            ,
             fontSize: 10,
             fontWeight: FontWeight.w600,
             textColor: ColorConstants.white.withOpacity(0.8),
@@ -48,11 +56,12 @@ class TodayJobsView extends GetView<HomeController> {
       ),
     );
   }
-  _buildListView(){
+
+  _buildListView() {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: controller.jobsResponse.value.todayJobs?.length,
+      itemCount: controller.listData.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(top: getSize(30)),
@@ -69,21 +78,44 @@ class TodayJobsView extends GetView<HomeController> {
                 children: [
                   Row(
                     children: [
-                      Image.asset(
-                        PngImageConstants.user,
-                        height: getSize(24),
+                      Container(
+                        height: getSize(35),
+                        width: getSize(35),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: NetworkImage(controller
+                                    .listData[index].user?.profileImage
+                                    .toString() ?? ""),
+                            fit: BoxFit.cover
+                          ),
+                        ),
                       ),
+                      // Image.network(
+                      //   controller.listData[index].user?.profileImage
+                      //           .toString() ??
+                      //       "",
+                      //   height: getSize(24),
+                      //   fit: BoxFit.cover,
+                      //   //width: getSize(50),
+                      // ),
+                      // Image.asset(
+                      //   PngImageConstants.user,
+                      //   height: getSize(24),
+                      // ),
                       SizedBox(
                         width: getSize(20),
                       ),
                       BaseText(
-                        text: controller.jobsResponse.value.todayJobs![index].user?.fullname.toString() ?? "",
+                        text: controller.listData[index].user?.fullname
+                                .toString() ??
+                            "",
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                       Spacer(),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Get.toNamed(Routes.MESSAGE);
                         },
                         child: SvgPicture.asset(
@@ -121,7 +153,12 @@ class TodayJobsView extends GetView<HomeController> {
                   Row(
                     children: [
                       BaseText(
-                        text: "29/04/2022",
+                        text: DateFormat('dd/MM/yyyy').format(
+                          DateTime.fromMillisecondsSinceEpoch(controller
+                                  .listData[index].inspectionDate
+                                  ?.toInt() ??
+                              0),
+                        ),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
@@ -129,7 +166,12 @@ class TodayJobsView extends GetView<HomeController> {
                         width: getSize(32),
                       ),
                       BaseText(
-                        text: "09:00 AM",
+                        text: DateFormat('hh:mm').format(
+                          DateTime.fromMillisecondsSinceEpoch(controller
+                                  .listData[index].inspectionDate
+                                  ?.toInt() ??
+                              0),
+                        ),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
@@ -145,7 +187,7 @@ class TodayJobsView extends GetView<HomeController> {
                     textColor: ColorConstants.white.withOpacity(0.6),
                   ),
                   SizedBox(
-                    height: getSize(4),
+                    height: getSize(6),
                   ),
                   Row(
                     children: [
@@ -156,7 +198,9 @@ class TodayJobsView extends GetView<HomeController> {
                         width: getSize(7),
                       ),
                       BaseText(
-                        text: controller.jobsResponse.value.todayJobs![index].user?.address.toString() ?? "",
+                        text: controller.listData[index].user?.address
+                                .toString() ??
+                            "",
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
@@ -166,10 +210,11 @@ class TodayJobsView extends GetView<HomeController> {
                     height: getSize(40),
                   ),
                   BaseElevatedButton(
+                    borderRadius: BorderRadius.circular(8),
                     width: Get.width,
                     height: getSize(32),
                     onPressed: () {
-                      Get.toNamed(Routes.EXAMINATION);
+                      Get.toNamed(Routes.EXAMINATION, arguments: controller.listData[index].jobId);
                       // Get.off(
                       //   ExaminationView(),
                       //   binding: ExaminationBindings(),

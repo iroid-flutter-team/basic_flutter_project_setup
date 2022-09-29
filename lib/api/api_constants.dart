@@ -3,4 +3,5 @@ class ApiConstants {
   static const checkManagerExist = 'auth/check-manager-exist';
   static const login = 'auth/login';
   static const jobs = 'jobs';
+  static const examination = 'examinations';
 }

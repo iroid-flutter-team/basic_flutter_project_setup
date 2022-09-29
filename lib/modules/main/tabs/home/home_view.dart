@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/modules/main/tabs/home/future_jobs/future_jobs_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/home_view_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,97 +66,102 @@ class HomeView extends GetView<HomeController> {
       padding: EdgeInsets.symmetric(
         horizontal: getSize(25),
       ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: getSize(25),
-          ),
-          CommonContainerWithShadow(
-            width: Get.width,
-            height: getSize(38),
-            child: Center(
-              child: Obx(
-                () {
-                  return BaseText(
-                    text: controller.jobsResponse.value.futureJobs == null
-                        ? "let’s help you finish your workday"
-                        : controller.jobsResponse.value.futureJobs![0].user
-                            .toString(),
-                    fontSize: 14,
-                  );
-                },
+      child: Obx(() {
+        return Column(
+          children: [
+            SizedBox(
+              height: getSize(25),
+            ),
+            CommonContainerWithShadow(
+              width: Get.width,
+              height: getSize(38),
+              child: Center(
+                child:  BaseText(
+                      text: "let’s help you finish your workday",
+                      fontSize: 14,
+                    ),
               ),
             ),
-          ),
-          SizedBox(
-            height: getSize(30),
-          ),
-          InkWell(
-            onTap: () {
-              Get.toNamed(Routes.TODAY_JOBS);
-            },
-            child: CommonContainerWithShadow(
-              height: getSize(74),
-              child: Padding(
-                padding: EdgeInsets.only(right: getSize(30), left: getSize(12)),
-                child: Row(
-                  children: [
-                    BaseText(
-                      text: "Today jobs",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
-                      width: getSize(10),
-                    ),
-                    BaseText(
-                      text: "2",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    Spacer(),
-                    SvgPicture.asset(
-                      SvgImageConstants.arrowRight1,
-                      height: getSize(20),
-                    ),
-                  ],
+            SizedBox(
+              height: getSize(30),
+            ),
+            InkWell(
+              onTap: () {
+               controller.jobsResponse.value.todayJobs!.isEmpty ? FutureJobsView() : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs);
+              },
+              child: CommonContainerWithShadow(
+                height: getSize(74),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      right: getSize(30), left: getSize(12)),
+                  child: Row(
+                    children: [
+                      BaseText(
+                        text: "Today jobs",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        width: getSize(10),
+                      ),
+                      BaseText(
+                        text: controller.jobsResponse.value.todayJobs?.length.toString() ?? "",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      Spacer(),
+                      SvgPicture.asset(
+                        SvgImageConstants.arrowRight1,
+                        height: getSize(20),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: getSize(20),
-          ),
-          CommonContainerWithShadow(
-            height: getSize(74),
-            child: Padding(
-              padding: EdgeInsets.only(right: getSize(30), left: getSize(12)),
-              child: Row(
-                children: [
-                  BaseText(
-                    text: "Future jobs",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+            SizedBox(
+              height: getSize(20),
+            ),
+            InkWell(
+              onTap: () {
+                //Get.toNamed(Routes.FUTURE_JOBS);
+                 controller.jobsResponse.value.futureJobs!.isEmpty ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
+              },
+              child: CommonContainerWithShadow(
+                height: getSize(74),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      right: getSize(30), left: getSize(12)),
+                  child: Row(
+                    children: [
+                      BaseText(
+                        text: "Future jobs",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        width: getSize(10),
+                      ),
+                      BaseText(
+                        text: controller.jobsResponse.value.futureJobs?.length
+                            .toString() ??
+                            "",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      Spacer(),
+                      SvgPicture.asset(
+                        SvgImageConstants.arrowRight1,
+                        height: getSize(20),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  BaseText(
-                    text: "0",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  Spacer(),
-                  SvgPicture.asset(
-                    SvgImageConstants.arrowRight1,
-                    height: getSize(20),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

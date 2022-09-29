@@ -1,6 +1,7 @@
 import 'package:align_flutter_app/models/response/auth/login_response.dart';
 
 import '../models/response/common_response.dart';
+import '../models/response/home/inspection/examination_response.dart';
 import '../models/response/home/job_response.dart';
 import 'api.dart';
 
@@ -39,4 +40,15 @@ class ApiRepository {
     return null;
   }
 
+  Future<List<ExaminationResponse>?> getExamination(int id) async {
+    final res = await apiProvider.getMethod("${ApiConstants.examination}/$id");
+    print("ExaminationResponse==============${res.data}");
+    if (res.data != null) {
+      List<dynamic> listData = res.data;
+      return listData.map((e) => ExaminationResponse.fromJson(e as Map<String, dynamic>)).toList();
+      //return ExaminationResponse.fromJson(res.data);
+    }else{
+      return null;
+    }
+  }
 }
