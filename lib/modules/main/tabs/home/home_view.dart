@@ -87,7 +87,7 @@ class HomeView extends GetView<HomeController> {
             ),
             InkWell(
               onTap: () {
-               controller.jobsResponse.value.todayJobs!.isEmpty ? FutureJobsView() : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs);
+               controller.jobsResponse.value.todayJobs == null ? FutureJobsView() : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),
@@ -125,7 +125,7 @@ class HomeView extends GetView<HomeController> {
             InkWell(
               onTap: () {
                 //Get.toNamed(Routes.FUTURE_JOBS);
-                 controller.jobsResponse.value.futureJobs!.isEmpty ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
+                 controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),

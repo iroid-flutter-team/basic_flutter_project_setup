@@ -1,9 +1,10 @@
 import 'package:align_flutter_app/models/response/auth/login_response.dart';
-
+import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
 import '../models/response/common_response.dart';
 import '../models/response/home/inspection/examination_response.dart';
 import '../models/response/home/job_response.dart';
 import 'api.dart';
+import 'package:get/get.dart';
 
 class ApiRepository {
   ApiRepository({required this.apiProvider});
@@ -51,4 +52,35 @@ class ApiRepository {
       return null;
     }
   }
+
+  Future<List<QuestionsResponse>?> getQuestion(int examinationId, int jobId) async {
+    final res = await apiProvider.getMethod("${ApiConstants.questions}/$examinationId/$jobId");
+    print("QuestionsResponse==============${res.data}");
+    if (res.data != null) {
+      List<dynamic> listData = res.data;
+      return listData.map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>)).toList();
+    }
+    return null;
+  }
+
+  Future<List<QuestionsResponse>?> examinationAnswer(FormData data) async {
+    print("Data : ======$data");
+    final res = await apiProvider.postMethod(ApiConstants.answers,
+        {},formData: data, isMultipart: true);
+    print("resData : ======${res.data}");
+    if (res.data != null) {
+      List<dynamic> listData = res.data;
+      return listData
+          .map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
+      // return ExaminationResponse.fromJson(res.data);
+    } else {
+      return null;
+    }
+    // if (res.dioMessage != null) {
+    //   return CommonResponse(dioMessage: res.dioMessage);
+    // }
+    return null;
+  }
+
 }

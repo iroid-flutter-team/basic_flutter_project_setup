@@ -42,11 +42,10 @@ class TodayJobsView extends GetView<TodayJobsController> {
           ),
           BaseText(
             textAlign: TextAlign.center,
-            text: //"29/04/2022"
-            DateFormat('dd/MM/yyyy').format(
-              DateTime.fromMillisecondsSinceEpoch(
-                  controller.listData[0].inspectionDate?.toInt() ?? 0),)
-            ,
+            text: "29/04/2022",
+            // DateFormat('dd/MM/yyyy').format(
+            //   DateTime.fromMillisecondsSinceEpoch(
+            //       controller.listData[0].inspectionDate?.toInt() ?? 0),),
             fontSize: 10,
             fontWeight: FontWeight.w600,
             textColor: ColorConstants.white.withOpacity(0.8),

@@ -1,8 +1,10 @@
 
+import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../api/api_repository.dart';
+import '../../../../../../models/response/home/inspection/questions_response.dart';
 import '../question/model/question_model.dart';
 import 'model/add_indspect_model.dart';
 
@@ -20,10 +22,12 @@ class AddInspectController extends GetxController{
   final RxList<double> values = [0.0, 1.0, 2.0, 3.0, 4.0].obs;
   RxList res1 = <String>[].obs;
   List<Widget> chips = [];
+  var questionsResponse = <QuestionsResponse>[].obs;
+  var jobId = Get.arguments;
+  var questionID = Get.arguments as QuestionModel;
 
   initQuestions() {
     addInspectionModelList.clear();
-
     addInspectionModelList.add(
       AddInspectionModel(
         id: 1,
@@ -55,5 +59,20 @@ class AddInspectController extends GetxController{
 
   }
 
+
+   getAnswer()async{
+    final formData = FormData({
+      'questionId' : questionID,
+      'jobId' : jobId,
+      'images' : '',
+      'notes' : addNoteController.text,
+      'tags' : '',
+      'location' : locationController.text,
+      'rating' : '',
+      'checklistIds' : '',
+
+    });
+    var res = await apiRepository.examinationAnswer(formData);
+   }
 
 }

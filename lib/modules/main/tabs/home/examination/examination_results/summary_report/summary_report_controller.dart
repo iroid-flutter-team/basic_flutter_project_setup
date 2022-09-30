@@ -56,9 +56,8 @@ class SummaryReportController extends GetxController{
         imagePathList: [],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+       // coin: 5,
         questionSubmitted: false,
       ),
     );
@@ -73,9 +72,8 @@ class SummaryReportController extends GetxController{
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+      //  coin: 5,
         questionSubmitted: true,
       ),
     );
@@ -89,9 +87,8 @@ class SummaryReportController extends GetxController{
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+       // coin: 5,
         questionSubmitted: true,
       ),
     );
@@ -102,9 +99,8 @@ class SummaryReportController extends GetxController{
         imagePathList: [],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+      //  coin: 5,
         questionSubmitted: false,
       ),
     );
@@ -120,9 +116,8 @@ class SummaryReportController extends GetxController{
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+       // coin: 5,
         questionSubmitted: true,
       ),
     );

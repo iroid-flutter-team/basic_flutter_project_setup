@@ -77,8 +77,7 @@ class ExaminationView extends GetView<ExaminationController> {
       padding: EdgeInsets.symmetric(vertical: getSize(12)),
       child: CommonListTileWithImage(
         total: 100,
-        image:
-        Image.network(
+        image: Image.network(
           examinationResponse.iconImage.toString(),
           height: getSize(39),
         ),
@@ -121,8 +120,11 @@ class ExaminationView extends GetView<ExaminationController> {
         onClickCallback: examinationResponse.isLocked ?? false
             ? null
             : () {
-          Get.toNamed(Routes.QUESTION, arguments: examinationResponse);
-        },
+                Get.toNamed(
+                  Routes.QUESTION,
+                  arguments: [examinationResponse, controller.jobId],
+                );
+              },
         progressBar: null,
       ),
     );

@@ -4,4 +4,6 @@ class ApiConstants {
   static const login = 'auth/login';
   static const jobs = 'jobs';
   static const examination = 'examinations';
+  static const questions = 'questions';
+  static const answers = 'answers';
 }

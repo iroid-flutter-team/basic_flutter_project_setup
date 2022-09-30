@@ -1,3 +1,5 @@
+import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
+import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import '../../../../../../api/api_repository.dart';
@@ -11,9 +13,11 @@ class QuestionController extends GetxController {
 
   final CarouselController carouselController = CarouselController();
   final List<QuestionModel> questionModelList = [];
+  var questionsResponse = <QuestionsResponse>[].obs;
   final Rx<int> currentQuestion = 0.obs;
   RxDouble distanceValue = 0.0.obs;
-
+   var argumentData = Get.arguments[0] as ExaminationResponse;
+   var jobId = Get.arguments[1];
   // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   // 'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
   // 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
@@ -31,9 +35,7 @@ class QuestionController extends GetxController {
         imagePathList: [],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
         questionSubmitted: false,
       ),
     );
@@ -48,9 +50,7 @@ class QuestionController extends GetxController {
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
         questionSubmitted: true,
       ),
     );
@@ -64,9 +64,7 @@ class QuestionController extends GetxController {
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
         questionSubmitted: true,
       ),
     );
@@ -77,9 +75,7 @@ class QuestionController extends GetxController {
         imagePathList: [],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
         questionSubmitted: false,
       ),
     );
@@ -95,9 +91,8 @@ class QuestionController extends GetxController {
         ],
         question:
         'Inspect the unit to make sure it’s in good working condition?',
-        tip:
-        'Tip: Do not fully cover your air conditioning unit during the winter.',
-        coin: 5,
+       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+
         questionSubmitted: true,
       ),
     );
@@ -113,6 +108,34 @@ class QuestionController extends GetxController {
     //print('localImagePathList.length = ${questionModelList[currentQuestion.value].localImagePathList.length}');
 
 
+  }
+
+  getQuestion(int examinationId, int jobId)async{
+    var res = await apiRepository.getQuestion(examinationId , jobId);
+     if(res != null && res.isNotEmpty){
+       questionsResponse.value = res;
+       if(questionsResponse.isNotEmpty){
+         questionModelList.clear();
+         for(int i=0;i <questionsResponse.length; i++){
+           questionModelList.add(
+             QuestionModel(
+               id: questionsResponse[i].questionId!,
+               title: questionsResponse[i].title!,
+               imagePathList: questionsResponse[i].answer!.images == null ? [] :questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
+               question: questionsResponse[i].description!,
+               questionSubmitted: false,),
+           );
+         }
+       }
+     }
+  }
+  
+
+  @override
+  void onInit() {
+    print("jobID=============$jobId");
+    //getQuestion(argumentData.examinationId ?? 0, jobId);
+    super.onInit();
   }
 
 }
