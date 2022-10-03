@@ -39,7 +39,7 @@ class SignInWithPhoneNumberController extends GetxController{
           },
           codeSent: (String verificationId, int? resendToken) {
             Get.offAll(
-              OtpVerifyView(verify: verificationId,countryCodeController: countryController, phoneController: phoneNumberController,),
+              OtpVerifyView(verify: verificationId, countryCodeController: countryController, phoneController: phoneNumberController,),
               binding: OtpVerifyBindings(),
             );
           },

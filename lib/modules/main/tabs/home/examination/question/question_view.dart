@@ -36,8 +36,7 @@ class QuestionView extends GetView<QuestionController> {
   }
 
   _buildMainBody(ExaminationResponse examinationResponse) {
-    controller.getQuestion(
-        examinationResponse.examinationId!, controller.jobId);
+    controller.getQuestion(examinationResponse.examinationId!, controller.jobId);
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

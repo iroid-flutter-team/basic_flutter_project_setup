@@ -1,3 +1,4 @@
+import 'dart:ffi';
 
 import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
 import 'package:flutter/widgets.dart';
@@ -8,23 +9,24 @@ import '../../../../../../models/response/home/inspection/questions_response.dar
 import '../question/model/question_model.dart';
 import 'model/add_indspect_model.dart';
 
-class AddInspectController extends GetxController{
+class AddInspectController extends GetxController {
   final ApiRepository apiRepository;
   AddInspectController({required this.apiRepository});
   var addInspectionModelList = <AddInspectionModel>[].obs;
   RxBool isCheck = false.obs;
   RxBool isCheck1 = false.obs;
-  RxDouble distanceValue = 0.0.obs;
+  var distanceValue = 0.0.obs;
   RxInt divisionValue = 4.obs;
   TextEditingController addNoteController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   final RxList<String> localImagePathList = <String>[].obs;
-  final RxList<double> values = [0.0, 1.0, 2.0, 3.0, 4.0].obs;
-  RxList res1 = <String>[].obs;
+  final RxList<int> values = [0, 1, 2, 3, 4].obs;
+  RxList chipsList = <String>[].obs;
   List<Widget> chips = [];
   var questionsResponse = <QuestionsResponse>[].obs;
   var jobId = Get.arguments;
-  var questionID = Get.arguments as QuestionModel;
+  QuestionsResponse questionModel= QuestionsResponse();
+ //var questionID = Get.arguments as QuestionModel;
 
   initQuestions() {
     addInspectionModelList.clear();
@@ -56,23 +58,49 @@ class AddInspectController extends GetxController{
         ],
       ),
     );
-
   }
 
-
-   getAnswer()async{
+  getAnswer() async {
+    // int index = 0;
+    // printInfo(info: 'id :=======$id');
+    // for(index = 0 ; index < addInspectionModelList.length; index++){
+    //   if(addInspectionModelList[index].id == id){
+    //     break;
+    //   }
+    // }
+    var imageList = <String>[
+      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+    ];
     final formData = FormData({
-      'questionId' : questionID,
-      'jobId' : jobId,
-      'images' : '',
-      'notes' : addNoteController.text,
-      'tags' : '',
-      'location' : locationController.text,
-      'rating' : '',
-      'checklistIds' : '',
-
+      'questionId': 33,
+      'jobId': 17,
+      'images': imageList
+          .map((e) => MultipartFile(e,
+              filename: 'document.png', contentType: "image/png"))
+          .toList(),
+      'notes': addNoteController.text,
+      'tags': chipsList,
+      'location': locationController.text,
+      'rating': distanceValue,
+      'checklistIds': '2',
     });
     var res = await apiRepository.examinationAnswer(formData);
-   }
+    printInfo(info: 'res =========== $res');
+    // if(res != null && res.isNotEmpty){
+    // questionsResponse.value = res;
+    //printInfo(info: 'questionsResponse ========== ${questionsResponse[0].title}');
+    //  }
+  }
 
+  @override
+  void onInit() {
+
+    questionModel = Get.arguments as QuestionsResponse;
+    if(questionModel != null){
+      addNoteController.text = questionModel.answer?.notes??'';
+    }
+    super.onInit();
+  }
 }

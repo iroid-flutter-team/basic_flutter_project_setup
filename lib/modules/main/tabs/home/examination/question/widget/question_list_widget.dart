@@ -182,7 +182,7 @@ class QuestionListWidget extends GetView<QuestionController> {
             //   _showDialog();
             // },
             onPressed: () {
-              Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel.id);
+              Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel);
             },
             child: BaseText(
               text: StringConstants.inspect,

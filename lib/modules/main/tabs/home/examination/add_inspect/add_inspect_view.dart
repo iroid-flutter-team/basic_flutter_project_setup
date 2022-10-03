@@ -155,7 +155,7 @@ class AddInspectView extends GetView<AddInspectController> {
                   AddTagDialog(),
                 );
                 if (res != null) {
-                  controller.res1 = res;
+                  controller.chipsList = res;
                 }
                 //showAddTagDialog();
               },
@@ -185,15 +185,15 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           Obx(
             () {
-              print("res123======${controller.res1.length}");
+              print("res123======${controller.chipsList.length}");
               return Wrap(
                 spacing: 16,
                 children: List.generate(
-                  controller.res1.length,
+                  controller.chipsList.length,
                   (index) => InputChip(
                     //selected: _selected[i],
                     label: BaseText(
-                      text: controller.res1[index],
+                      text: controller.chipsList[index],
                       textColor: ColorConstants.white,
                       fontSize: 18,
                     ),
@@ -206,7 +206,7 @@ class AddInspectView extends GetView<AddInspectController> {
                     ),
                     onPressed: () {},
                     onDeleted: () {
-                      controller.res1.removeAt(index);
+                      controller.chipsList.removeAt(index);
                     },
                   ),
                 ),
@@ -286,7 +286,9 @@ class AddInspectView extends GetView<AddInspectController> {
             height: getSize(30),
           ),
           BaseElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.getAnswer();
+            },
             child: BaseText(
               text: "ADD",
             ),
@@ -349,11 +351,11 @@ class AddInspectView extends GetView<AddInspectController> {
               return Slider(
                 min: 0,
                 max: controller.values.length - 1,
-                value: controller.distanceValue.value,
+                value: controller.distanceValue.value.toDouble(),
                 divisions: controller.values.length - 1,
                 //activeColor: Color(0XFF3D4D71),
                 onChanged: (double value) {
-                  controller.distanceValue.value = value.toDouble();
+                controller.distanceValue.value = value.toDouble();
                   print("distanceValue ======== ${controller.distanceValue}");
                 },
               );
@@ -410,14 +412,14 @@ class AddInspectView extends GetView<AddInspectController> {
   }
 
   Widget buildChips(BuildContext context) {
-    for (int i = 0; i < controller.res1.length; i++) {
+    for (int i = 0; i < controller.chipsList.length; i++) {
       ChipTheme actionChip = ChipTheme(
         data: ChipTheme.of(context).copyWith(),
         child: Obx(() {
           return InputChip(
             //selected: _selected[i],
             label: BaseText(
-              text: controller.res1[i],
+              text: controller.chipsList[i],
               textColor: ColorConstants.white,
               fontSize: 18,
             ),
@@ -430,8 +432,8 @@ class AddInspectView extends GetView<AddInspectController> {
             ),
             onPressed: () {},
             onDeleted: () {
-              controller.res1.removeAt(i);
-              controller.res1 = controller.res1;
+              controller.chipsList.removeAt(i);
+              controller.chipsList = controller.chipsList;
             },
           );
         }),

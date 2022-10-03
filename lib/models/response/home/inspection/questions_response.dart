@@ -19,15 +19,15 @@ class QuestionsResponse {
     if (json['checklists'] != null) {
       checklists = <Checklists>[];
       json['checklists'].forEach((v) {
-        checklists!.add(new Checklists.fromJson(v));
+        checklists!.add(Checklists.fromJson(v));
       });
     }
     answer =
-    json['answer'] != null ? new Answer.fromJson(json['answer']) : null;
+    json['answer'] != null ? Answer.fromJson(json['answer']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['questionId'] = this.questionId;
     data['title'] = this.title;
     data['description'] = this.description;
@@ -55,7 +55,7 @@ class Checklists {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['checklistId'] = this.checklistId;
     data['option'] = this.option;
     data['isChecked'] = this.isChecked;
@@ -68,7 +68,7 @@ class Answer {
   String? notes;
   String? tags;
   String? location;
-  double? rating;
+  num? rating;
   List<Images>? images;
 
   Answer(
@@ -88,13 +88,13 @@ class Answer {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['answerId'] = this.answerId;
     data['notes'] = this.notes;
     data['tags'] = this.tags;
@@ -119,7 +119,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['imageId'] = this.imageId;
     data['image'] = this.image;
     return data;
@@ -142,7 +142,7 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['total'] = this.total;
     data['perPage'] = this.perPage;
     data['totalPage'] = this.totalPage;

@@ -23,12 +23,13 @@ class ApiProvider extends BaseProvider {
         isMultipart ? formData : data,
         headers: {
           'accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Authorization': 'Bearer ${prefs.getString(StorageConstants.token)}',
+          //'Content-Type': 'application/json'
         },
       ).catchError((error) {
         print(error);
       });
-      printInfo(info: "RESPONSE ======= ${response.body}");
+      printInfo(info: "POST RESPONSE ======= ${response.body}");
 
       if (response.body != null && response.statusCode == 200) {
         commonResponse = CommonResponse.fromJson(response.body);
@@ -57,12 +58,12 @@ class ApiProvider extends BaseProvider {
       headers: {
         'accept': 'application/json',
         'Authorization': 'Bearer ${prefs.getString(StorageConstants.token)}',
-        //'Content-Type': 'application/json'
+       // 'Content-Type': 'application/json'
       },
     ).catchError((e) {
       print("==ERROR===${e.toString()}");
     });
-    printInfo(info: "RESPONSE ======= ${response.body}");
+    printInfo(info: "GET RESPONSE ======= ${response.body}");
     if (response.statusCode == 200 && response.body != null) {
       commonResponse = CommonResponse.fromJson(response.body);
       if (commonResponse.dioMessage != null) {
