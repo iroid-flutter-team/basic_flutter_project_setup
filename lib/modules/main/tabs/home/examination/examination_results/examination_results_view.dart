@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/routes/app_pages.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,10 +76,15 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
             height: getSize(20),
           ),
           BaseElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.SUMMARY_REPORT);
+            },
             child: BaseText(
               text: "GO TO SUMMARY REPORT",
             ),
+          ),
+          SizedBox(
+            height: getSize(20),
           ),
         ],
       ),

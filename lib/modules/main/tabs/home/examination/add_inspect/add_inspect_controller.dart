@@ -25,7 +25,8 @@ class AddInspectController extends GetxController {
   List<Widget> chips = [];
   var questionsResponse = <QuestionsResponse>[].obs;
   var jobId = Get.arguments;
-  QuestionsResponse questionModel= QuestionsResponse();
+ // QuestionsResponse questionModel= QuestionsResponse();
+  QuestionModel? questionModel;
  //var questionID = Get.arguments as QuestionModel;
 
   initQuestions() {
@@ -60,7 +61,7 @@ class AddInspectController extends GetxController {
     );
   }
 
-  getAnswer() async {
+  getAnswer(int id) async {
     // int index = 0;
     // printInfo(info: 'id :=======$id');
     // for(index = 0 ; index < addInspectionModelList.length; index++){
@@ -68,13 +69,32 @@ class AddInspectController extends GetxController {
     //     break;
     //   }
     // }
-    var imageList = <String>[
-      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-      '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-    ];
+    var answerList = <String>[];
+    var imageList = <String>[];
+    int index = 0;
+    printInfo(info: 'id :$id');
+    // var imageList = <String>[
+    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
+    // ];
+    for (index=0; index < addInspectionModelList.length; index++) {
+      // for (int j = 0; j < questionModelList[i].localImagePathList.length; j++) {
+      if (addInspectionModelList[index].id == id) {
+        imageList = (addInspectionModelList[index].localImagePathList.toList());
+        print("imageList987===============$imageList");
+        break;
+        // printInfo(
+        //     info:
+        //         ' Test Image list====${questionModelList[i].localImagePathList.toList()}');
+        //
+        // }
+      }
+      print("imageList===============$imageList");
+    }
+    print("imageList123===============$imageList");
     final formData = FormData({
-      'questionId': 33,
+      'questionId': questionModel?.id ?? 0,
       'jobId': 17,
       'images': imageList
           .map((e) => MultipartFile(e,
@@ -88,19 +108,27 @@ class AddInspectController extends GetxController {
     });
     var res = await apiRepository.examinationAnswer(formData);
     printInfo(info: 'res =========== $res');
-    // if(res != null && res.isNotEmpty){
-    // questionsResponse.value = res;
-    //printInfo(info: 'questionsResponse ========== ${questionsResponse[0].title}');
-    //  }
+    print("imageList456===============$imageList");
+    if(res != null && res.isNotEmpty){
+    questionsResponse.value = res;
+    for(int i = 0;  i < questionsResponse.length;  i++){
+      answerList.add(questionsResponse[i].answer!.images.toString());
+    }
+    return answerList;
+     }
+    return answerList;
   }
 
   @override
   void onInit() {
-
-    questionModel = Get.arguments as QuestionsResponse;
+    questionModel = Get.arguments as QuestionModel;
     if(questionModel != null){
-      addNoteController.text = questionModel.answer?.notes??'';
+      addNoteController.text = questionModel?.notes ?? "";
+      locationController.text =  questionModel?.location ?? "";
+      distanceValue.value = questionModel!.rating.toDouble();
+      localImagePathList.value = questionModel!.imagePathList;
     }
+    print("addNoteController==========${questionModel!.imagePathList}");
     super.onInit();
   }
 }

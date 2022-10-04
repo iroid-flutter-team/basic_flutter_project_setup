@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:align_flutter_app/modules/main/tabs/setting/setting_controller.dart';
+import 'package:align_flutter_app/modules/main/tabs/setting/terms_and_condition/terms_and_condition_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/setting/widget/common_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../shared/constants/color_constants.dart';
 import '../../../../shared/constants/png_image_constant.dart';
 import '../../../../shared/constants/string_constant.dart';
@@ -175,6 +177,7 @@ class SettingView extends GetView<SettingController> {
       case 1:
         break;
       case 2:
+        Get.toNamed(Routes.TERMS_CONDITION);
         break;
       case 3:
         _showSignOutDialog();

@@ -33,6 +33,8 @@ import '../modules/main/tabs/notification/notification_binding.dart';
 import '../modules/main/tabs/notification/notification_view.dart';
 import '../modules/main/tabs/setting/setting_binding.dart';
 import '../modules/main/tabs/setting/setting_view.dart';
+import '../modules/main/tabs/setting/terms_and_condition/terms_and_condition_binding.dart';
+import '../modules/main/tabs/setting/terms_and_condition/terms_and_condition_view.dart';
 
 part 'app_routes.dart';
 
@@ -118,6 +120,11 @@ class AppPages {
       name: Routes.EXAMINATION_RESULT,
       page: () => ExaminationResultsView(),
       binding: ExaminationResultsBinding(),
+    ),
+    GetPage(
+      name: Routes.TERMS_CONDITION,
+      page: () => TermsConditionScreen(),
+      binding: TermsConditionBinding(),
     ),
   ];
 }

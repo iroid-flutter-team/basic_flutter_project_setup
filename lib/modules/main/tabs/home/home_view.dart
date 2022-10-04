@@ -50,9 +50,14 @@ class HomeView extends GetView<HomeController> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: getSize(25), bottom: getSize(10)),
-            child: SvgPicture.asset(
-              SvgImageConstants.message1,
-              height: getSize(30),
+            child: InkWell(
+              onTap: (){
+                Get.toNamed(Routes.MESSAGE);
+              },
+              child: SvgPicture.asset(
+                SvgImageConstants.message1,
+                height: getSize(30),
+              ),
             ),
           ),
         ],
@@ -124,8 +129,9 @@ class HomeView extends GetView<HomeController> {
             ),
             InkWell(
               onTap: () {
-                //Get.toNamed(Routes.FUTURE_JOBS);
-                 controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
+                Get.toNamed(Routes.FUTURE_JOBS);
+                // controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
+                 //controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),

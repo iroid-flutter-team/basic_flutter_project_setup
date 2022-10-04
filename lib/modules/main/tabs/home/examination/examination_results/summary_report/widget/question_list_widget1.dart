@@ -23,7 +23,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
   Widget build(BuildContext context) {
     return CarouselSlider(
       items: controller.questionModelList.map(
-        (questionModel) {
+            (questionModel) {
           return Builder(
             builder: (BuildContext context) {
               return CommonContainerWithShadow(
@@ -60,7 +60,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
       padding: EdgeInsets.all(getSize(16.0),
       ),
       child: ListView(
-       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           BaseText(text: questionModel.title),
           SizedBox(
@@ -73,30 +73,37 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
           CommonContainerWithShadow(
             backgroundColor: ColorConstants.black,
             child: Padding(
-              padding: EdgeInsets.only(left: getSize(20), top: getSize(11), bottom: getSize(11), right:  getSize(11)),
+              padding: EdgeInsets.only(left: getSize(20),
+                  top: getSize(11),
+                  bottom: getSize(11),
+                  right: getSize(11)),
               child: Row(
                 children: [
-                  BaseText(text: "Problem",fontSize: 12,),
+                  BaseText(text: "Problem", fontSize: 12,),
                   Spacer(),
-                  SvgPicture.asset(
-                    controller.isMinor.value
-                        ? getAssetsSVGImg('radio_circle_fill')
-                        : getAssetsSVGImg('radio_circle'),
-                  ),
+                  Obx(() {
+                    return SvgPicture.asset(
+                      controller.isMinor.value
+                          ? getAssetsSVGImg('radio_circle_fill')
+                          : getAssetsSVGImg('radio_circle'),
+                    );
+                  }),
                   SizedBox(
                     width: getSize(10),
                   ),
-                  BaseText(text: "Major",fontSize: 12,),
+                  BaseText(text: "Major", fontSize: 12,),
                   Spacer(),
-                  SvgPicture.asset(
-                    controller.isMinor.value
-                        ? getAssetsSVGImg('radio_circle_fill')
-                        : getAssetsSVGImg('radio_circle'),
-                  ),
+                  Obx(() {
+                    return SvgPicture.asset(
+                      controller.isMinor.value
+                          ? getAssetsSVGImg('radio_circle_fill')
+                          : getAssetsSVGImg('radio_circle'),
+                    );
+                  }),
                   SizedBox(
                     width: getSize(10),
                   ),
-                  BaseText(text: "Minor",fontSize: 12,),
+                  BaseText(text: "Minor", fontSize: 12,),
                 ],
               ),
             ),
@@ -125,6 +132,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
       ),
     );
   }
+
   _buildTagsView() {
     final theme = Get.theme.copyWith(
       dividerColor: Colors.transparent,
@@ -147,7 +155,8 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
               return ExpansionTile(
                 initiallyExpanded: controller.isTileExpanded.value,
                 onExpansionChanged: (bool expanded) {
-                  print("expanded===========${controller.isTileExpanded.value}");
+                  print(
+                      "expanded===========${controller.isTileExpanded.value}");
                   controller.isTileExpanded.value = expanded;
                 },
                 key: GlobalKey(),
@@ -181,6 +190,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
       ),
     );
   }
+
   _buildTagList() {
     return SizedBox(
       height: getSize(150),
@@ -245,7 +255,8 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
               return ExpansionTile(
                 initiallyExpanded: controller.isTileExpanded1.value,
                 onExpansionChanged: (bool expanded) {
-                  print("expanded===========${controller.isTileExpanded1.value}");
+                  print(
+                      "expanded===========${controller.isTileExpanded1.value}");
                   controller.isTileExpanded1.value = expanded;
                 },
                 key: GlobalKey(),
@@ -253,7 +264,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                 childrenPadding: EdgeInsets.all(0.0),
                 title: BaseText(
                   text: controller.recommendation.value,
-                                 ),
+                ),
                 children: [
                   Column(
                     children: [
@@ -279,7 +290,8 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
       ),
     );
   }
-  _buildRecommendationList(){
+
+  _buildRecommendationList() {
     return SizedBox(
       height: getSize(150),
       child: ListView.builder(
@@ -292,7 +304,8 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
             //height: 25,
             child: ListTile(
               onTap: () {
-                controller.recommendation.value = controller.recommendationList[index];
+                controller.recommendation.value =
+                controller.recommendationList[index];
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // controller.tagValue.value.selection =
                 //     TextSelection.fromPosition(
@@ -302,7 +315,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                 // );
                 controller.isTileExpanded1.value = false;
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
-               // print(controller.tagList[index]);
+                // print(controller.tagList[index]);
               },
               dense: true,
               contentPadding: EdgeInsets.all(0.0),

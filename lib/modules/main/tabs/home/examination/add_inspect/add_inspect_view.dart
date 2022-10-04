@@ -1,4 +1,5 @@
 import 'package:align_flutter_app/modules/main/tabs/home/examination/add_inspect/widget/inspect_animated_card.dart';
+import 'package:align_flutter_app/routes/app_pages.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -213,45 +214,6 @@ class AddInspectView extends GetView<AddInspectController> {
               );
             },
           ),
-          // Container(
-          //   child:
-          //   buildChips(context),
-          // ),
-          // Obx(() {
-          //   return SizedBox(
-          //     height: getSize(30),
-          //     child: ListView.builder(
-          //       shrinkWrap: true,
-          //       itemCount: controller.res1.length,
-          //       scrollDirection: Axis.horizontal,
-          //       itemBuilder: (context, index) {
-          //         return Container(
-          //           width: getSize(92),
-          //           alignment: Alignment.center,
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(14),
-          //             color: Color(0XFF4293D4),
-          //           ),
-          //           child: Padding(
-          //             padding: const EdgeInsets.only(bottom: 6.0,left: 18.0,top: 6.0),
-          //             child: Row(
-          //               children: [
-          //                 BaseText(text: controller.res1[index].toString(),fontSize: 12,),
-          //                 SizedBox(
-          //                   width: getSize(8),
-          //                 ),
-          //                 Icon(
-          //                   Icons.close,
-          //                   size: 12,
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   );
-          // }),
           SizedBox(
             height: getSize(30),
           ),
@@ -286,8 +248,10 @@ class AddInspectView extends GetView<AddInspectController> {
             height: getSize(30),
           ),
           BaseElevatedButton(
-            onPressed: () {
-              controller.getAnswer();
+            onPressed: () async {
+              Get.toNamed(Routes.EXAMINATION_RESULT);
+             //  List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
+             // controller.questionModel?.imagePathList.addAll(imageUrlList);
             },
             child: BaseText(
               text: "ADD",

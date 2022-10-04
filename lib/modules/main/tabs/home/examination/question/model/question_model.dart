@@ -6,17 +6,27 @@ class QuestionModel {
   final List<String> imagePathList;
   final RxList<String> localImagePathList = <String>[].obs;
   final String question;
- // final String tip;
+  final String tags;
+  final String location;
+  final num rating;
+  final String notes;
+  final String checkListID;
+  // final String tip;
   //final int coin;
   final bool questionSubmitted;
 
   QuestionModel({
+    required this.checkListID,
+    required this.notes,
+    required this.tags,
+    required this.location,
+    required this.rating,
     required this.id,
     required this.title,
     required this.imagePathList,
     required this.question,
-   // required this.tip,
-   // required this.coin,
+    // required this.tip,
+    // required this.coin,
     required this.questionSubmitted,
   });
 }

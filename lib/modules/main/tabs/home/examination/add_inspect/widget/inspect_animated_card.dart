@@ -15,16 +15,18 @@ import '../../question/takephoto/take_photo_view.dart';
 import '../../question/viewphoto/view_photo.dart';
 import '../add_inspect_controller.dart';
 
-
 class InspectAnimatedCard extends GetView<AddInspectController> {
-  const InspectAnimatedCard({Key? key,}) : super(key: key);
+  const InspectAnimatedCard({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     InfiniteCardsController? _infiniteCardsController;
     return Obx(() {
       printInfo(info: 'build() called...');
-      return _buildAnimationSlider(controller.localImagePathList.length, _infiniteCardsController);
+      return _buildAnimationSlider(
+          controller.localImagePathList.length, _infiniteCardsController);
     });
   }
 
@@ -33,11 +35,12 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
     _infiniteCardsController = InfiniteCardsController(
       itemCount: _getItemCount(),
       itemBuilder: (BuildContext context, int index) {
-        return  controller.localImagePathList.isEmpty ? _buildTakePhotoView1()
-                : _buildTakePhotoView2(
-            imagePath: controller.localImagePathList[index],
-            index: index,
-            infiniteCardsController: _infiniteCardsController!);
+        return controller.localImagePathList.isEmpty
+            ? _buildTakePhotoView1()
+            : _buildTakePhotoView2(
+                imagePath: controller.localImagePathList[index],
+                index: index,
+                infiniteCardsController: _infiniteCardsController!);
       },
       animType: AnimType.SWITCH,
     );
@@ -130,9 +133,9 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
 
   _buildTakePhotoView2(
       {required String imagePath,
-        required int index,
-        required InfiniteCardsController infiniteCardsController}) {
-    printInfo(info: 'imagePath = $imagePath');
+      required int index,
+      required InfiniteCardsController infiniteCardsController}) {
+    printInfo(info: 'imagePath ========== $imagePath');
 
     return GestureDetector(
       onTap: () {
@@ -151,41 +154,48 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
           ),
           child: Stack(
             children: <Widget>[
-              Image.file(
-                File(imagePath),
-                fit: BoxFit.fill,
-                width: Get.width,
-                height: getSize(140),
-              ),
+              imagePath.contains("http")
+                  ? Image.network(
+                      imagePath,
+                      fit: BoxFit.fill,
+                      width: Get.width,
+                      height: getSize(140),
+                    )
+                  : Image.file(
+                      File(imagePath),
+                      fit: BoxFit.fill,
+                      width: Get.width,
+                      height: getSize(140),
+                    ),
               controller.localImagePathList.length < 3
                   ? Container(
-                height: getSize(140),
-                width: Get.size.width,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      ColorConstants.darkContainerBlack.withOpacity(0),
-                      ColorConstants.darkContainerBlack.withOpacity(0.8),
-                    ],
-                  ),
-                ),
-              )
+                      height: getSize(140),
+                      width: Get.size.width,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            ColorConstants.darkContainerBlack.withOpacity(0),
+                            ColorConstants.darkContainerBlack.withOpacity(0.8),
+                          ],
+                        ),
+                      ),
+                    )
                   : Container(),
               controller.localImagePathList.length < 3
                   ? Positioned(
-                bottom: getSize(12),
-                right: getSize(12),
-                child: GestureDetector(
-                  onTap: () {
-                    _openCameraScreen(imagePath: '');
-                  },
-                  child: SvgPicture.asset(
-                    getAssetsSVGImg('add_photo'),
-                  ),
-                ),
-              )
+                      bottom: getSize(12),
+                      right: getSize(12),
+                      child: GestureDetector(
+                        onTap: () {
+                          _openCameraScreen(imagePath: '');
+                        },
+                        child: SvgPicture.asset(
+                          getAssetsSVGImg('add_photo'),
+                        ),
+                      ),
+                    )
                   : Container(),
             ],
           ),
@@ -195,7 +205,7 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
   }
 
   _openCameraScreen({required String imagePath, int index = 0}) async {
-    printInfo(info: 'imagePath = $imagePath');
+    printInfo(info: 'imagePath ======== $imagePath');
 
     final cameras = await availableCameras();
 
@@ -225,11 +235,10 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
 
           if (imagePath.isEmpty) {
             controller.localImagePathList.insert(0, result['imagePath']);
-          }
-          else {
+          } else {
             controller.localImagePathList.isNotEmpty
                 ? controller.localImagePathList
-                .removeAt(index) //removes the item at index
+                    .removeAt(index) //removes the item at index
                 : null;
             controller.localImagePathList.insert(
               index,
@@ -239,7 +248,7 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
         } else if (result['action'] == 'DELETE') {
           controller.localImagePathList.isNotEmpty
               ? controller.localImagePathList
-              .removeAt(index) //removes the item at index
+                  .removeAt(index) //removes the item at index
               : null;
         }
       }
@@ -248,4 +257,3 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
     }
   }
 }
-

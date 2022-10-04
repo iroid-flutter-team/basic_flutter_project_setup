@@ -16,8 +16,8 @@ class QuestionController extends GetxController {
   var questionsResponse = <QuestionsResponse>[].obs;
   final Rx<int> currentQuestion = 0.obs;
   RxDouble distanceValue = 0.0.obs;
-   var argumentData = Get.arguments[0] as ExaminationResponse;
-   var jobId = Get.arguments[1];
+  var argumentData = Get.arguments[0] as ExaminationResponse;
+  var jobId = Get.arguments[1];
   // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   // 'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
   // 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
@@ -34,9 +34,10 @@ class QuestionController extends GetxController {
         title: 'Windows',
         imagePathList: [],
         question:
-        'Inspect the unit to make sure it’s in good working condition?',
+            'Inspect the unit to make sure it’s in good working condition?',
         //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false,
+        questionSubmitted: false, tags: '', notes: '', rating: 1,
+        checkListID: '', location: '',
       ),
     );
     questionModelList.add(
@@ -49,9 +50,10 @@ class QuestionController extends GetxController {
           'https://via.placeholder.com/500',
         ],
         question:
-        'Inspect the unit to make sure it’s in good working condition?',
+            'Inspect the unit to make sure it’s in good working condition?',
         //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: true,
+        questionSubmitted: true, tags: '', notes: '', rating: 1,
+        checkListID: '', location: '',
       ),
     );
     questionModelList.add(
@@ -63,9 +65,10 @@ class QuestionController extends GetxController {
           'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
         ],
         question:
-        'Inspect the unit to make sure it’s in good working condition?',
-       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: true,
+            'Inspect the unit to make sure it’s in good working condition?',
+        // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+        questionSubmitted: true, tags: '', notes: '', rating: 1,
+        checkListID: '', location: '',
       ),
     );
     questionModelList.add(
@@ -74,9 +77,10 @@ class QuestionController extends GetxController {
         title: 'Air conditioner 4',
         imagePathList: [],
         question:
-        'Inspect the unit to make sure it’s in good working condition?',
+            'Inspect the unit to make sure it’s in good working condition?',
         //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false,
+        questionSubmitted: false, tags: '', notes: '', rating: 1,
+        checkListID: '', location: '',
       ),
     );
 
@@ -90,46 +94,49 @@ class QuestionController extends GetxController {
           //'https://via.placeholder.com/500',
         ],
         question:
-        'Inspect the unit to make sure it’s in good working condition?',
-       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+            'Inspect the unit to make sure it’s in good working condition?',
+        // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
 
-        questionSubmitted: true,
+        questionSubmitted: true, tags: '', notes: '', rating: 1,
+        checkListID: '', location: '',
       ),
     );
-
   }
 
-  addImagePath({required String imagePath}){
+  addImagePath({required String imagePath}) {
     /* questionModelList[currentQuestion.value].localImagePathList
         .add(imagePath);*/
 
     //questionModelList[currentQuestion.value].imagePath.value = imagePath;
 
     //print('localImagePathList.length = ${questionModelList[currentQuestion.value].localImagePathList.length}');
-
-
   }
 
-  getQuestion(int examinationId, int jobId)async{
-    var res = await apiRepository.getQuestion(examinationId , jobId);
-     if(res != null && res.isNotEmpty){
-       questionsResponse.value = res;
-       if(questionsResponse.isNotEmpty){
-         questionModelList.clear();
-         for(int i=0;i <questionsResponse.length; i++){
-           questionModelList.add(
-             QuestionModel(
-               id: questionsResponse[i].questionId!,
-               title: questionsResponse[i].title!,
-               imagePathList: questionsResponse[i].answer!.images == null ? [] :questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
-               question: questionsResponse[i].description!,
-               questionSubmitted: false,),
-           );
-         }
-       }
-     }
+  getQuestion(int examinationId, int jobId) async {
+    var res = await apiRepository.getQuestion(examinationId, jobId);
+    if (res != null && res.isNotEmpty) {
+      questionsResponse.value = res;
+      if (questionsResponse.isNotEmpty) {
+        questionModelList.clear();
+        for (int i = 0; i < questionsResponse.length; i++) {
+          questionModelList.add(
+            QuestionModel(
+              id: questionsResponse[i].questionId!,
+              title: questionsResponse[i].title!,
+              imagePathList: questionsResponse[i].answer!.images == null ? [] : questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
+              question: questionsResponse[i].description!,
+              tags: questionsResponse[i].answer?.tags ?? "",
+              notes: questionsResponse[i].answer?.notes ?? "",
+              rating: questionsResponse[i].answer?.rating ?? 0,
+              checkListID: '',
+              location: questionsResponse[i].answer?.location ?? "",
+              questionSubmitted: false,
+            ),
+          );
+        }
+      }
+    }
   }
-  
 
   @override
   void onInit() {
@@ -137,6 +144,4 @@ class QuestionController extends GetxController {
     //getQuestion(argumentData.examinationId ?? 0, jobId);
     super.onInit();
   }
-
 }
-
