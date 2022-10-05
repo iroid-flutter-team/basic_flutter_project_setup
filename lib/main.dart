@@ -50,7 +50,7 @@ class App extends StatelessWidget {
     print("Token : ${prefs.getString(StorageConstants.token)}");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.SIGN_IN,
+      initialRoute: Routes.MAIN,
       defaultTransition: Transition.native,
       getPages: AppPages.routes,
       initialBinding: AppBinding(),

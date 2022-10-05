@@ -27,6 +27,7 @@ class AddInspectController extends GetxController {
   var jobId = Get.arguments;
  // QuestionsResponse questionModel= QuestionsResponse();
   QuestionModel? questionModel;
+ //var questionModel1 = <QuestionModel>[].obs;
  //var questionID = Get.arguments as QuestionModel;
 
   initQuestions() {
@@ -62,42 +63,15 @@ class AddInspectController extends GetxController {
   }
 
   getAnswer(int id) async {
-    // int index = 0;
-    // printInfo(info: 'id :=======$id');
-    // for(index = 0 ; index < addInspectionModelList.length; index++){
-    //   if(addInspectionModelList[index].id == id){
-    //     break;
-    //   }
-    // }
     var answerList = <String>[];
-    var imageList = <String>[];
-    int index = 0;
     printInfo(info: 'id :$id');
-    // var imageList = <String>[
-    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-    //   '/data/user/0/com.iroid.account_manager/cache/CAP2917773027934309901.jpg',
-    // ];
-    for (index=0; index < addInspectionModelList.length; index++) {
-      // for (int j = 0; j < questionModelList[i].localImagePathList.length; j++) {
-      if (addInspectionModelList[index].id == id) {
-        imageList = (addInspectionModelList[index].localImagePathList.toList());
-        print("imageList987===============$imageList");
-        break;
-        // printInfo(
-        //     info:
-        //         ' Test Image list====${questionModelList[i].localImagePathList.toList()}');
-        //
-        // }
-      }
-      print("imageList===============$imageList");
-    }
-    print("imageList123===============$imageList");
+    print("imageList987===============${localImagePathList.toList()}");
     final formData = FormData({
       'questionId': questionModel?.id ?? 0,
       'jobId': 17,
-      'images': imageList
-          .map((e) => MultipartFile(e,
+      'images': localImagePathList
+          .map((e) =>
+          MultipartFile(e,
               filename: 'document.png', contentType: "image/png"))
           .toList(),
       'notes': addNoteController.text,
@@ -107,16 +81,17 @@ class AddInspectController extends GetxController {
       'checklistIds': '2',
     });
     var res = await apiRepository.examinationAnswer(formData);
-    printInfo(info: 'res =========== $res');
-    print("imageList456===============$imageList");
-    if(res != null && res.isNotEmpty){
-    questionsResponse.value = res;
-    for(int i = 0;  i < questionsResponse.length;  i++){
-      answerList.add(questionsResponse[i].answer!.images.toString());
+    if (res != null && res.isNotEmpty) {
+      questionsResponse.value = res;
+      // for(int i = 0;  i < questionsResponse.length;  i++){
+      //   answerList.add(questionsResponse[i].answer!.images.toString());
+      //   print("questionsResponse4354545===============${questionsResponse.length}");
+      // }
+      // return answerList;
+      //  }
+      //rint("questionsResponse4354545===============$res");
+      return null;
     }
-    return answerList;
-     }
-    return answerList;
   }
 
   @override

@@ -94,7 +94,7 @@ class AddInspectView extends GetView<AddInspectController> {
           SizedBox(
             height: getSize(30),
           ),
-          DottedBorder(
+          controller.localImagePathList.isNotEmpty ?  InspectAnimatedCard() : DottedBorder(
               borderType: BorderType.RRect,
               dashPattern: [8, 8],
               color: Color(0xffB7B7B7).withOpacity(0.75),
@@ -249,9 +249,10 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           BaseElevatedButton(
             onPressed: () async {
-              Get.toNamed(Routes.EXAMINATION_RESULT);
-             //  List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
-             // controller.questionModel?.imagePathList.addAll(imageUrlList);
+              controller.getAnswer(controller.questionModel?.id ?? 0);
+              //Get.toNamed(Routes.EXAMINATION_RESULT);
+            // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
+            // controller.questionModel?.imagePathList.addAll(imageUrlList);
             },
             child: BaseText(
               text: "ADD",
@@ -259,6 +260,7 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           SizedBox(
             height: getSize(20),
+
           ),
         ],
       ),
