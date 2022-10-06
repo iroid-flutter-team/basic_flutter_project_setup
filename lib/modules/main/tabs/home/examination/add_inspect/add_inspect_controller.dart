@@ -63,7 +63,6 @@ class AddInspectController extends GetxController {
   }
 
   getAnswer(int id) async {
-    var answerList = <String>[];
     printInfo(info: 'id :$id');
     print("imageList987===============${localImagePathList.toList()}");
     final formData = FormData({
@@ -102,6 +101,7 @@ class AddInspectController extends GetxController {
       locationController.text =  questionModel?.location ?? "";
       distanceValue.value = questionModel!.rating.toDouble();
       localImagePathList.value = questionModel!.imagePathList;
+      chipsList.value = [questionModel?.tags].cast<String>();
     }
     print("addNoteController==========${questionModel!.imagePathList}");
     super.onInit();

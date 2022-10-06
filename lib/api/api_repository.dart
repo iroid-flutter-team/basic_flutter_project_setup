@@ -83,4 +83,15 @@ class ApiRepository {
     return null;
   }
 
+  Future<QuestionsResponse> answerUpdate(FormData data,int id) async {
+    print("UserData : ======$data");
+    final res = await apiProvider.putMethod("${ApiConstants.answersUpdate}/$id", {},
+        isMultipart: true, formData: data);
+    print("UserData : ============================${res.data}");
+    if (res.data != null) {
+      return QuestionsResponse.fromJson(res.data as Map<String, dynamic>);
+    }
+    return QuestionsResponse();
+  }
+
 }

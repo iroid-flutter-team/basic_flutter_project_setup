@@ -75,17 +75,37 @@ class ApiProvider extends BaseProvider {
     return commonResponse;
   }
 
-  Future<CommonResponse> putMethod(
-      String path, Map<String, dynamic> data) async {
-    Response response = await put(path, data);
-    commonResponse = CommonResponse.fromJson(response.body);
-    if (commonResponse.dioMessage != null) {
-      await EasyLoading.showToast(commonResponse.dioMessage!);
-    } else {
-      await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
+  Future<CommonResponse> putMethod(String path, Map<String, dynamic> data,
+      {bool isMultipart = false, FormData? formData}) async {
+    printInfo(info: "========>12121:${prefs.getString(StorageConstants.token)}");
+    Response response = await put(
+      path,
+      isMultipart ? formData : data,
+      headers: {
+        'accept': 'application/json',
+        // 'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${prefs.getString(StorageConstants.token)}',
+      },
+    ).catchError((error) {
+      print(error);
+    });
+    print("putMethodResponse===========${response.body}");
+    if (response.statusCode == 200 && response.body != null) {
+      commonResponse = CommonResponse.fromJson(response.body);
     }
     return commonResponse;
   }
+  // Future<CommonResponse> putMethod(
+  //     String path, Map<String, dynamic> data,{bool isMultipart = false, FormData? formData}) async {
+  //   Response response = await put(path, data);
+  //   commonResponse = CommonResponse.fromJson(response.body);
+  //   if (commonResponse.dioMessage != null) {
+  //     await EasyLoading.showToast(commonResponse.dioMessage!);
+  //   } else {
+  //     await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
+  //   }
+  //   return commonResponse;
+  // }
 
   Future<CommonResponse> deleteMethod(
       String path, Map<String, dynamic> data) async {

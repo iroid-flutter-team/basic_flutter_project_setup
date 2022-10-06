@@ -21,38 +21,42 @@ class QuestionListWidget extends GetView<QuestionController> {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: controller.questionModelList.map(
-        (questionModel) {
-          return Builder(
-            builder: (BuildContext context) {
-              return CommonContainerWithShadow(
-                width: Get.width,
-                margin: EdgeInsets.symmetric(
-                  horizontal: getSize(10.0),
-                ),
-                child: _buildItem(questionModel),
-              );
-            },
-          );
-        },
-      ).toList(),
-      options: CarouselOptions(
-        onPageChanged: (index, reason) {
-          controller.currentQuestion.value = index;
-        },
-        enlargeCenterPage: false,
-        height: Get.height / 1.9,
-        initialPage: 0,
-        reverse: false,
-        autoPlay: false,
-        enableInfiniteScroll: false,
-        scrollDirection: Axis.horizontal,
-        scrollPhysics: BouncingScrollPhysics(),
-        viewportFraction: 0.8,
-      ),
-      carouselController: controller.carouselController,
-    );
+    print(
+        "questionModelList=============${controller.questionModelList.length}");
+    return Obx(() => controller.questionModelList.isNotEmpty
+        ? CarouselSlider(
+            items: controller.questionModelList.map(
+              (questionModel) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return CommonContainerWithShadow(
+                      width: Get.width,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: getSize(10.0),
+                      ),
+                      child: _buildItem(questionModel),
+                    );
+                  },
+                );
+              },
+            ).toList(),
+            options: CarouselOptions(
+              onPageChanged: (index, reason) {
+                controller.currentQuestion.value = index;
+              },
+              enlargeCenterPage: false,
+              height: Get.height / 1.8,
+              initialPage: 0,
+              reverse: false,
+              autoPlay: false,
+              enableInfiniteScroll: false,
+              scrollDirection: Axis.horizontal,
+              scrollPhysics: BouncingScrollPhysics(),
+              viewportFraction: 0.8,
+            ),
+            carouselController: controller.carouselController,
+          )
+        : Container());
   }
 
   _buildItem(QuestionModel questionModel) {
@@ -81,7 +85,7 @@ class QuestionListWidget extends GetView<QuestionController> {
           SizedBox(
             height: getSize(20.0),
           ),
-          _buildLinearProgressView(),
+          _buildLinearProgressView(questionModel),
           // Obx(() {
           //   return BaseText(
           //     text: 'Total Image = ${questionModel.localImagePathList.length}',
@@ -98,19 +102,39 @@ class QuestionListWidget extends GetView<QuestionController> {
     );
   }
 
-  _buildLinearProgressView() {
+  _buildLinearProgressView(QuestionModel questionModel) {
     return Expanded(
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // children: List.generate(5,
+            //   (index) => questionModel.rating == 1
+            //       ? _commonRatingImageView(SvgImageConstants.very_poor, 40)
+            //       : _commonRatingImageView(SvgImageConstants.unselected_very_poor, 30) ,
+            // ),
             children: [
-              _commonRatingImageView(SvgImageConstants.unselected_very_poor),
-              _commonRatingImageView(SvgImageConstants.unselected_poor),
-              _commonRatingImageView(SvgImageConstants.unselected_average),
-              _commonRatingImageView(SvgImageConstants.unselected_good),
-              _commonRatingImageView(SvgImageConstants.unselected_excellent),
+              questionModel.rating == 0
+                  ? _commonRatingImageView(SvgImageConstants.very_poor, 40)
+                  : _commonRatingImageView(
+                      SvgImageConstants.unselected_very_poor, 30),
+              questionModel.rating == 1
+                  ? _commonRatingImageView(SvgImageConstants.poor, 40)
+                  : _commonRatingImageView(
+                      SvgImageConstants.unselected_poor, 30),
+              questionModel.rating == 2
+                  ? _commonRatingImageView(SvgImageConstants.average, 40)
+                  : _commonRatingImageView(
+                      SvgImageConstants.unselected_average, 30),
+              questionModel.rating == 3
+                  ? _commonRatingImageView(SvgImageConstants.good, 40)
+                  : _commonRatingImageView(
+                      SvgImageConstants.unselected_good, 30),
+              questionModel.rating == 4
+                  ? _commonRatingImageView(SvgImageConstants.excellent, 40)
+                  : _commonRatingImageView(
+                      SvgImageConstants.unselected_excellent, 30),
             ],
           ),
           SizedBox(
@@ -119,7 +143,17 @@ class QuestionListWidget extends GetView<QuestionController> {
           CommonLinearProgressWidget(
             width: Get.width - getSize(146),
             total: 100,
-            remaining: 10,
+            remaining: questionModel.rating == 0
+                ? 15
+                : questionModel.rating == 1
+                    ? 35
+                    : questionModel.rating == 2
+                        ? 55
+                        : questionModel.rating == 3
+                            ? 75
+                            : questionModel.rating == 4
+                                ? 100
+                                : 0,
           ),
           // SliderTheme(
           //   data: SliderThemeData(
@@ -152,7 +186,10 @@ class QuestionListWidget extends GetView<QuestionController> {
             padding: EdgeInsets.only(right: getSize(10), left: getSize(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(5, (index) => commonCircle(index: index)),
+              children: List.generate(
+                  5,
+                  (index) =>
+                      commonCircle(index: index, questionModel: questionModel)),
             ),
           ),
         ],
@@ -162,15 +199,20 @@ class QuestionListWidget extends GetView<QuestionController> {
 
   _buildSubmitView({required QuestionModel questionModel}) {
     return questionModel.questionSubmitted
-        ? CommonContainerWithShadow(
-          width: getSize(186),
-          height: getSize(40.0),
-          backgroundColor: ColorConstants.black,
-          child: Center(
-            child: BaseText(
-              text: StringConstants.edit,
+        ? InkWell(
+      onTap: (){
+        Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel);
+      },
+          child: CommonContainerWithShadow(
+              width: getSize(186),
+              height: getSize(40.0),
+              backgroundColor: ColorConstants.black,
+              child: Center(
+                child: BaseText(
+                  text: StringConstants.edit,
+                ),
+              ),
             ),
-          ),
         )
         : BaseElevatedButton(
             width: getSize(186),
@@ -191,19 +233,22 @@ class QuestionListWidget extends GetView<QuestionController> {
           );
   }
 
-  _commonRatingImageView(String image) {
+  _commonRatingImageView(String image, double height) {
     return SvgPicture.asset(
       image,
+      height: height,
     );
   }
 
-  commonCircle({required int index}) {
+  commonCircle({required int index, required QuestionModel questionModel}) {
     return Container(
       margin: EdgeInsets.only(right: 5, left: 5),
       height: 8,
       width: 8,
       decoration: BoxDecoration(
-        color: ColorConstants.white.withOpacity(0.4),
+        color: questionModel.rating == index
+            ? ColorConstants.white
+            : ColorConstants.white.withOpacity(0.4),
         borderRadius: BorderRadius.circular(50),
         // border: Border.all(color: ColorConstants.white),
       ),

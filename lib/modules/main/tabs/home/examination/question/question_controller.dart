@@ -13,7 +13,7 @@ class QuestionController extends GetxController {
   QuestionController({required this.apiRepository});
 
   final CarouselController carouselController = CarouselController();
-  final List<QuestionModel> questionModelList = [];
+ var questionModelList = <QuestionModel>[].obs;
   var questionsResponse = <QuestionsResponse>[].obs;
   final Rx<int> currentQuestion = 0.obs;
   RxDouble distanceValue = 0.0.obs;
@@ -38,8 +38,12 @@ class QuestionController extends GetxController {
         question:
             'Inspect the unit to make sure it’s in good working condition?',
         //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false, tags: '', notes: '', rating: 1,
-        checkListID: '', location: '',
+        questionSubmitted: false,
+        tags: '',
+        notes: '',
+        rating: 1,
+        checkListID: '',
+        location: '',
       ),
     );
     questionModelList.add(
@@ -81,8 +85,12 @@ class QuestionController extends GetxController {
         question:
             'Inspect the unit to make sure it’s in good working condition?',
         //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false, tags: '', notes: '', rating: 1,
-        checkListID: '', location: '',
+        questionSubmitted: false,
+        tags: '',
+        notes: '',
+        rating: 1,
+        checkListID: '',
+        location: '',
       ),
     );
 
@@ -99,8 +107,12 @@ class QuestionController extends GetxController {
             'Inspect the unit to make sure it’s in good working condition?',
         // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
 
-        questionSubmitted: true, tags: '', notes: '', rating: 1,
-        checkListID: '', location: '',
+        questionSubmitted: true,
+        tags: '',
+        notes: '',
+        rating: 1,
+        checkListID: '',
+        location: '',
       ),
     );
   }
@@ -132,9 +144,10 @@ class QuestionController extends GetxController {
               rating: questionsResponse[i].answer?.rating ?? 0,
               checkListID: '',
               location: questionsResponse[i].answer?.location ?? "",
-              questionSubmitted: false,
+              questionSubmitted: questionsResponse[i].answer?.answerId != null ? true : false,
             ),
           );
+        //  print("jobID123=============${questionsResponse[i].answer?.answerId}");
         }
       }
     }
@@ -143,6 +156,7 @@ class QuestionController extends GetxController {
   @override
   void onInit() {
     print("jobID=============$jobId");
+   // print("jobID=============${questionsResponse[].answer?.rating ?? 0}");
     //getQuestion(argumentData.examinationId ?? 0, jobId);
     super.onInit();
   }
