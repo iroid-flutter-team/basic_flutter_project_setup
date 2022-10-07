@@ -7,4 +7,7 @@ class ApiConstants {
   static const questions = 'questions';
   static const answers = 'answers';
   static const answersUpdate = 'answers';
+  static const history = 'history';
+  static const results = 'results';
+  static const summaryReports = 'reports';
 }

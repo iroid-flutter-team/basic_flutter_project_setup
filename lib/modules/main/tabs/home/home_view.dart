@@ -52,7 +52,7 @@ class HomeView extends GetView<HomeController> {
             padding: EdgeInsets.only(right: getSize(25), bottom: getSize(10)),
             child: InkWell(
               onTap: (){
-                Get.toNamed(Routes.MESSAGE);
+                Get.toNamed(Routes.EXAMINATION_RESULT);
               },
               child: SvgPicture.asset(
                 SvgImageConstants.message1,

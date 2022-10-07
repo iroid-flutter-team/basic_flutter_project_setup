@@ -152,11 +152,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                   Row(
                     children: [
                       BaseText(
-                        text: DateFormat('dd/MM/yyyy').format(
-                          DateTime.fromMillisecondsSinceEpoch(controller
-                                  .listData[index].inspectionDate
-                                  ?.toInt() ??
-                              0),
+                        text: DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(controller.listData[index].inspectionDate?.toInt() ?? 0),
                         ),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,

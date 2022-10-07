@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/models/response/home/results/results_response.dart';
 import 'package:get/get.dart';
 import '../../../../../../api/api_repository.dart';
 import '../../../../../../shared/constants/png_image_constant.dart';
@@ -9,7 +10,7 @@ class ExaminationResultsController extends GetxController{
   final ApiRepository apiRepository;
   ExaminationResultsController({required this.apiRepository});
 
-
+  var resultsResponse =  ResultsResponse().obs;
 
 List<ExaminationResultsModel> examinationResultsModel = [
   ExaminationResultsModel(
@@ -38,9 +39,19 @@ List<ExaminationResultsModel> examinationResultsModel = [
   ),
 ];
 
+   getResults(int jobId) async{
+     var res = await apiRepository.getResults(jobId);
+      if(res != null){
+        resultsResponse.value = res;
+      }
+      print("resultsResponse=========${resultsResponse.value.results?.length}");
+      print("resultsResponseIMage=========${resultsResponse.value.results![1].images?[1].image.toString()}");
+   }
 
-  //  @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+
+ @override
+  void onInit() {
+    getResults(17);
+    super.onInit();
+  }
 }

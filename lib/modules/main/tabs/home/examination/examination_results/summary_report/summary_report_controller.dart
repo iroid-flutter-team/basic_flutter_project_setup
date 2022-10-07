@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/models/response/home/summary_reports/summary_reports_response.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class SummaryReportController extends GetxController{
   RxDouble distanceValue = 0.0.obs;
   RxBool isProblem = false.obs;
   RxBool isMinor = false.obs;
-
+    var summaryReportsResponse = <SummaryReportsResponse>[].obs;
   List<String> tagList = [
     'Window',
     'Yard',
@@ -133,5 +134,20 @@ class SummaryReportController extends GetxController{
     //print('localImagePathList.length = ${questionModelList[currentQuestion.value].localImagePathList.length}');
 
 
+  }
+
+  getSummaryReport(int jobId)async{
+    var res = await apiRepository.getSummaryReport(jobId);
+    if(res != null && res.isNotEmpty){
+      summaryReportsResponse.value = res;
+    }
+   print("");
+  }
+
+
+  @override
+  void onInit() {
+    getSummaryReport(17);
+    super.onInit();
   }
 }
