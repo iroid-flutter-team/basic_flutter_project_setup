@@ -118,12 +118,15 @@ class SignInWithPhoneNumberScreen
                 enable: true,
                 //  prefixIcon: Padding(padding: EdgeInsets.all(12.0), child: SvgPicture.asset(getAssetsSVGImg('email'),),),
                 textInputAction: TextInputAction.done,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please enter email address.';
-                //   }
-                //   return null;
-                // },
+                validator: (value) {
+                  //print("controller.phoneController========${value}");
+                  if (value == "000-000-0000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                    return 'please enter valid number';
+                  } else if (value!.length < 10) {
+                    return "mobile number must be 10 digit";
+                  }
+                  return null;
+                },
               ),
             ),
           ],

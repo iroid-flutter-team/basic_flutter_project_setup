@@ -21,7 +21,7 @@ class ExaminationController extends GetxController{
 
   @override
   void onInit() {
-    jobId= Get.arguments;
+    jobId = Get.arguments;
     getExamination(jobId);
     print("JobID===============$jobId");
     super.onInit();

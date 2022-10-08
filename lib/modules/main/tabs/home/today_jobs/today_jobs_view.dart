@@ -36,6 +36,8 @@ class TodayJobsView extends GetView<TodayJobsController> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: getSize(25)),
       child: ListView(
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
         children: [
           SizedBox(
             height: getSize(20),

@@ -33,6 +33,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leadingWidth: leadingWidth?? getSize(60),
       leading: leading ?? _buildLeadingView(),
+    //  automaticallyImplyLeading: false,
       title: BaseText(
         text: title,
         fontSize: 22,
@@ -46,7 +47,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(70);
 
   _buildLeadingView() {
     return Padding(

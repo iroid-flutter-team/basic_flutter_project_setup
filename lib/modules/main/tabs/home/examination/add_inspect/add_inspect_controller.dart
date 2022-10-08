@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/question/question_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -24,11 +25,14 @@ class AddInspectController extends GetxController {
   RxList chipsList = <String>[].obs;
   List<Widget> chips = [];
   var questionsResponse = <QuestionsResponse>[].obs;
-  var jobId = Get.arguments;
  // QuestionsResponse questionModel= QuestionsResponse();
   QuestionModel? questionModel;
  //var questionModel1 = <QuestionModel>[].obs;
  //var questionID = Get.arguments as QuestionModel;
+ // QuestionController questionController = Get.put(QuestionController(apiRepository: Get.find()));
+  var jobId = Get.arguments[1];
+  //var examinationId = Get.arguments[2];
+
 
   initQuestions() {
     addInspectionModelList.clear();
@@ -67,7 +71,7 @@ class AddInspectController extends GetxController {
     print("imageList987===============${localImagePathList.toList()}");
     final formData = FormData({
       'questionId': questionModel?.id ?? 0,
-      'jobId': 17,
+      'jobId': jobId,
       'images': localImagePathList
           .map((e) =>
           MultipartFile(e,
@@ -82,6 +86,7 @@ class AddInspectController extends GetxController {
     var res = await apiRepository.examinationAnswer(formData);
     if (res != null && res.isNotEmpty) {
       questionsResponse.value = res;
+
       // for(int i = 0;  i < questionsResponse.length;  i++){
       //   answerList.add(questionsResponse[i].answer!.images.toString());
       //   print("questionsResponse4354545===============${questionsResponse.length}");
@@ -95,7 +100,7 @@ class AddInspectController extends GetxController {
 
   @override
   void onInit() {
-    questionModel = Get.arguments as QuestionModel;
+    questionModel = Get.arguments[0] as QuestionModel;
     if(questionModel != null){
       addNoteController.text = questionModel?.notes ?? "";
       locationController.text =  questionModel?.location ?? "";
@@ -103,7 +108,8 @@ class AddInspectController extends GetxController {
       localImagePathList.value = questionModel!.imagePathList;
       chipsList.value = [questionModel?.tags].cast<String>();
     }
-    print("addNoteController==========${questionModel!.imagePathList}");
+    print("chipsList123==========${chipsList.length}");
+    //print("addNoteController==========${questionModel!.imagePathList}");
     super.onInit();
   }
 }

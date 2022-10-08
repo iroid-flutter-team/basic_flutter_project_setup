@@ -27,13 +27,15 @@ class MessageView extends StatelessWidget {
 
   _buildMainBody() {
     return ListView.builder(
+      shrinkWrap: true,
+      physics: BouncingScrollPhysics(),
       itemCount: 4,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(
             left: getSize(25),
             right: getSize(25),
-            bottom: getSize(20),
+            top: getSize(20),
           ),
           child: CommonContainerWithShadow(
             child: Row(

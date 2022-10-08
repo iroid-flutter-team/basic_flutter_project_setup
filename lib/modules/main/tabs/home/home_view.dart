@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constants/color_constants.dart';
@@ -23,7 +24,7 @@ class HomeView extends GetView<HomeController> {
         title: '',
         leadingWidth: getSize(150),
         leading: Padding(
-          padding: EdgeInsets.only(left: getSize(20)),
+          padding: EdgeInsets.only(left: getSize(20), top: getSize(18)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,10 +50,10 @@ class HomeView extends GetView<HomeController> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: getSize(25), bottom: getSize(10)),
+            padding: EdgeInsets.only(right: getSize(25), top: getSize(20)),
             child: InkWell(
-              onTap: (){
-                Get.toNamed(Routes.EXAMINATION_RESULT);
+              onTap: () {
+                Get.toNamed(Routes.MESSAGE);
               },
               child: SvgPicture.asset(
                 SvgImageConstants.message1,
@@ -62,7 +63,16 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      body: _buildMainBody(),
+      body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
+        controller: controller.refreshController,
+
+        onRefresh: (){
+          controller.getJobs();
+          controller.refreshController.refreshCompleted();
+        },
+        child: _buildMainBody(),
+      ),
     );
   }
 
@@ -81,10 +91,10 @@ class HomeView extends GetView<HomeController> {
               width: Get.width,
               height: getSize(38),
               child: Center(
-                child:  BaseText(
-                      text: "let’s help you finish your workday",
-                      fontSize: 14,
-                    ),
+                child: BaseText(
+                  text: "let’s help you finish your workday",
+                  fontSize: 14,
+                ),
               ),
             ),
             SizedBox(
@@ -92,13 +102,13 @@ class HomeView extends GetView<HomeController> {
             ),
             InkWell(
               onTap: () {
-               controller.jobsResponse.value.todayJobs == null ? FutureJobsView() : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs);
+                controller.jobsResponse.value.todayJobs!.isNotEmpty ? Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs) : Get.toNamed(Routes.FUTURE_JOBS);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      right: getSize(30), left: getSize(12)),
+                  padding:
+                      EdgeInsets.only(right: getSize(30), left: getSize(12)),
                   child: Row(
                     children: [
                       BaseText(
@@ -110,7 +120,9 @@ class HomeView extends GetView<HomeController> {
                         width: getSize(10),
                       ),
                       BaseText(
-                        text: controller.jobsResponse.value.todayJobs?.length.toString() ?? "",
+                        text: controller.jobsResponse.value.todayJobs?.length
+                                .toString() ??
+                            "",
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
@@ -129,15 +141,15 @@ class HomeView extends GetView<HomeController> {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(Routes.FUTURE_JOBS);
-                // controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) : Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
-                 //controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
+                // Get.toNamed(Routes.FUTURE_JOBS);
+                controller.jobsResponse.value.futureJobs!.isNotEmpty ? Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs) : Get.toNamed(Routes.FUTURE_JOBS);
+                //controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      right: getSize(30), left: getSize(12)),
+                  padding:
+                      EdgeInsets.only(right: getSize(30), left: getSize(12)),
                   child: Row(
                     children: [
                       BaseText(
@@ -150,7 +162,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       BaseText(
                         text: controller.jobsResponse.value.futureJobs?.length
-                            .toString() ??
+                                .toString() ??
                             "",
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

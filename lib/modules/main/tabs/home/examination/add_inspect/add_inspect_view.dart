@@ -184,9 +184,12 @@ class AddInspectView extends GetView<AddInspectController> {
               ),
             ),
           ),
-          Obx(
+          SizedBox(
+            height: getSize(10),
+          ),
+         controller.chipsList.isEmpty ? Container() : Obx(
             () {
-              print("res123======${controller.chipsList.length}");
+              print("chipsList================${controller.chipsList.length}");
               return Wrap(
                 spacing: 16,
                 children: List.generate(
@@ -249,7 +252,9 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           BaseElevatedButton(
             onPressed: () async {
+              Get.back(result: "success");
               controller.getAnswer(controller.questionModel?.id ?? 0);
+             // controller.questionController.getQuestion( controller.examinationId ,controller.jobId, );
               //Get.toNamed(Routes.EXAMINATION_RESULT);
             // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
             // controller.questionModel?.imagePathList.addAll(imageUrlList);

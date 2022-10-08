@@ -66,7 +66,7 @@ class Checklists {
 class Answer {
   int? answerId;
   String? notes;
-  String? tags;
+  var tags;
   String? location;
   num? rating;
   List<Images>? images;

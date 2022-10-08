@@ -3,6 +3,7 @@ import 'package:align_flutter_app/modules/main/tabs/home/examination/question/wi
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../../../models/response/home/inspection/examination_response.dart';
 import '../../../../../../shared/utils/image_utils.dart';
 import '../../../../../../shared/utils/math_utils.dart';
@@ -28,32 +29,39 @@ class QuestionView extends GetView<QuestionController> {
     return Scaffold(
       appBar: BaseAppBar(
         title: controller.argumentData.name ?? "",
-        actions: [
-        ],
+        actions: [],
       ),
-      body: _buildMainBody(controller.argumentData),
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () {
+          controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+          controller.refreshController.refreshCompleted();
+        },
+        child: _buildMainBody(controller.argumentData),
+      ),
     );
   }
 
   _buildMainBody(ExaminationResponse examinationResponse) {
-    controller.getQuestion(examinationResponse.examinationId!, controller.jobId);
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _buildQuestionWithProgressView(examinationResponse),
-          SizedBox(
-            height: getSize(20.0),
-          ),
-          QuestionListWidget(),
-          SizedBox(
-            height: getSize(20.0),
-          ),
-          _buildPrevNextQuestionView(),
-          SizedBox(
-            height: getSize(20.0),
-          ),
-        ],
-      );
+    controller.getQuestion(
+        examinationResponse.examinationId!, controller.jobId);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        _buildQuestionWithProgressView(examinationResponse),
+        SizedBox(
+          height: getSize(20.0),
+        ),
+        QuestionListWidget(),
+        SizedBox(
+          height: getSize(20.0),
+        ),
+        _buildPrevNextQuestionView(),
+        SizedBox(
+          height: getSize(20.0),
+        ),
+      ],
+    );
   }
 
   _buildQuestionWithProgressView(ExaminationResponse examinationResponse) {
@@ -102,8 +110,7 @@ class QuestionView extends GetView<QuestionController> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () =>
-          controller.currentQuestion.value > 0
+          onTap: () => controller.currentQuestion.value > 0
               ? controller.carouselController.previousPage()
               : null,
           child: Obx(() {
@@ -128,15 +135,14 @@ class QuestionView extends GetView<QuestionController> {
           }),
         ),
         GestureDetector(
-          onTap: () =>
-          controller.currentQuestion.value <
-              controller.questionModelList.length - 1
+          onTap: () => controller.currentQuestion.value <
+                  controller.questionModelList.length - 1
               ? controller.carouselController.nextPage()
               : null,
           child: Obx(() {
             return Opacity(
               opacity: controller.currentQuestion.value ==
-                  controller.questionModelList.length - 1
+                      controller.questionModelList.length - 1
                   ? 0.5
                   : 1,
               child: SvgPicture.asset(

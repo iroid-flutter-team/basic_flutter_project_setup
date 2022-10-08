@@ -114,24 +114,25 @@ class AnimatedCard extends GetView<QuestionController> {
   _buildTakePhotoView1() {
     return GestureDetector(
       onTap: () {
-        _openCameraScreen(imagePath: '');
+        //_openCameraScreen(imagePath: '');
       },
       child: CommonContainerWithShadow(
         width: Get.width,
         height: getSize(140),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                getAssetsSVGImg('add_photo'),
-              ),
-              SizedBox(
-                width: getSize(10.0),
-              ),
-              BaseText(text: 'Take Photo'),
-            ],
-          ),
+          child: BaseText(text: '',),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     SvgPicture.asset(
+          //       getAssetsSVGImg('add_photo'),
+          //     ),
+          //     SizedBox(
+          //       width: getSize(10.0),
+          //     ),
+          //     BaseText(text: 'Take Photo'),
+          //   ],
+          // ),
         ),
       ),
     );
