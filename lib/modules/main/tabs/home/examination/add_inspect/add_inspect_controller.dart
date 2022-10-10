@@ -13,6 +13,7 @@ import 'model/add_indspect_model.dart';
 class AddInspectController extends GetxController {
   final ApiRepository apiRepository;
   AddInspectController({required this.apiRepository});
+
   var addInspectionModelList = <AddInspectionModel>[].obs;
   RxBool isCheck = false.obs;
   RxBool isCheck1 = false.obs;
@@ -25,13 +26,10 @@ class AddInspectController extends GetxController {
   RxList chipsList = <String>[].obs;
   List<Widget> chips = [];
   var questionsResponse = <QuestionsResponse>[].obs;
- // QuestionsResponse questionModel= QuestionsResponse();
+  // QuestionsResponse questionModel= QuestionsResponse();
   QuestionModel? questionModel;
- //var questionModel1 = <QuestionModel>[].obs;
- //var questionID = Get.arguments as QuestionModel;
- // QuestionController questionController = Get.put(QuestionController(apiRepository: Get.find()));
+  //var questionID = Get.arguments as QuestionModel;
   var jobId = Get.arguments[1];
-  //var examinationId = Get.arguments[2];
 
 
   initQuestions() {
@@ -72,11 +70,8 @@ class AddInspectController extends GetxController {
     final formData = FormData({
       'questionId': questionModel?.id ?? 0,
       'jobId': jobId,
-      'images': localImagePathList
-          .map((e) =>
-          MultipartFile(e,
-              filename: 'document.png', contentType: "image/png"))
-          .toList(),
+      'images': localImagePathList.map((e) => MultipartFile(e,
+              filename: 'document.png', contentType: "image/png")).toList(),
       'notes': addNoteController.text,
       'tags': chipsList,
       'location': locationController.text,
@@ -84,9 +79,8 @@ class AddInspectController extends GetxController {
       'checklistIds': '2',
     });
     var res = await apiRepository.examinationAnswer(formData);
-    if (res != null && res.isNotEmpty) {
-      questionsResponse.value = res;
-
+    if (res != null) {
+      Get.back(result: "success");
       // for(int i = 0;  i < questionsResponse.length;  i++){
       //   answerList.add(questionsResponse[i].answer!.images.toString());
       //   print("questionsResponse4354545===============${questionsResponse.length}");
@@ -94,9 +88,25 @@ class AddInspectController extends GetxController {
       // return answerList;
       //  }
       //rint("questionsResponse4354545===============$res");
-      return null;
+
     }
   }
+
+  updateAnswer(int id ){
+    final formData = FormData({
+      'questionId': questionModel?.id ?? 0,
+      'jobId': jobId,
+      'images': localImagePathList.map((e) => MultipartFile(e,
+          filename: 'document.png', contentType: "image/png")).toList(),
+      'notes': addNoteController.text,
+      'tags': chipsList,
+      'location': locationController.text,
+      'rating': distanceValue,
+      'checklistIds': '2',
+    });
+    var res = apiRepository.updateAnswer(formData, id);
+  }
+
 
   @override
   void onInit() {

@@ -1,11 +1,13 @@
 import 'package:align_flutter_app/models/response/auth/login_response.dart';
 import 'package:align_flutter_app/models/response/home/history/history_response.dart';
 import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
+import 'package:align_flutter_app/models/response/home/notification/notification_response.dart';
 import 'package:align_flutter_app/models/response/home/results/results_response.dart';
 import 'package:align_flutter_app/models/response/home/summary_reports/summary_reports_response.dart';
 import '../models/response/common_response.dart';
 import '../models/response/home/inspection/examination_response.dart';
 import '../models/response/home/job_response.dart';
+import '../models/response/home/setting_notification/setting_notification_response.dart';
 import 'api.dart';
 import 'package:get/get.dart';
 
@@ -58,8 +60,7 @@ class ApiRepository {
     }
   }
 
-  Future<List<QuestionsResponse>?> getQuestion(
-      int examinationId, int jobId) async {
+  Future<List<QuestionsResponse>?> getQuestion(int examinationId, int jobId) async {
     final res = await apiProvider
         .getMethod("${ApiConstants.questions}/$examinationId/$jobId");
     print("QuestionsResponse==============${res.data}");
@@ -72,27 +73,26 @@ class ApiRepository {
     return null;
   }
 
-  Future<List<QuestionsResponse>?> examinationAnswer(FormData data) async {
+  Future<CommonResponse?> examinationAnswer(FormData data) async {
     print("Data : ======$data");
-    final res = await apiProvider.postMethod(ApiConstants.answers, {},
-        formData: data, isMultipart: true);
-    print("resData : ======${res.data}");
-    if (res.data != null) {
-      List<dynamic> listData = res.data;
-      return listData
-          .map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>))
-          .toList();
-      // return ExaminationResponse.fromJson(res.data);
-    } else {
-      return null;
-    }
+    final res = await apiProvider.postMethod(ApiConstants.answers, {}, formData: data, isMultipart: true);
+    print("resData123 : ======${res.dioMessage}");
     // if (res.dioMessage != null) {
-    //   return CommonResponse(dioMessage: res.dioMessage);
+    //   List<dynamic> listData = res.data;
+    //   return listData
+    //       .map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>))
+    //       .toList();
+    //   // return ExaminationResponse.fromJson(res.data);
+    // } else {
+    //   return null;
     // }
+    if (res.dioMessage != null) {
+      return CommonResponse(dioMessage: res.dioMessage);
+    }
     return null;
   }
 
-  Future<QuestionsResponse> answerUpdate(FormData data, int id) async {
+  Future<QuestionsResponse> updateAnswer(FormData data, int id) async {
     print("UserData : ======$data");
     final res = await apiProvider.putMethod(
         "${ApiConstants.answersUpdate}/$id", {},
@@ -127,6 +127,46 @@ class ApiRepository {
     return null;
   }
 
+  Future<List<NotificationResponse>?> getNotification() async {
+    final res = await apiProvider.getMethod(ApiConstants.notifications);
+    print("NotificationResponse==============${res.data}");
+    if (res.data != null) {
+      List<dynamic> listData = res.data;
+      return listData
+          .map((e) => NotificationResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return null;
+  }
+
+  Future<CommonResponse?> readNotification(Map<String, dynamic> data, int id) async {
+    //print("Data : ======$data");
+    final res = await apiProvider.postMethod("${ApiConstants.readNotification}/$id", data);
+    //print("resData : ======${res.dioMessage}");
+    if (res.dioMessage != null) {
+      return CommonResponse(dioMessage: res.dioMessage);
+    }
+    return null;
+  }
+
+  Future<SettingNotificationResponse?> getSettingNotification() async {
+    final res = await apiProvider.getMethod(ApiConstants.notification_setting);
+    print("SettingNotificationResponse==============${res.data}");
+    if (res.data != null) {
+      return SettingNotificationResponse.fromJson(res.data);
+    }
+    return null;
+  }
+
+  Future<SettingNotificationResponse> updateSettingNotification(Map<String, dynamic> data) async {
+    final res = await apiProvider.putMethod(ApiConstants.updateNotification_setting, data, isMultipart: false);
+    print("updateSettingNotification : ============================${res.data}");
+    if (res.data != null) {
+      return SettingNotificationResponse.fromJson(res.data);
+    }
+    return SettingNotificationResponse();
+  }
+
   Future<List<SummaryReportsResponse>?> getSummaryReport(int id) async {
     final res = await apiProvider.getMethod("${ApiConstants.summaryReports}/$id");
     print("SummaryReportsResponse==============${res.data}");
@@ -141,4 +181,15 @@ class ApiRepository {
       return null;
     }
   }
+
+  Future<SummaryReportsResponse> updateSummaryReport(Map<String, dynamic> data, int id) async {
+    final res = await apiProvider.putMethod("${ApiConstants.updateSummaryReports}/$id", data, isMultipart: false);
+    print("updateSummaryReportResponse: ============================${res.data}");
+    if (res.data != null) {
+      return SummaryReportsResponse.fromJson(res.data);
+    }
+    return SummaryReportsResponse();
+  }
+
+
 }

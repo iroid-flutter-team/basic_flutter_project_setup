@@ -19,59 +19,89 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: '',
-        leadingWidth: getSize(150),
-        leading: Padding(
-          padding: EdgeInsets.only(left: getSize(20), top: getSize(18)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BaseText(
-                text: "Good morning",
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: ColorConstants.white.withOpacity(0.6),
-              ),
-              SizedBox(
-                height: getSize(4),
-              ),
-              Expanded(
-                child: BaseText(
-                  text: "Albert Flores,",
-                  fontSize: 18,
-                  maxLines: 1,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: getSize(25), top: getSize(20)),
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(Routes.MESSAGE);
-              },
-              child: SvgPicture.asset(
-                SvgImageConstants.message1,
-                height: getSize(30),
+    return SafeArea(
+      child: Scaffold(
+       // appBar: BaseAppBar(
+       //    title: '',
+       //    leadingWidth: getSize(150),
+       //    leading: Padding(
+       //      padding: EdgeInsets.only(left: getSize(20), top: getSize(18)),
+       //      child: Column(
+       //        crossAxisAlignment: CrossAxisAlignment.start,
+       //        children: [
+       //          BaseText(
+       //            text: "Good morning",
+       //            fontSize: 12,
+       //            fontWeight: FontWeight.w500,
+       //            textColor: ColorConstants.white.withOpacity(0.6),
+       //          ),
+       //          SizedBox(
+       //            height: getSize(4),
+       //          ),
+       //          Expanded(
+       //            child: BaseText(
+       //              text: "Albert Flores,",
+       //              fontSize: 18,
+       //              maxLines: 1,
+       //              fontWeight: FontWeight.w600,
+       //            ),
+       //          ),
+       //        ],
+       //      ),
+       //    ),
+       //    actions: [
+       //      Padding(
+       //        padding: EdgeInsets.only(right: getSize(25), top: getSize(20)),
+       //        child: InkWell(
+       //          onTap: () {
+       //            Get.toNamed(Routes.SUMMARY_REPORT);
+       //          },
+       //          child: SvgPicture.asset(
+       //            SvgImageConstants.message1,
+       //            height: getSize(30),
+       //          ),
+       //        ),
+       //      ),
+       //    ],
+       //  ),
+        body: Column(
+          children: [
+            Container(
+              height: 50,
+              child: Row(
+                children: [
+                        Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           BaseText(
+                             text: "Good morning",
+                             fontSize: 12,
+                             fontWeight: FontWeight.w500,
+                             textColor: ColorConstants.white.withOpacity(0.6),
+                           ),
+                           SizedBox(
+                             height: getSize(4),
+                           ),
+                           BaseText(
+                             text: "Albert Flores,",
+                             fontSize: 18,
+                             maxLines: 1,
+                             fontWeight: FontWeight.w600,
+                           ),],),
+                ],
               ),
             ),
-          ),
-        ],
-      ),
-      body: SmartRefresher(
-        physics: BouncingScrollPhysics(),
-        controller: controller.refreshController,
-
-        onRefresh: (){
-          controller.getJobs();
-          controller.refreshController.refreshCompleted();
-        },
-        child: _buildMainBody(),
+            SmartRefresher(
+              physics: BouncingScrollPhysics(),
+              controller: controller.refreshController,
+              onRefresh: () {
+                controller.getJobs();
+                controller.refreshController.refreshCompleted();
+              },
+              child: _buildMainBody(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -102,7 +132,10 @@ class HomeView extends GetView<HomeController> {
             ),
             InkWell(
               onTap: () {
-                controller.jobsResponse.value.todayJobs!.isNotEmpty ? Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.todayJobs) : Get.toNamed(Routes.FUTURE_JOBS);
+                controller.jobsResponse.value.todayJobs!.isNotEmpty
+                    ? Get.toNamed(Routes.TODAY_JOBS,
+                        arguments: controller.jobsResponse.value.todayJobs)
+                    : Get.toNamed(Routes.FUTURE_JOBS);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),
@@ -142,7 +175,10 @@ class HomeView extends GetView<HomeController> {
             InkWell(
               onTap: () {
                 // Get.toNamed(Routes.FUTURE_JOBS);
-                controller.jobsResponse.value.futureJobs!.isNotEmpty ? Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs) : Get.toNamed(Routes.FUTURE_JOBS);
+                controller.jobsResponse.value.futureJobs!.isNotEmpty
+                    ? Get.toNamed(Routes.TODAY_JOBS,
+                        arguments: controller.jobsResponse.value.futureJobs)
+                    : Get.toNamed(Routes.FUTURE_JOBS);
                 //controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
               },
               child: CommonContainerWithShadow(

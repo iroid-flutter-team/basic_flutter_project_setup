@@ -201,7 +201,7 @@ class QuestionListWidget extends GetView<QuestionController> {
     return questionModel.questionSubmitted
         ? InkWell(
       onTap: (){
-       // Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel);
+        //  Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel.id);
       },
           child: CommonContainerWithShadow(
               width: getSize(186),
@@ -223,9 +223,12 @@ class QuestionListWidget extends GetView<QuestionController> {
             // onPressed: (){
             //   _showDialog();
             // },
-            onPressed: () {
+            onPressed: () async{var res = await
               Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId]);
-            },
+             if(res == 'success'){
+               controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+             }
+           },
             child: BaseText(
               text: StringConstants.inspect,
               fontWeight: FontWeight.w500,

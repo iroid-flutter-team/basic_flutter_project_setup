@@ -252,9 +252,8 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           BaseElevatedButton(
             onPressed: () async {
-              Get.back(result: "success");
-              controller.getAnswer(controller.questionModel?.id ?? 0);
-             // controller.questionController.getQuestion( controller.examinationId ,controller.jobId, );
+               controller.getAnswer(controller.questionModel?.id ?? 0);
+              // controller.questionController.getQuestion( controller.examinationId ,controller.jobId, );
               //Get.toNamed(Routes.EXAMINATION_RESULT);
             // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
             // controller.questionModel?.imagePathList.addAll(imageUrlList);

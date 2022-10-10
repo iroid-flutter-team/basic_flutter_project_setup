@@ -20,6 +20,7 @@ class QuestionController extends GetxController {
   var argumentData = Get.arguments[0] as ExaminationResponse;
   final RefreshController refreshController = RefreshController();
   var jobId = Get.arguments[1];
+  RxBool argumentValue = true.obs;
 
 
   initQuestions() {

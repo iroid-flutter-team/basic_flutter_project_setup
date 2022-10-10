@@ -10,4 +10,9 @@ class ApiConstants {
   static const history = 'history';
   static const results = 'results';
   static const summaryReports = 'reports';
+  static const notifications = 'notifications';
+  static const readNotification = 'notifications';
+  static const notification_setting = 'notification-setting';
+  static const updateNotification_setting = 'notification-setting';
+  static const updateSummaryReports = 'reports';
 }

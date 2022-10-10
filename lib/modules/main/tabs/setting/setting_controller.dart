@@ -4,7 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../api/api_repository.dart';
+import '../../../../models/response/home/setting_notification/setting_notification_response.dart';
 import '../../../../shared/constants/string_constant.dart';
 import 'model/setting_model.dart';
 
@@ -12,7 +14,8 @@ import 'model/setting_model.dart';
 class SettingController extends GetxController{
   final ApiRepository apiRepository;
   SettingController({required this.apiRepository});
-
+  final RefreshController refreshController = RefreshController();
+  var settingNotificationResponse = SettingNotificationResponse();
   RxBool switchValue = false.obs;
   final picker = ImagePicker();
   final double imageMaxWidth = Get.width;
@@ -59,6 +62,21 @@ class SettingController extends GetxController{
     } catch (ex) {
       print('Error ===> ${ex.toString()}');
     }
+  }
+
+
+  getSettingNotification() async {
+    var res = await apiRepository.getSettingNotification();
+    if (res != null) {
+      settingNotificationResponse = res;
+    }
+    print("settingNotificationResponse============${res}");
+  }
+
+  updateSettingNotification(bool val) async {
+    //print("reqVal========${val}");
+    var res = await apiRepository.updateSettingNotification({"all": val});
+    print("updateSettingNotification${res}");
   }
 
 }

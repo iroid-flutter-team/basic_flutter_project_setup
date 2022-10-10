@@ -1,5 +1,5 @@
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/summary_report_controller.dart';
-import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/question_list_widget1.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/summary_report_list_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,9 +36,11 @@ class SummaryReportView extends GetView<SummaryReportController> {
   }
 
   _buildMainBody() {
-    controller.initQuestions();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    controller.getSummaryReport(18);
+    return ListView(
+      physics: BouncingScrollPhysics(),
+      shrinkWrap: true,
+      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -58,7 +60,7 @@ class SummaryReportView extends GetView<SummaryReportController> {
         SizedBox(
           height: getSize(20.0),
         ),
-        QuestionListWidget1(),
+        SummaryReportListWidget(),
         SizedBox(
           height: getSize(20.0),
         ),
@@ -101,13 +103,13 @@ class SummaryReportView extends GetView<SummaryReportController> {
         ),
         GestureDetector(
           onTap: () => controller.currentQuestion.value <
-                  controller.questionModelList.length - 1
+                  controller.summaryReportModelList.length - 1
               ? controller.carouselController.nextPage()
               : null,
           child: Obx(() {
             return Opacity(
               opacity: controller.currentQuestion.value ==
-                      controller.questionModelList.length - 1
+                      controller.summaryReportModelList.length - 1
                   ? 0.5
                   : 1,
               child: SvgPicture.asset(
@@ -122,7 +124,7 @@ class SummaryReportView extends GetView<SummaryReportController> {
 
   String getPageNavigationText() {
     int currentQuestion = controller.currentQuestion.value + 1;
-    int totalQuestion = controller.questionModelList.length;
+    int totalQuestion = controller.summaryReportModelList.length;
     return '$currentQuestion Out of $totalQuestion';
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constants/color_constants.dart';
 import '../../../../shared/constants/png_image_constant.dart';
@@ -30,9 +31,17 @@ class SettingView extends GetView<SettingController> {
           title: "Setting",
           leading: Container(),
         ),
-        body: SingleChildScrollView(
+        body: SmartRefresher(
           physics: BouncingScrollPhysics(),
-          child: _buildMainBody(),
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getSettingNotification();
+            controller.refreshController.refreshCompleted();
+          },
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: _buildMainBody(),
+          ),
         ));
   }
 
@@ -197,6 +206,7 @@ class SettingView extends GetView<SettingController> {
       padding: 1.2,
       onToggle: (val) {
         controller.switchValue.value = val;
+        controller.updateSettingNotification(val);
         print("toggle--------${val}");
       },
     );

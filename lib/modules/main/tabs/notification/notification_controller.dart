@@ -1,4 +1,6 @@
+import 'package:align_flutter_app/models/response/home/notification/notification_response.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../api/api_repository.dart';
 import '../../../../shared/constants/color_constants.dart';
 import '../../../../shared/constants/svg_image_constant.dart';
@@ -8,6 +10,8 @@ class NotificationController extends GetxController {
   final ApiRepository apiRepository;
   NotificationController({required this.apiRepository});
   var title = "Notification".obs;
+  var notificationResponse = <NotificationResponse>[].obs;
+  final RefreshController refreshController = RefreshController();
   var notificationModel = <NotificationModel>[
     NotificationModel(
       image: SvgImageConstants.summer,
@@ -59,4 +63,20 @@ class NotificationController extends GetxController {
       "find leaks near the chimney, around gutters, at flashing points, and close to vents or pipes.",
     ),
   ].obs;
+
+  getNotification()async{
+    var res = await apiRepository.getNotification();
+    if(res != null && res.isNotEmpty){
+      notificationResponse.value = res;
+    }
+  }
+
+
+  @override
+  void onInit() {
+    getNotification();
+    super.onInit();
+  }
+
+
 }

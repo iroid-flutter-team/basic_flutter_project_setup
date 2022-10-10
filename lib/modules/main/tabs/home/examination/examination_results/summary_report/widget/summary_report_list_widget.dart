@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/model/summary_report_model.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/summary_animated_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,94 +17,125 @@ import '../../../question/model/question_model.dart';
 import '../../../question/widget/animated_card.dart';
 import '../summary_report_controller.dart';
 
-class QuestionListWidget1 extends GetView<SummaryReportController> {
-  const QuestionListWidget1({Key? key}) : super(key: key);
+class SummaryReportListWidget extends GetView<SummaryReportController> {
+  const SummaryReportListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: controller.questionModelList.map(
-            (questionModel) {
-          return Builder(
-            builder: (BuildContext context) {
-              return CommonContainerWithShadow(
-                width: Get.width,
-                margin: EdgeInsets.symmetric(
-                  horizontal: getSize(10.0),
-                ),
-                child: _buildItem(questionModel),
-              );
-            },
-          );
-        },
-      ).toList(),
-      options: CarouselOptions(
-        onPageChanged: (index, reason) {
-          controller.currentQuestion.value = index;
-        },
-        enlargeCenterPage: false,
-        height: Get.height / 1.5,
-        initialPage: 0,
-        reverse: false,
-        autoPlay: false,
-        enableInfiniteScroll: false,
-        scrollDirection: Axis.horizontal,
-        scrollPhysics: BouncingScrollPhysics(),
-        viewportFraction: 0.9,
-      ),
-      carouselController: controller.carouselController,
-    );
+    return Obx(() {
+      return CarouselSlider(
+        items: controller.summaryReportModelList.map(
+          (summaryReportModel) {
+            return Builder(
+              builder: (BuildContext context) {
+                return CommonContainerWithShadow(
+                  width: Get.width,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: getSize(10.0),
+                  ),
+                  child: _buildItem(summaryReportModel),
+                );
+              },
+            );
+          },
+        ).toList(),
+        options: CarouselOptions(
+          onPageChanged: (index, reason) {
+            controller.currentQuestion.value = index;
+          },
+          enlargeCenterPage: false,
+          height: Get.height / 1.5,
+          initialPage: 0,
+          reverse: false,
+          autoPlay: false,
+          enableInfiniteScroll: false,
+          scrollDirection: Axis.horizontal,
+          scrollPhysics: BouncingScrollPhysics(),
+          viewportFraction: 0.9,
+        ),
+        carouselController: controller.carouselController,
+      );
+    });
   }
 
-  _buildItem(QuestionModel questionModel) {
+  _buildItem(SummaryReportModel summaryReportModel) {
     return Padding(
-      padding: EdgeInsets.all(getSize(16.0),
+      padding: EdgeInsets.all(
+        getSize(16.0),
       ),
       child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BaseText(text: questionModel.title),
+          Center(
+            child: BaseText(text: summaryReportModel.title),
+          ),
           SizedBox(
             height: getSize(20.0),
           ),
-          SummaryAnimatedCard(),
+          SummaryAnimatedCard(
+            summaryReportModel: summaryReportModel,
+          ),
           SizedBox(
             height: getSize(20),
           ),
           CommonContainerWithShadow(
             backgroundColor: ColorConstants.black,
             child: Padding(
-              padding: EdgeInsets.only(left: getSize(20),
+              padding: EdgeInsets.only(
+                  left: getSize(20),
                   top: getSize(11),
                   bottom: getSize(11),
                   right: getSize(11)),
               child: Row(
                 children: [
-                  BaseText(text: "Problem", fontSize: 12,),
+                  BaseText(
+                    text: "Problem",
+                    fontSize: 12,
+                  ),
                   Spacer(),
                   Obx(() {
-                    return SvgPicture.asset(
-                      controller.isMinor.value
-                          ? getAssetsSVGImg('radio_circle_fill')
-                          : getAssetsSVGImg('radio_circle'),
+                    return InkWell(
+                      onTap: (){
+                        summaryReportModel.isMajor.value = !summaryReportModel.isMajor.value;
+                        summaryReportModel.isMinor.value = false;
+                      },
+                      child: SvgPicture.asset(
+                        summaryReportModel.isMajor.value
+                            ? getAssetsSVGImg('radio_circle_fill')
+                            : getAssetsSVGImg('radio_circle'),
+                      ),
                     );
                   }),
                   SizedBox(
                     width: getSize(10),
                   ),
-                  BaseText(text: "Major", fontSize: 12,),
+                  BaseText(
+                    text: "Major",
+                    fontSize: 12,
+                  ),
                   Spacer(),
                   Obx(() {
-                    return SvgPicture.asset(
-                      controller.isMinor.value
-                          ? getAssetsSVGImg('radio_circle_fill')
-                          : getAssetsSVGImg('radio_circle'),
+                    return InkWell(
+                      onTap: (){
+                        summaryReportModel.isMinor.value = !summaryReportModel.isMinor.value;
+                        summaryReportModel.isMajor.value  = false;
+                      },
+                      child: SvgPicture.asset(
+                        summaryReportModel.isMinor.value
+                            ? getAssetsSVGImg('radio_circle_fill')
+                            : getAssetsSVGImg('radio_circle'),
+                      ),
                     );
                   }),
                   SizedBox(
                     width: getSize(10),
                   ),
-                  BaseText(text: "Minor", fontSize: 12,),
+                  BaseText(
+                    text: "Minor",
+                    fontSize: 12,
+                  ),
                 ],
               ),
             ),
@@ -111,11 +143,11 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
           SizedBox(
             height: getSize(10),
           ),
-          _buildTagsView(),
+          _buildTagsView(summaryReportModel),
           SizedBox(
             height: getSize(10),
           ),
-          _buildRecommendationView(),
+          _buildRecommendationView(summaryReportModel),
           SizedBox(
             height: getSize(10),
           ),
@@ -133,7 +165,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
     );
   }
 
-  _buildTagsView() {
+  _buildTagsView(SummaryReportModel summaryReportModel) {
     final theme = Get.theme.copyWith(
       dividerColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -150,20 +182,19 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
         child: Theme(
           data: theme,
           child: Obx(
-                () {
-              print('isTileExpanded = ${controller.isTileExpanded.value}');
+            () {
+             // print('isTileExpanded = ${controller.isConditionExpanded.value}');
               return ExpansionTile(
-                initiallyExpanded: controller.isTileExpanded.value,
+                initiallyExpanded: summaryReportModel.isConditionExpanded.value,
                 onExpansionChanged: (bool expanded) {
-                  print(
-                      "expanded===========${controller.isTileExpanded.value}");
-                  controller.isTileExpanded.value = expanded;
+                //  print("expanded===========${controller.isConditionExpanded.value}");
+                  summaryReportModel.isConditionExpanded.value = expanded;
                 },
                 key: GlobalKey(),
                 iconColor: ColorConstants.white,
                 childrenPadding: EdgeInsets.all(0.0),
                 title: BaseText(
-                  text: controller.tag.value,
+                  text: summaryReportModel.conditionValue.value,
                 ),
                 children: [
                   Column(
@@ -179,7 +210,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                           color: ColorConstants.white.withOpacity(0.3),
                         ),
                       ),
-                      _buildTagList(),
+                      _buildTagList(summaryReportModel),
                     ],
                   ),
                 ],
@@ -191,12 +222,12 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
     );
   }
 
-  _buildTagList() {
+  _buildTagList(SummaryReportModel summaryReportModel) {
     return SizedBox(
       height: getSize(150),
       child: ListView.builder(
         //shrinkWrap: true,
-        itemCount: controller.tagList.length,
+        itemCount: summaryReportModel.condition.length,
         // itemCount: controller.toDoListTagsResponse.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
@@ -206,7 +237,8 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
 
             child: ListTile(
               onTap: () {
-                controller.tag.value = controller.tagList[index];
+                summaryReportModel.conditionValue.value =
+                    summaryReportModel.condition[index];
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // controller.tagValue.value.selection =
                 //     TextSelection.fromPosition(
@@ -214,9 +246,9 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                 //       offset: controller
                 //           .textEditingTagController.value.text.length),
                 // );
-                controller.isTileExpanded.value = false;
+                summaryReportModel.isConditionExpanded.value = false;
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
-                print(controller.tagList[index]);
+                //print(summaryReportModel.condition[index]);
               },
               dense: true,
               contentPadding: EdgeInsets.all(0.0),
@@ -224,7 +256,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
               horizontalTitleGap: getSize(10.0),
               title: BaseText(
                 textAlign: TextAlign.start,
-                text: controller.tagList[index],
+                text: summaryReportModel.condition[index],
               ),
             ),
           );
@@ -233,7 +265,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
     );
   }
 
-  _buildRecommendationView() {
+  _buildRecommendationView(SummaryReportModel summaryReportModel) {
     final theme = Get.theme.copyWith(
       dividerColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -250,20 +282,18 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
         child: Theme(
           data: theme,
           child: Obx(
-                () {
-              print('isTileExpanded = ${controller.isTileExpanded.value}');
+            () {
               return ExpansionTile(
-                initiallyExpanded: controller.isTileExpanded1.value,
+                initiallyExpanded: summaryReportModel.isRecommendationExpanded.value,
                 onExpansionChanged: (bool expanded) {
-                  print(
-                      "expanded===========${controller.isTileExpanded1.value}");
-                  controller.isTileExpanded1.value = expanded;
+               //   print("expanded===========${controller.isRecommendationExpanded.value}");
+                  summaryReportModel.isRecommendationExpanded.value = expanded;
                 },
                 key: GlobalKey(),
                 iconColor: ColorConstants.white,
                 childrenPadding: EdgeInsets.all(0.0),
                 title: BaseText(
-                  text: controller.recommendation.value,
+                  text: summaryReportModel.recommendationValue.value,
                 ),
                 children: [
                   Column(
@@ -279,7 +309,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                           color: ColorConstants.white.withOpacity(0.3),
                         ),
                       ),
-                      _buildRecommendationList(),
+                      _buildRecommendationList(summaryReportModel),
                     ],
                   ),
                 ],
@@ -291,12 +321,12 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
     );
   }
 
-  _buildRecommendationList() {
+  _buildRecommendationList(SummaryReportModel summaryReportModel) {
     return SizedBox(
       height: getSize(150),
       child: ListView.builder(
         //shrinkWrap: true,
-        itemCount: controller.recommendationList.length,
+        itemCount: summaryReportModel.recommendation.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 15.0),
@@ -304,8 +334,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
             //height: 25,
             child: ListTile(
               onTap: () {
-                controller.recommendation.value =
-                controller.recommendationList[index];
+                summaryReportModel.recommendationValue.value = summaryReportModel.recommendation[index];
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // controller.tagValue.value.selection =
                 //     TextSelection.fromPosition(
@@ -313,7 +342,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
                 //       offset: controller
                 //           .textEditingTagController.value.text.length),
                 // );
-                controller.isTileExpanded1.value = false;
+                summaryReportModel.isRecommendationExpanded.value = false;
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // print(controller.tagList[index]);
               },
@@ -323,7 +352,7 @@ class QuestionListWidget1 extends GetView<SummaryReportController> {
               horizontalTitleGap: getSize(10.0),
               title: BaseText(
                 textAlign: TextAlign.start,
-                text: controller.recommendationList[index],
+                text: summaryReportModel.recommendation[index],
               ),
             ),
           );

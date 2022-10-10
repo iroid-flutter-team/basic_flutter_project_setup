@@ -34,8 +34,8 @@ class QuestionView extends GetView<QuestionController> {
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () {
-          controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
-          controller.refreshController.refreshCompleted();
+         // controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+         // controller.refreshController.refreshCompleted();
         },
         child: _buildMainBody(controller.argumentData),
       ),
@@ -43,8 +43,7 @@ class QuestionView extends GetView<QuestionController> {
   }
 
   _buildMainBody(ExaminationResponse examinationResponse) {
-    controller.getQuestion(
-        examinationResponse.examinationId!, controller.jobId);
+    controller.getQuestion(examinationResponse.examinationId!, controller.jobId);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
