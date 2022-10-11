@@ -1,5 +1,6 @@
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/model/summary_report_model.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/summary_animated_card.dart';
+import 'package:align_flutter_app/shared/widgets/base_elevated_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             controller.currentQuestion.value = index;
           },
           enlargeCenterPage: false,
-          height: Get.height / 1.5,
+          height: Get.height / 1.4,
           initialPage: 0,
           reverse: false,
           autoPlay: false,
@@ -97,8 +98,9 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                   Spacer(),
                   Obx(() {
                     return InkWell(
-                      onTap: (){
-                        summaryReportModel.isMajor.value = !summaryReportModel.isMajor.value;
+                      onTap: () {
+                        summaryReportModel.isMajor.value =
+                            !summaryReportModel.isMajor.value;
                         summaryReportModel.isMinor.value = false;
                       },
                       child: SvgPicture.asset(
@@ -118,9 +120,10 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                   Spacer(),
                   Obx(() {
                     return InkWell(
-                      onTap: (){
-                        summaryReportModel.isMinor.value = !summaryReportModel.isMinor.value;
-                        summaryReportModel.isMajor.value  = false;
+                      onTap: () {
+                        summaryReportModel.isMinor.value =
+                            !summaryReportModel.isMinor.value;
+                        summaryReportModel.isMajor.value = false;
                       },
                       child: SvgPicture.asset(
                         summaryReportModel.isMinor.value
@@ -160,6 +163,22 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             maxLines: 6,
             minLines: 4,
           ),
+          SizedBox(
+            height: getSize(18),
+          ),
+          Center(
+            child: BaseElevatedButton(
+              width: getSize(186),
+              height: getSize(30.0),
+              borderRadius: BorderRadius.circular(
+                getSize(8.0),
+              ),
+              onPressed: () {
+                controller.updateSummaryReport(18,summaryReportModel.id, summaryReportModel.recommendationValue.value, summaryReportModel.conditionValue.value );
+              },
+              child: BaseText(text: "SUBMIT"),
+            ),
+          ),
         ],
       ),
     );
@@ -183,11 +202,11 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
           data: theme,
           child: Obx(
             () {
-             // print('isTileExpanded = ${controller.isConditionExpanded.value}');
+              // print('isTileExpanded = ${controller.isConditionExpanded.value}');
               return ExpansionTile(
                 initiallyExpanded: summaryReportModel.isConditionExpanded.value,
                 onExpansionChanged: (bool expanded) {
-                //  print("expanded===========${controller.isConditionExpanded.value}");
+                  //  print("expanded===========${controller.isConditionExpanded.value}");
                   summaryReportModel.isConditionExpanded.value = expanded;
                 },
                 key: GlobalKey(),
@@ -224,7 +243,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
 
   _buildTagList(SummaryReportModel summaryReportModel) {
     return SizedBox(
-      height: getSize(150),
+      height: getSize(120),
       child: ListView.builder(
         //shrinkWrap: true,
         itemCount: summaryReportModel.condition.length,
@@ -284,9 +303,10 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
           child: Obx(
             () {
               return ExpansionTile(
-                initiallyExpanded: summaryReportModel.isRecommendationExpanded.value,
+                initiallyExpanded:
+                    summaryReportModel.isRecommendationExpanded.value,
                 onExpansionChanged: (bool expanded) {
-               //   print("expanded===========${controller.isRecommendationExpanded.value}");
+                  //   print("expanded===========${controller.isRecommendationExpanded.value}");
                   summaryReportModel.isRecommendationExpanded.value = expanded;
                 },
                 key: GlobalKey(),
@@ -323,7 +343,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
 
   _buildRecommendationList(SummaryReportModel summaryReportModel) {
     return SizedBox(
-      height: getSize(150),
+      height: getSize(120),
       child: ListView.builder(
         //shrinkWrap: true,
         itemCount: summaryReportModel.recommendation.length,
@@ -334,7 +354,8 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             //height: 25,
             child: ListTile(
               onTap: () {
-                summaryReportModel.recommendationValue.value = summaryReportModel.recommendation[index];
+                summaryReportModel.recommendationValue.value =
+                    summaryReportModel.recommendation[index];
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // controller.tagValue.value.selection =
                 //     TextSelection.fromPosition(

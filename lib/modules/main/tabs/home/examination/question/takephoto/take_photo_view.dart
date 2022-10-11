@@ -28,12 +28,13 @@ class TakePhotoView extends GetView<TakePhotoController> {
         actions: [
           photoPath.isNotEmpty
               ? IconButton(
-              icon: SvgPicture.asset(
-                getAssetsSVGImg('trash'),
-              ),
-              onPressed: () {
-                Get.back(result: {'action': 'DELETE'});
-              })
+                  icon: SvgPicture.asset(
+                    getAssetsSVGImg('trash'),
+                  ),
+                  onPressed: () {
+
+                    Get.back(result: {'action': 'DELETE'});
+                  })
               : Container(),
         ],
       ),
@@ -84,10 +85,17 @@ class TakePhotoView extends GetView<TakePhotoController> {
   }
 
   _buildImageView() {
-    return Image.file(
-      File(controller.imagePath.value),
-      fit: BoxFit.fill,
-    );
+    if (controller.imagePath.value.contains("http")) {
+      return Image.network(
+        controller.imagePath.value,
+        fit: BoxFit.fill,
+      );
+    } else {
+      return Image.file(
+        File(controller.imagePath.value),
+        fit: BoxFit.fill,
+      );
+    }
   }
 
   _buildCapturePhotoView() {
@@ -148,7 +156,7 @@ class TakePhotoView extends GetView<TakePhotoController> {
           width: getSize(30.0),
         ),
         GestureDetector(
-          onTap: ()  {
+          onTap: () {
             Get.back(result: {
               'action': 'ADD',
               'imagePath': controller.imagePath.value
@@ -172,5 +180,3 @@ class TakePhotoView extends GetView<TakePhotoController> {
     );
   }
 }
-
-

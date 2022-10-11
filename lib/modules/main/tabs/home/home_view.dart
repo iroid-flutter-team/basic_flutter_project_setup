@@ -20,89 +20,119 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-       // appBar: BaseAppBar(
-       //    title: '',
-       //    leadingWidth: getSize(150),
-       //    leading: Padding(
-       //      padding: EdgeInsets.only(left: getSize(20), top: getSize(18)),
-       //      child: Column(
-       //        crossAxisAlignment: CrossAxisAlignment.start,
-       //        children: [
-       //          BaseText(
-       //            text: "Good morning",
-       //            fontSize: 12,
-       //            fontWeight: FontWeight.w500,
-       //            textColor: ColorConstants.white.withOpacity(0.6),
-       //          ),
-       //          SizedBox(
-       //            height: getSize(4),
-       //          ),
-       //          Expanded(
-       //            child: BaseText(
-       //              text: "Albert Flores,",
-       //              fontSize: 18,
-       //              maxLines: 1,
-       //              fontWeight: FontWeight.w600,
-       //            ),
-       //          ),
-       //        ],
-       //      ),
-       //    ),
-       //    actions: [
-       //      Padding(
-       //        padding: EdgeInsets.only(right: getSize(25), top: getSize(20)),
-       //        child: InkWell(
-       //          onTap: () {
-       //            Get.toNamed(Routes.SUMMARY_REPORT);
-       //          },
-       //          child: SvgPicture.asset(
-       //            SvgImageConstants.message1,
-       //            height: getSize(30),
-       //          ),
-       //        ),
-       //      ),
-       //    ],
-       //  ),
-        body: Column(
+      child: SmartRefresher(
+        physics: BouncingScrollPhysics(),
+        controller: controller.refreshController,
+        onRefresh: () {
+          controller.getJobs();
+          controller.refreshController.refreshCompleted();
+        },
+        child: Column(
           children: [
-            Container(
-              height: 50,
-              child: Row(
-                children: [
+            Column(
+              children: [
+                Container(
+                  height: getSize(60),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: getSize(25), right: getSize(22), top: getSize(14)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           BaseText(
-                             text: "Good morning",
-                             fontSize: 12,
-                             fontWeight: FontWeight.w500,
-                             textColor: ColorConstants.white.withOpacity(0.6),
-                           ),
-                           SizedBox(
-                             height: getSize(4),
-                           ),
-                           BaseText(
-                             text: "Albert Flores,",
-                             fontSize: 18,
-                             maxLines: 1,
-                             fontWeight: FontWeight.w600,
-                           ),],),
-                ],
-              ),
-            ),
-            SmartRefresher(
-              physics: BouncingScrollPhysics(),
-              controller: controller.refreshController,
-              onRefresh: () {
-                controller.getJobs();
-                controller.refreshController.refreshCompleted();
-              },
-              child: _buildMainBody(),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // SizedBox(
+                            //   height: getSize(6),
+                            // ),
+                            BaseText(
+                              text: "Good morning",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              textColor: ColorConstants.white.withOpacity(0.6),
+                            ),
+                            SizedBox(
+                              height: getSize(4),
+                            ),
+                            BaseText(
+                              text: "Albert Flores,",
+                              fontSize: 18,
+                              maxLines: 1,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(Routes.EXAMINATION_RESULT);
+                          },
+                          child: SvgPicture.asset(
+                            SvgImageConstants.message1,
+                            height: getSize(30),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                _buildMainBody(),
+                // SmartRefresher(
+                //   physics: BouncingScrollPhysics(),
+                //   controller: controller.refreshController,
+                //   onRefresh: () {
+                //     controller.getJobs();
+                //     controller.refreshController.refreshCompleted();
+                //   },
+                //   child: ,
+                // ),
+              ],
             ),
           ],
+          // appBar: BaseAppBar(
+          //    title: '',
+          //    leadingWidth: getSize(150),
+          //    leading: Padding(
+          //      padding: EdgeInsets.only(left: getSize(20), top: getSize(18)),
+          //      child: Column(
+          //        crossAxisAlignment: CrossAxisAlignment.start,
+          //        children: [
+          //          BaseText(
+          //            text: "Good morning",
+          //            fontSize: 12,
+          //            fontWeight: FontWeight.w500,
+          //            textColor: ColorConstants.white.withOpacity(0.6),
+          //          ),
+          //          SizedBox(
+          //            height: getSize(4),
+          //          ),
+          //          Expanded(
+          //            child: BaseText(
+          //              text: "Albert Flores,",
+          //              fontSize: 18,
+          //              maxLines: 1,
+          //              fontWeight: FontWeight.w600,
+          //            ),
+          //          ),
+          //        ],
+          //      ),
+          //    ),
+          //    actions: [
+          //      Padding(
+          //        padding: EdgeInsets.only(right: getSize(25), top: getSize(20)),
+          //        child: InkWell(
+          //          onTap: () {
+          //            Get.toNamed(Routes.SUMMARY_REPORT);
+          //          },
+          //          child: SvgPicture.asset(
+          //            SvgImageConstants.message1,
+          //            height: getSize(30),
+          //          ),
+          //        ),
+          //      ),
+          //    ],
+          //  ),
         ),
       ),
+
     );
   }
 

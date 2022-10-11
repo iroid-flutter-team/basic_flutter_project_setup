@@ -13,15 +13,15 @@ class QuestionController extends GetxController {
   QuestionController({required this.apiRepository});
 
   final CarouselController carouselController = CarouselController();
- var questionModelList = <QuestionModel>[].obs;
+  var questionModelList = <QuestionModel>[].obs;
   var questionsResponse = <QuestionsResponse>[].obs;
   final Rx<int> currentQuestion = 0.obs;
   RxDouble distanceValue = 0.0.obs;
   var argumentData = Get.arguments[0] as ExaminationResponse;
   final RefreshController refreshController = RefreshController();
   var jobId = Get.arguments[1];
+  var questionId;
   RxBool argumentValue = true.obs;
-
 
   initQuestions() {
     questionModelList.clear();
@@ -40,6 +40,7 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
+        answerId: 1,
       ),
     );
     questionModelList.add(
@@ -60,6 +61,7 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
+        answerId: 2,
       ),
     );
     questionModelList.add(
@@ -79,6 +81,7 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
+        answerId: 3,
       ),
     );
     questionModelList.add(
@@ -95,6 +98,7 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
+        answerId: 4,
       ),
     );
 
@@ -117,6 +121,7 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
+        answerId: 5,
       ),
     );
   }
@@ -141,13 +146,20 @@ class QuestionController extends GetxController {
             QuestionModel(
               id: questionsResponse[i].questionId!,
               title: questionsResponse[i].title!,
-              imagePathList: questionsResponse[i].answer!.images == null ? [] : questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
+              imagePathList: questionsResponse[i].answer!.images == null
+                  ? []
+                  : questionsResponse[i]
+                      .answer!
+                      .images!
+                      .map((e) => e.image ?? '')
+                      .toList(),
               question: questionsResponse[i].description!,
               tags: questionsResponse[i].answer?.tags ?? '',
               notes: questionsResponse[i].answer?.notes ?? '',
               rating: questionsResponse[i].answer?.rating ?? 0,
               checkListID: '',
               location: questionsResponse[i].answer?.location ?? "",
+              answerId: questionsResponse[i].answer?.answerId ?? 0,
               questionSubmitted: questionsResponse[i].answer?.answerId != null ? true : false,
             ),
           );
@@ -159,8 +171,12 @@ class QuestionController extends GetxController {
 
   @override
   void onInit() {
+    printInfo(info: 'Get.Argument${Get.arguments}');
+    if(Get.arguments[2] != null && Get.arguments[2] != -3){
+      questionId = Get.arguments[2];
+    }
     print("jobID=============$jobId");
-     // print("jobID=============${questionsResponse[].answer?.rating ?? 0}");
+    // print("jobID=============${questionsResponse[].answer?.rating ?? 0}");
     //getQuestion(argumentData.examinationId ?? 0, jobId);
     super.onInit();
   }

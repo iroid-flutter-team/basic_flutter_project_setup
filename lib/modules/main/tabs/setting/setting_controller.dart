@@ -1,12 +1,16 @@
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../api/api_repository.dart';
 import '../../../../models/response/home/setting_notification/setting_notification_response.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../shared/constants/storage.dart';
 import '../../../../shared/constants/string_constant.dart';
 import 'model/setting_model.dart';
 
@@ -23,6 +27,7 @@ class SettingController extends GetxController{
   final int imageQuality = 50;
   var locationValue = ''.obs;
   var pickedImagePath = ''.obs;
+  final prefs = Get.find<SharedPreferences>();
 
   List<SettingModel> settingList = [
     SettingModel(icon: 'notification_bing',  title: StringConstants.pushNotification),
@@ -77,6 +82,35 @@ class SettingController extends GetxController{
     //print("reqVal========${val}");
     var res = await apiRepository.updateSettingNotification({"all": val});
     print("updateSettingNotification${res}");
+  }
+
+  void logOutUser() async {
+    try {
+      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      String? deviceId;
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidDeviceInfo =
+        await deviceInfoPlugin.androidInfo;
+        deviceId = androidDeviceInfo.id;
+        printInfo(info: 'deviceId123 ==> $deviceId');
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+        deviceId = iosDeviceInfo.identifierForVendor;
+      }
+
+      printInfo(info: 'deviceId ==> $deviceId');
+      if (deviceId != null) {
+        var commonResponse = await apiRepository.logOut({'deviceId': deviceId});
+        printInfo(info: 'commonResponse ==> ${commonResponse?.dioMessage}');
+        if (commonResponse!.dioMessage!.contains('logout successfully')) {
+          // final prefs = Get.find<SharedPreferences>();
+          await prefs.clear();
+          Get.offAllNamed(Routes.SIGN_IN);
+        }
+      }
+    } catch (ex) {
+      printInfo(info: 'error ==> ${ex.toString()}');
+    }
   }
 
 }

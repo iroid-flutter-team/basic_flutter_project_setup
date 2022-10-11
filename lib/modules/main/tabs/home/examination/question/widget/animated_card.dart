@@ -22,27 +22,27 @@ class AnimatedCard extends GetView<QuestionController> {
 
   @override
   Widget build(BuildContext context) {
-    InfiniteCardsController? _infiniteCardsController;
+    InfiniteCardsController? infiniteCardsController;
     return Obx(() {
       printInfo(info: 'build() called...');
       return _buildAnimationSlider(
-          questionModel.localImagePathList.length, _infiniteCardsController);
+          questionModel.localImagePathList.length, infiniteCardsController);
     });
   }
 
   _buildAnimationSlider(
-      int imageCount, InfiniteCardsController? _infiniteCardsController) {
-    _infiniteCardsController = InfiniteCardsController(
+      int imageCount, InfiniteCardsController? infiniteCardsController) {
+    infiniteCardsController = InfiniteCardsController(
       itemCount: _getItemCount(),
       itemBuilder: (BuildContext context, int index) {
         return questionModel.questionSubmitted
-            ? _buildNetworkPhotoView(index, _infiniteCardsController)
+            ? _buildNetworkPhotoView(index, infiniteCardsController)
             : questionModel.localImagePathList.isEmpty
             ? _buildTakePhotoView1()
             : _buildTakePhotoView2(
             imagePath: questionModel.localImagePathList[index],
             index: index,
-            infiniteCardsController: _infiniteCardsController!);
+            infiniteCardsController: infiniteCardsController!);
       },
       animType: AnimType.SWITCH,
     );
@@ -53,7 +53,7 @@ class AnimatedCard extends GetView<QuestionController> {
       key: key,
       //width: Get.width,
       height: getSize(140),
-      controller: _infiniteCardsController,
+      controller: infiniteCardsController,
     );
 
     return infiniteCards;
@@ -74,7 +74,7 @@ class AnimatedCard extends GetView<QuestionController> {
   }
 
   Widget _buildNetworkPhotoView(
-      int index, InfiniteCardsController? _infiniteCardsController) {
+      int index, InfiniteCardsController? infiniteCardsController) {
     return CommonContainerWithShadow(
       width: double.maxFinite,
       child: GestureDetector(
@@ -86,9 +86,9 @@ class AnimatedCard extends GetView<QuestionController> {
           );
         },
         onPanUpdate: (details) {
-          if (details.delta.dy > 0 && _infiniteCardsController!.itemCount > 1) {
-            _infiniteCardsController.reset(animType: AnimType.TO_END);
-            _infiniteCardsController.next();
+          if (details.delta.dy > 0 && infiniteCardsController!.itemCount > 1) {
+            infiniteCardsController.reset(animType: AnimType.TO_END);
+            infiniteCardsController.next();
           }
         },
         child: Container(

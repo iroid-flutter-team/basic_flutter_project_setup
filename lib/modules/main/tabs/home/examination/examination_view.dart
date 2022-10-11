@@ -122,7 +122,7 @@ class ExaminationView extends GetView<ExaminationController> {
             : () {
                 Get.toNamed(
                   Routes.QUESTION,
-                  arguments: [examinationResponse, controller.jobId],
+                  arguments: [examinationResponse, controller.jobId, -3],
                 );
               },
         progressBar: null,

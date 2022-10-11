@@ -200,10 +200,13 @@ class QuestionListWidget extends GetView<QuestionController> {
   _buildSubmitView({required QuestionModel questionModel}) {
     return questionModel.questionSubmitted
         ? InkWell(
-      onTap: (){
-        //  Get.toNamed(Routes.ADD_INSPECT, arguments: questionModel.id);
-      },
-          child: CommonContainerWithShadow(
+            onTap: () async {
+             // print("questionModel========${questionModel.title}");
+              var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId]);
+              if (res == 'success') {controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+              }
+            },
+            child: CommonContainerWithShadow(
               width: getSize(186),
               height: getSize(40.0),
               backgroundColor: ColorConstants.black,
@@ -213,7 +216,7 @@ class QuestionListWidget extends GetView<QuestionController> {
                 ),
               ),
             ),
-        )
+          )
         : BaseElevatedButton(
             width: getSize(186),
             height: getSize(30.0),
@@ -223,12 +226,15 @@ class QuestionListWidget extends GetView<QuestionController> {
             // onPressed: (){
             //   _showDialog();
             // },
-            onPressed: () async{var res = await
-              Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId]);
-             if(res == 'success'){
-               controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
-             }
-           },
+            onPressed: () async {
+              var res = await Get.toNamed(Routes.ADD_INSPECT,
+                  arguments: [questionModel, controller.jobId, -3]);
+              if (res == 'success') {
+                controller.getQuestion(
+                    controller.argumentData.examinationId ?? 0,
+                    controller.jobId);
+              }
+            },
             child: BaseText(
               text: StringConstants.inspect,
               fontWeight: FontWeight.w500,

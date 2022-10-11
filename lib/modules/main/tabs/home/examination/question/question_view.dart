@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../../../models/response/home/inspection/examination_response.dart';
+import '../../../../../../shared/constants/string_constant.dart';
+import '../../../../../../shared/dialog/sign_out.dart';
 import '../../../../../../shared/utils/image_utils.dart';
 import '../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../shared/widgets/base_text.dart';
@@ -31,19 +33,22 @@ class QuestionView extends GetView<QuestionController> {
         title: controller.argumentData.name ?? "",
         actions: [],
       ),
-      body: SmartRefresher(
-        controller: controller.refreshController,
-        onRefresh: () {
-         // controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
-         // controller.refreshController.refreshCompleted();
-        },
-        child: _buildMainBody(controller.argumentData),
-      ),
+      body: _buildMainBody(controller.argumentData),
+
+      // SmartRefresher(
+      //   controller: controller.refreshController,
+      //   onRefresh: () {
+      //    // controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+      //     controller.refreshController.refreshCompleted();
+      //   },
+      //   child: _buildMainBody(controller.argumentData),
+      // ),
     );
   }
 
   _buildMainBody(ExaminationResponse examinationResponse) {
-    controller.getQuestion(examinationResponse.examinationId!, controller.jobId);
+    controller.getQuestion(
+        examinationResponse.examinationId!, controller.jobId);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -134,8 +139,22 @@ class QuestionView extends GetView<QuestionController> {
           }),
         ),
         GestureDetector(
-          onTap: () => controller.currentQuestion.value <
-                  controller.questionModelList.length - 1
+          // onTap:
+          // controller.currentQuestion.value <
+          //         controller.questionModelList.length - 1
+          //     ? () {
+          //        // print("OpenDailog=========");
+          //        //  if (controller.currentQuestion.value == controller.questionModelList.length - 2) {
+          //        //    print("OpenDailog=========");
+          //        //    //_showSignOutDialog();
+          //        //  }
+          //         controller.carouselController.nextPage();
+          //
+          //       }
+          //     : (){
+          //   print("OpenDailog=========");
+          // },
+          onTap: () => controller.currentQuestion.value < controller.questionModelList.length - 1
               ? controller.carouselController.nextPage()
               : null,
           child: Obx(() {
@@ -158,6 +177,28 @@ class QuestionView extends GetView<QuestionController> {
     int currentQuestion = controller.currentQuestion.value + 1;
     int totalQuestion = controller.questionModelList.length;
     return '$currentQuestion Out of $totalQuestion';
+  }
+  _showSignOutDialog() {
+    showDialog(
+      barrierColor: Colors.black26,
+      context: Get.context!,
+      builder: (context) {
+        return CustomAlertDialog(
+          title: StringConstants.signOutAlertMessage,
+          cancelCallBack: () {
+            Get.back();
+          },
+          signOutCallBack: () {
+            Get.back();
+            // controller.logOutUser();
+            // Get.offAll(
+            //   SignInWithEmailScreen(),
+            //   binding: SignInWithEmailBindings(),
+            // );
+          },
+        );
+      },
+    );
   }
 }
 

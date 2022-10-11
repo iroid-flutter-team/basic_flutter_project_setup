@@ -24,7 +24,6 @@ class InfiniteCards extends StatefulWidget {
 
   @override
   InfiniteCardsState createState() => InfiniteCardsState();
-
 }
 
 class InfiniteCardsState extends State<InfiniteCards>
@@ -45,9 +44,8 @@ class InfiniteCardsState extends State<InfiniteCards>
     widget.controller.animHelper = _helper;
   }
 
-
   void _listenerForSetState() {
-      setState(() {});
+    setState(() {});
   }
 
   @override

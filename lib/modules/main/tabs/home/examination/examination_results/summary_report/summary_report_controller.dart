@@ -19,6 +19,7 @@ class SummaryReportController extends GetxController {
   var summaryReportsResponse = <SummaryReportsResponse>[].obs;
   final Rx<int> currentQuestion = 0.obs;
   RxDouble distanceValue = 0.0.obs;
+  var jobId = Get.arguments;
   //SummaryReportModel summaryReportModel;
   // var recommendationList = [
   //   RecommendationModel(id: 1, title: "dgs"),
@@ -190,17 +191,17 @@ class SummaryReportController extends GetxController {
     print("");
   }
 
-  updateSummaryReport(int id, recommendationValue) async {
-    SummaryReportModel? summaryReportModel;
+  updateSummaryReport(int jobId ,int answerId, recommendationValue, conditionValue) async {
+
     var res = await apiRepository.updateSummaryReport(
         ({
-          "answerId": 1,
+          "answerId": answerId,
           "problem": 1,
-          "condition": 1,
-          "recommendation": 1,
+          "condition": getConditionIndex(conditionValue),
+          "recommendation": getRecommendationIndex(recommendationValue),
           "tips": suggestionsController.text,
-        }),
-        id);
+        }), jobId);
+
   }
 
    getRecommendationIndex(String val){

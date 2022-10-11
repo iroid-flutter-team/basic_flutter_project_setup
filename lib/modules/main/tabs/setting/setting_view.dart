@@ -267,6 +267,7 @@ class SettingView extends GetView<SettingController> {
           },
           signOutCallBack: () {
             Get.back();
+            controller.logOutUser();
             // Get.offAll(
             //   SignInWithEmailScreen(),
             //   binding: SignInWithEmailBindings(),

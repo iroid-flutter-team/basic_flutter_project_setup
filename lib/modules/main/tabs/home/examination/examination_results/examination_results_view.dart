@@ -83,7 +83,7 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
           ),
           BaseElevatedButton(
             onPressed: () {
-              Get.toNamed(Routes.SUMMARY_REPORT);
+              Get.toNamed(Routes.SUMMARY_REPORT, arguments: controller.jobId);
             },
             child: BaseText(
               text: "GO TO SUMMARY REPORT",

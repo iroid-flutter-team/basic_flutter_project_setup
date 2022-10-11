@@ -136,6 +136,7 @@ class InspectAnimatedCard extends GetView<AddInspectController> {
       required int index,
       required InfiniteCardsController infiniteCardsController}) {
     printInfo(info: 'imagePath ========== $imagePath');
+    printInfo(info: 'imagePath ========== ${imagePath.contains("http")}');
 
     return GestureDetector(
       onTap: () {

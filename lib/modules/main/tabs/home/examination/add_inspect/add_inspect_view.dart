@@ -26,7 +26,11 @@ class AddInspectView extends GetView<AddInspectController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: 'Windows',
+        onPress: () {
+          Get.back();
+          Get.delete<AddInspectController>();
+        },
+        title: controller.questionModel?.title ?? "",
       ),
       body: _buildMainBody(context),
     );
@@ -94,34 +98,36 @@ class AddInspectView extends GetView<AddInspectController> {
           SizedBox(
             height: getSize(30),
           ),
-          controller.localImagePathList.isNotEmpty ?  InspectAnimatedCard() : DottedBorder(
-              borderType: BorderType.RRect,
-              dashPattern: [8, 8],
-              color: Color(0xffB7B7B7).withOpacity(0.75),
-              radius: Radius.circular(getSize(24)),
-              child: InspectAnimatedCard()
-              // Container(
-              //   height: getSize(140),
-              //   width: Get.width,
-              //   child: InkWell(
-              //     onTap: (){
-              //
-              //     },
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         SvgPicture.asset(
-              //           SvgImageConstants.add_photo,
-              //         ),
-              //         BaseText(
-              //           text: "Take Photo",
-              //           fontSize: 16,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              ),
+          controller.localImagePathList.isNotEmpty
+              ? InspectAnimatedCard()
+              : DottedBorder(
+                  borderType: BorderType.RRect,
+                  dashPattern: [8, 8],
+                  color: Color(0xffB7B7B7).withOpacity(0.75),
+                  radius: Radius.circular(getSize(24)),
+                  child: InspectAnimatedCard()
+                  // Container(
+                  //   height: getSize(140),
+                  //   width: Get.width,
+                  //   child: InkWell(
+                  //     onTap: (){
+                  //
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         SvgPicture.asset(
+                  //           SvgImageConstants.add_photo,
+                  //         ),
+                  //         BaseText(
+                  //           text: "Take Photo",
+                  //           fontSize: 16,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  ),
           SizedBox(
             height: getSize(30),
           ),
@@ -187,36 +193,39 @@ class AddInspectView extends GetView<AddInspectController> {
           SizedBox(
             height: getSize(10),
           ),
-         controller.chipsList.isEmpty ? Container() : Obx(
-            () {
-              print("chipsList================${controller.chipsList.length}");
-              return Wrap(
-                spacing: 16,
-                children: List.generate(
-                  controller.chipsList.length,
-                  (index) => InputChip(
-                    //selected: _selected[i],
-                    label: BaseText(
-                      text: controller.chipsList[index],
-                      textColor: ColorConstants.white,
-                      fontSize: 18,
-                    ),
-                    backgroundColor: Color(0XFF4293D4),
-                    elevation: 0,
-                    deleteIconColor: ColorConstants.white,
-                    deleteIcon: Icon(
-                      Icons.close,
-                      size: 18,
-                    ),
-                    onPressed: () {},
-                    onDeleted: () {
-                      controller.chipsList.removeAt(index);
-                    },
-                  ),
+          controller.chipsList.isEmpty
+              ? Container()
+              : Obx(
+                  () {
+                    print(
+                        "chipsList================${controller.chipsList.length}");
+                    return Wrap(
+                      spacing: 16,
+                      children: List.generate(
+                        controller.chipsList.length,
+                        (index) => InputChip(
+                          //selected: _selected[i],
+                          label: BaseText(
+                            text: controller.chipsList[index],
+                            textColor: ColorConstants.white,
+                            fontSize: 18,
+                          ),
+                          backgroundColor: Color(0XFF4293D4),
+                          elevation: 0,
+                          deleteIconColor: ColorConstants.white,
+                          deleteIcon: Icon(
+                            Icons.close,
+                            size: 18,
+                          ),
+                          onPressed: () {},
+                          onDeleted: () {
+                            controller.chipsList.removeAt(index);
+                          },
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
           SizedBox(
             height: getSize(30),
           ),
@@ -252,19 +261,23 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           BaseElevatedButton(
             onPressed: () async {
-               controller.getAnswer(controller.questionModel?.id ?? 0);
+             // print("QuestionModel123====${controller.questionModel?.notes}");
+              controller.questionModel!.questionSubmitted ? controller.updateAnswer(controller.answerId) :  controller.getAnswer(controller.questionModel?.id ?? 0);
+
+              // controller.answerId == null
+              //     ?  controller.getAnswer(controller.questionModel?.id ?? 0)
+              //     : controller.updateAnswer(controller.answerId);
               // controller.questionController.getQuestion( controller.examinationId ,controller.jobId, );
               //Get.toNamed(Routes.EXAMINATION_RESULT);
-            // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
-            // controller.questionModel?.imagePathList.addAll(imageUrlList);
+              // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
+              // controller.questionModel?.imagePathList.addAll(imageUrlList);
             },
             child: BaseText(
-              text: "ADD",
+              text: controller.questionModel!.questionSubmitted ? "EDIT" : "ADD",
             ),
           ),
           SizedBox(
             height: getSize(20),
-
           ),
         ],
       ),
@@ -325,7 +338,7 @@ class AddInspectView extends GetView<AddInspectController> {
                 divisions: controller.values.length - 1,
                 //activeColor: Color(0XFF3D4D71),
                 onChanged: (double value) {
-                controller.distanceValue.value = value.toDouble();
+                  controller.distanceValue.value = value.toDouble();
                   print("distanceValue ======== ${controller.distanceValue}");
                 },
               );

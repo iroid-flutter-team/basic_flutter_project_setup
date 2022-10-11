@@ -1,6 +1,7 @@
 import 'package:align_flutter_app/models/response/auth/login_response.dart';
 import 'package:align_flutter_app/models/response/home/history/history_response.dart';
 import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
+import 'package:align_flutter_app/models/response/home/manager_details/manager_details_response.dart';
 import 'package:align_flutter_app/models/response/home/notification/notification_response.dart';
 import 'package:align_flutter_app/models/response/home/results/results_response.dart';
 import 'package:align_flutter_app/models/response/home/summary_reports/summary_reports_response.dart';
@@ -92,16 +93,15 @@ class ApiRepository {
     return null;
   }
 
-  Future<QuestionsResponse> updateAnswer(FormData data, int id) async {
+  Future<CommonResponse?> updateAnswer(FormData data, int id) async {
     print("UserData : ======$data");
-    final res = await apiProvider.putMethod(
-        "${ApiConstants.answersUpdate}/$id", {},
-        isMultipart: true, formData: data);
+    final res = await apiProvider.putMethod("${ApiConstants.answersUpdate}/$id", {}, isMultipart: true, formData: data);
     print("UserData : ============================${res.data}");
-    if (res.data != null) {
-      return QuestionsResponse.fromJson(res.data as Map<String, dynamic>);
+    if (res.dioMessage != null) {
+      return CommonResponse(dioMessage: res.dioMessage);
+    //  return QuestionsResponse.fromJson(res.data as Map<String, dynamic>);
     }
-    return QuestionsResponse();
+    return null;
   }
 
   Future<List<HistoryResponse>?> getHistory() async {
@@ -182,13 +182,32 @@ class ApiRepository {
     }
   }
 
-  Future<SummaryReportsResponse> updateSummaryReport(Map<String, dynamic> data, int id) async {
+  Future<CommonResponse?> updateSummaryReport(Map<String, dynamic> data, int id) async {
     final res = await apiProvider.putMethod("${ApiConstants.updateSummaryReports}/$id", data, isMultipart: false);
-    print("updateSummaryReportResponse: ============================${res.data}");
-    if (res.data != null) {
-      return SummaryReportsResponse.fromJson(res.data);
+    print("updateSummaryReportResponse: ============================${res.dioMessage}");
+    if (res.dioMessage != null) {
+      return CommonResponse(dioMessage : res.dioMessage);
     }
-    return SummaryReportsResponse();
+    return CommonResponse();
+  }
+
+  Future<CommonResponse?> logOut(Map<String, dynamic> data) async {
+    print("Data : ======$data");
+    final res = await apiProvider.postMethod(ApiConstants.loginOut, data);
+    print("resData : ======${res.dioMessage}");
+    if (res.dioMessage != null) {
+      return CommonResponse(dioMessage: res.dioMessage);
+    }
+    return null;
+  }
+
+  Future<ManagerDetailsResponse?> getManagerDetails() async {
+    final res = await apiProvider.getMethod(ApiConstants.managerDetails);
+    print("ManagerDetailsResponse==============${res.data}");
+    if (res.data != null) {
+      return ManagerDetailsResponse.fromJson(res.data);
+    }
+    return null;
   }
 
 

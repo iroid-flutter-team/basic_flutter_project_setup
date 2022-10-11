@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class QuestionModel {
   final int id;
+  final int answerId;
   final String title;
   final List<String> imagePathList;
   final RxList<String> localImagePathList = <String>[].obs;
@@ -22,6 +23,7 @@ class QuestionModel {
     required this.location,
     required this.rating,
     required this.id,
+    required this.answerId,
     required this.title,
     required this.imagePathList,
     required this.question,

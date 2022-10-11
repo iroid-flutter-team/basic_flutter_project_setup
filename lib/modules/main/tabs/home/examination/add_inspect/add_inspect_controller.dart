@@ -28,9 +28,10 @@ class AddInspectController extends GetxController {
   var questionsResponse = <QuestionsResponse>[].obs;
   // QuestionsResponse questionModel= QuestionsResponse();
   QuestionModel? questionModel;
+  //int index = -1;
   //var questionID = Get.arguments as QuestionModel;
   var jobId = Get.arguments[1];
-
+  var answerId;
 
   initQuestions() {
     addInspectionModelList.clear();
@@ -70,13 +71,16 @@ class AddInspectController extends GetxController {
     final formData = FormData({
       'questionId': questionModel?.id ?? 0,
       'jobId': jobId,
-      'images': localImagePathList.map((e) => MultipartFile(e,
-              filename: 'document.png', contentType: "image/png")).toList(),
+      'images': localImagePathList
+          .map((e) => MultipartFile(e,
+              filename: 'document.png', contentType: "image/png"))
+          .toList(),
       'notes': addNoteController.text,
       'tags': chipsList,
       'location': locationController.text,
       'rating': distanceValue,
       'checklistIds': '2',
+      //'deletedImageIds' : 2,
     });
     var res = await apiRepository.examinationAnswer(formData);
     if (res != null) {
@@ -92,28 +96,50 @@ class AddInspectController extends GetxController {
     }
   }
 
-  updateAnswer(int id ){
+  updateAnswer(int id) async {
+    var tempList = [];
+    for (int i = 0; i < localImagePathList.length; i++) {
+      if (!localImagePathList[i].contains("http")) {
+        tempList.add(localImagePathList[i]);
+      }
+    }
+    print("tempList=========${tempList.map((e) => e)}");
     final formData = FormData({
-      'questionId': questionModel?.id ?? 0,
-      'jobId': jobId,
-      'images': localImagePathList.map((e) => MultipartFile(e,
-          filename: 'document.png', contentType: "image/png")).toList(),
+      //'questionId': questionModel?.id ?? 0,
+      //'jobId': jobId,
+      // 'images': localImagePathList,
       'notes': addNoteController.text,
       'tags': chipsList,
       'location': locationController.text,
       'rating': distanceValue,
-      'checklistIds': '2',
+      'checklistIds': '1',
+      //'images' : tempList.map((e) => MultipartFile(e, filename: 'document.png', contentType: "image/png")).toList(),
     });
-    var res = apiRepository.updateAnswer(formData, id);
+    // if (tempList.isNotEmpty) {
+    //   formData.files.add(
+    //   //   MapEntry(
+    //   //
+    //   //   ),
+    //   // );
+    //   // formData.files.add(MapEntry('images' ,localImagePathList.map((e) => MultipartFile(e,
+    //   //     filename: 'document.png', contentType: "image/png")).toList(),));
+    // }
+    var res = await apiRepository.updateAnswer(formData, id);
+    if (res != null) {
+      Get.back(result: "success");
+    }
   }
-
 
   @override
   void onInit() {
+    answerId = Get.arguments[2];
+    print("answerId==========${answerId}");
     questionModel = Get.arguments[0] as QuestionModel;
-    if(questionModel != null){
+    //print("questionModeltitile123 ===========${questionModel?.title}");
+    if (questionModel != null) {
+      //print("questionModeltitile ===========${questionModel?.title}");
       addNoteController.text = questionModel?.notes ?? "";
-      locationController.text =  questionModel?.location ?? "";
+      locationController.text = questionModel?.location ?? "";
       distanceValue.value = questionModel!.rating.toDouble();
       localImagePathList.value = questionModel!.imagePathList;
       chipsList.value = [questionModel?.tags].cast<String>();

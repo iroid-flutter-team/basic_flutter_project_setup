@@ -15,4 +15,6 @@ class ApiConstants {
   static const notification_setting = 'notification-setting';
   static const updateNotification_setting = 'notification-setting';
   static const updateSummaryReports = 'reports';
+  static const loginOut = 'auth/logout';
+  static const managerDetails = 'details';
 }

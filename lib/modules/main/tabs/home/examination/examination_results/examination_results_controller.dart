@@ -11,6 +11,7 @@ class ExaminationResultsController extends GetxController{
   ExaminationResultsController({required this.apiRepository});
 
   var resultsResponse =  ResultsResponse().obs;
+  var jobId = Get.arguments;
 
 List<ExaminationResultsModel> examinationResultsModel = [
   ExaminationResultsModel(
@@ -51,7 +52,7 @@ List<ExaminationResultsModel> examinationResultsModel = [
 
  @override
   void onInit() {
-    getResults(17);
+    getResults(18);
     super.onInit();
   }
 }
