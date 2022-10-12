@@ -101,10 +101,19 @@ class HistoryView extends GetView<HistoryController> {
                           width: getSize(35),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: NetworkImage(controller.historyResponse[index].profileImage.toString()),
-                                fit: BoxFit.cover
-                            ),
+                            image:  DecorationImage(
+                                image: controller.historyResponse[index]
+                                    .profileImage !=
+                                    null
+                                    ? NetworkImage(
+                                    controller.historyResponse[index].profileImage.toString()
+                                ) as ImageProvider : AssetImage(PngImageConstants.user,),fit: BoxFit.cover),
+
+
+                            // DecorationImage(
+                            //     image: NetworkImage(controller.historyResponse[index].profileImage.toString()),
+                            //     fit: BoxFit.cover
+                            // ),
                           ),
                         ),
                         SizedBox(
@@ -114,12 +123,12 @@ class HistoryView extends GetView<HistoryController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BaseText(
-                              text: controller.historyResponse[index].fullname.toString(),
+                              text: controller.historyResponse[index].fullname ==  null ? "Albert Flores" : controller.historyResponse[index].fullname.toString(),
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                             BaseText(
-                              text: controller.historyResponse[index].address.toString(),
+                              text: controller.historyResponse[index].address == null ?"Los Angeles" : controller.historyResponse[index].address.toString(),
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               textColor: ColorConstants.white.withOpacity(0.6),

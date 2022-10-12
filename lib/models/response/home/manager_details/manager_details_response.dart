@@ -7,6 +7,7 @@ class ManagerDetailsResponse {
   double? longitude;
   String? address;
   String? phoneNumber;
+  double? avgRating;
 
   ManagerDetailsResponse(
       {this.managerId,
@@ -16,7 +17,8 @@ class ManagerDetailsResponse {
         this.latitude,
         this.longitude,
         this.address,
-        this.phoneNumber});
+        this.phoneNumber,
+        this.avgRating});
 
   ManagerDetailsResponse.fromJson(Map<String, dynamic> json) {
     managerId = json['managerId'];
@@ -27,6 +29,7 @@ class ManagerDetailsResponse {
     longitude = json['longitude'];
     address = json['address'];
     phoneNumber = json['phoneNumber'];
+    avgRating = json['avgRating'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,8 @@ class ManagerDetailsResponse {
     data['longitude'] = this.longitude;
     data['address'] = this.address;
     data['phoneNumber'] = this.phoneNumber;
+    data['avgRating'] = this.avgRating;
     return data;
   }
 }
+

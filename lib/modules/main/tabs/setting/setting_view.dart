@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:align_flutter_app/modules/main/tabs/setting/setting_controller.dart';
 import 'package:align_flutter_app/modules/main/tabs/setting/terms_and_condition/terms_and_condition_view.dart';
 import 'package:align_flutter_app/modules/main/tabs/setting/widget/common_list_tile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -46,46 +47,48 @@ class SettingView extends GetView<SettingController> {
   }
 
   _buildMainBody() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-      child: Column(
-        children: [
-          _buildProfileView(),
-          SizedBox(
-            height: getSize(20),
-          ),
-          BaseText(
-            text: "Albert Flores",
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-          SizedBox(
-            height: getSize(8),
-          ),
-          RatingBar.builder(
-            itemSize: getSize(16),
-            initialRating: 5,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            glow: false,
-            itemBuilder: (context, _) =>
-                Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-            onRatingUpdate: (rating) {
-              print(rating);
-            },
-          ),
-          SizedBox(
-            height: getSize(40),
-          ),
-          _buildListView(),
-        ],
-      ),
-    );
+    return Obx(() {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+        child: Column(
+          children: [
+            _buildProfileView(),
+            SizedBox(
+              height: getSize(20),
+            ),
+            BaseText(
+              text: controller.managerDetailsResponse.value.fullname.toString(),
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+            SizedBox(
+              height: getSize(8),
+            ),
+            RatingBar.builder(
+              itemSize: getSize(16),
+              initialRating:
+                  controller.managerDetailsResponse.value.avgRating ?? 0,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              glow: false,
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+            SizedBox(
+              height: getSize(40),
+            ),
+            _buildListView(),
+          ],
+        ),
+      );
+    });
   }
 
   _buildProfileView() {
@@ -98,13 +101,19 @@ class SettingView extends GetView<SettingController> {
         child: Stack(
           children: [
             Obx(() {
-             // print("controller.pickedImagePath.value ==============${controller.pickedImagePath.value}");
+              print(
+                  "controller.pickedImagePath.value ==============${controller.managerDetailsResponse.value.profileImage}");
+             // return Container();
               return CircleAvatar(
+                backgroundImage: controller.pickedImagePath.value.isEmpty
+                    ? NetworkImage(
+                        controller.managerDetailsResponse.value.profileImage.toString(),
+                      )
+                    : FileImage(
+                        File(controller.pickedImagePath.value),
+                      ) as ImageProvider,
                 radius: 70,
-                child: controller.pickedImagePath.isEmpty ? Image.asset(PngImageConstants.bez):Image.file(
-                  File(controller.pickedImagePath.value),
-                  fit: BoxFit.cover,
-                ),
+                // child:
               );
             }),
             Positioned(
@@ -152,8 +161,8 @@ class SettingView extends GetView<SettingController> {
           onTap: index == 0
               ? null
               : () {
-            _navigateScreen(index);
-          },
+                  _navigateScreen(index);
+                },
         );
       },
     );
@@ -164,7 +173,7 @@ class SettingView extends GetView<SettingController> {
       return SizedBox(
         width: getSize(60.0),
         child: Obx(
-              () {
+          () {
             return _buildSwitch();
           },
         ),
@@ -184,6 +193,7 @@ class SettingView extends GetView<SettingController> {
       case 0:
         break;
       case 1:
+        Get.toNamed(Routes.ABOUT_ME);
         break;
       case 2:
         Get.toNamed(Routes.TERMS_CONDITION);
@@ -215,43 +225,42 @@ class SettingView extends GetView<SettingController> {
   showImageChooserDialog() {
     showCupertinoModalPopup<void>(
       context: Get.context!,
-      builder: (BuildContext context) =>
-          CupertinoActionSheet(
-            // title: const BaseText(
-            //   text: "",
-            //   textAlign: TextAlign.center,
-            // ),
-            // message: const Text('Message'),
-            actions: <CupertinoActionSheetAction>[
-              CupertinoActionSheetAction(
-                child: const BaseText(
-                  text: StringConstants.takePhoto,
-                ),
-                onPressed: () {
-                  Get.back();
-                  controller.pickImage(imageSource: ImageSource.camera);
-                },
-              ),
-              CupertinoActionSheetAction(
-                child: const BaseText(
-                  text: StringConstants.galleryPhoto,
-                ),
-                onPressed: () {
-                  Get.back();
-                  controller.pickImage(imageSource: ImageSource.gallery);
-                },
-              ),
-            ],
-            cancelButton: CupertinoActionSheetAction(
-              child: const BaseText(
-                text: StringConstants.buttonCancel,
-                fontSize: 18,
-              ),
-              onPressed: () {
-                Get.back();
-              },
+      builder: (BuildContext context) => CupertinoActionSheet(
+        // title: const BaseText(
+        //   text: "",
+        //   textAlign: TextAlign.center,
+        // ),
+        // message: const Text('Message'),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            child: const BaseText(
+              text: StringConstants.takePhoto,
             ),
+            onPressed: () {
+              Get.back();
+              controller.pickImage(imageSource: ImageSource.camera);
+            },
           ),
+          CupertinoActionSheetAction(
+            child: const BaseText(
+              text: StringConstants.galleryPhoto,
+            ),
+            onPressed: () {
+              Get.back();
+              controller.pickImage(imageSource: ImageSource.gallery);
+            },
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          child: const BaseText(
+            text: StringConstants.buttonCancel,
+            fontSize: 18,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ),
     );
   }
 

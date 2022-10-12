@@ -1,4 +1,3 @@
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,16 +32,16 @@ class ApiProvider extends BaseProvider {
 
       if (response.body != null && response.statusCode == 200) {
         commonResponse = CommonResponse.fromJson(response.body);
-        if (commonResponse.dioMessage != null ) {
+        if (commonResponse.dioMessage != null) {
           await EasyLoading.showToast(commonResponse.dioMessage!);
         }
       } else {
         EasyLoading.dismiss();
         await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
       }
-    //  print("CommonResponse12==========${commonResponse.dioMessage}");
+      //  print("CommonResponse12==========${commonResponse.dioMessage}");
     }
-   // print("CommonResponse==========${commonResponse.dioMessage}");
+    // print("CommonResponse==========${commonResponse.dioMessage}");
     // else {
     //   EasyLoading.dismiss();
     //   await EasyLoading.showToast(StringConstants.networkError);
@@ -58,7 +57,7 @@ class ApiProvider extends BaseProvider {
       headers: {
         'accept': 'application/json',
         'Authorization': 'Bearer ${prefs.getString(StorageConstants.token)}',
-       // 'Content-Type': 'application/json'
+        // 'Content-Type': 'application/json'
       },
     ).catchError((e) {
       print("==ERROR===${e.toString()}");
@@ -77,7 +76,10 @@ class ApiProvider extends BaseProvider {
 
   Future<CommonResponse> putMethod(String path, Map<String, dynamic> data,
       {bool isMultipart = false, FormData? formData}) async {
-    printInfo(info: "========>12121:${prefs.getString(StorageConstants.token)}");
+    print("putDat=============${formData?.files}");
+    print("putDat=============${formData?.fields}");
+    printInfo(
+        info: "========>12121:${prefs.getString(StorageConstants.token)}");
     Response response = await put(
       path,
       isMultipart ? formData : data,
@@ -148,19 +150,18 @@ class ApiProvider extends BaseProvider {
   //   return get(path);
   // }
 }
-  // Future<Response> login(String path, LoginRequest data) {
-  //   return post(path, data.toJson());
-  // }
+// Future<Response> login(String path, LoginRequest data) {
+//   return post(path, data.toJson());
+// }
 
-  // Future<Response> register(String path, RegisterRequest data) {
-  //   return post(path, data.toJson());
-  // }
+// Future<Response> register(String path, RegisterRequest data) {
+//   return post(path, data.toJson());
+// }
 
-  // Future<Response> getUsers(String path) {
-  //   return get(path);
-  // }
+// Future<Response> getUsers(String path) {
+//   return get(path);
+// }
 
-  // Future<Response> test(String path) {
-  //   return get(path);
-  // }
-
+// Future<Response> test(String path) {
+//   return get(path);
+// }

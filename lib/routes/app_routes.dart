@@ -28,4 +28,5 @@ abstract class Routes {
   static const TERMS_CONDITION = '/termsCondition';
   static const MESSAGE = '/message';
   static const EXAMINATION_RESULT = '/examinationResult';
+  static const ABOUT_ME = '/aboutMe';
 }

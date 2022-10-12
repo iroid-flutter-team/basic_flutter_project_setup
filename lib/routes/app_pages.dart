@@ -1,4 +1,5 @@
 
+import 'package:align_flutter_app/modules/main/tabs/setting/about_me/about_me_binding.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/login/login_binding.dart';
@@ -31,6 +32,7 @@ import '../modules/main/tabs/home/today_jobs/today_jobs_binding.dart';
 import '../modules/main/tabs/home/today_jobs/today_jobs_view.dart';
 import '../modules/main/tabs/notification/notification_binding.dart';
 import '../modules/main/tabs/notification/notification_view.dart';
+import '../modules/main/tabs/setting/about_me/about_me.dart';
 import '../modules/main/tabs/setting/setting_binding.dart';
 import '../modules/main/tabs/setting/setting_view.dart';
 import '../modules/main/tabs/setting/terms_and_condition/terms_and_condition_binding.dart';
@@ -125,6 +127,11 @@ class AppPages {
       name: Routes.TERMS_CONDITION,
       page: () => TermsConditionScreen(),
       binding: TermsConditionBinding(),
+    ),
+    GetPage(
+      name: Routes.ABOUT_ME,
+      page: () => AboutMeView(),
+      binding: AboutMeBindings(),
     ),
   ];
 }

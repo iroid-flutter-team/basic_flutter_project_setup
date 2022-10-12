@@ -17,4 +17,6 @@ class ApiConstants {
   static const updateSummaryReports = 'reports';
   static const loginOut = 'auth/logout';
   static const managerDetails = 'details';
+  static const review = 'review';
+  static const updateManagerDetails = 'details';
 }

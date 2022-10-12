@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../api/api_repository.dart';
 import '../../../shared/constants/common_otp_textfield.dart';
 import '../otp_verify/otp_verify_binding.dart';
+import '../otp_verify/otp_verify_controller.dart';
 import '../otp_verify/otp_verify_view.dart';
 
 class SignInWithPhoneNumberController extends GetxController{
@@ -14,13 +17,46 @@ class SignInWithPhoneNumberController extends GetxController{
 
   //
    final formKey = GlobalKey<FormState>();
-  // Timer? timer;
+   //Timer? timer;
    var resendOtpTime = 0.obs;
    TextEditingController countryController = TextEditingController();
    TextEditingController phoneNumberController = TextEditingController();
+   //OtpVerifyController otpVerifyController = Get.put(OtpVerifyController(repository: Get.find()));
+
    var phone = "";
 
-   checkManagerExist() async{
+
+  // @override
+  // void onClose() {
+  //   timer?.cancel();
+  //   super.onClose();
+  // }
+  //
+  // void startTimer() {
+  //   resendOtpTime.value = 60;
+  //   const oneSec = Duration(seconds: 1);
+  //   timer = Timer.periodic(
+  //     oneSec,
+  //         (Timer timer) {
+  //       if (resendOtpTime.value == 0) {
+  //         timer.cancel();
+  //       } else {
+  //         resendOtpTime.value--;
+  //       }
+  //     },
+  //   );
+  // }
+  //
+  // showResendTime() {
+  //   String strDigits(int n) => n.toString().padLeft(2, '0');
+  //   return '00 : ${strDigits(
+  //     resendOtpTime.value.remainder(60),
+  //   )}';
+  // }
+
+
+
+  checkManagerExist() async{
      var res = await repository.checkManagerExist(
        {
          "phoneNumber": countryController.text + phoneNumberController.text,

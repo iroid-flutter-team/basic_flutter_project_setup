@@ -21,7 +21,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SmartRefresher(
-        physics: BouncingScrollPhysics(),
+        //physics: BouncingScrollPhysics(),
         controller: controller.refreshController,
         onRefresh: () {
           controller.getJobs();
@@ -34,7 +34,9 @@ class HomeView extends GetView<HomeController> {
                 Container(
                   height: getSize(60),
                   child: Padding(
-                    padding: EdgeInsets.only(left: getSize(25), right: getSize(22), top: getSize(14)),
+                    padding: EdgeInsets.only(left: getSize(25),
+                        right: getSize(22),
+                        top: getSize(14)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -53,12 +55,16 @@ class HomeView extends GetView<HomeController> {
                             SizedBox(
                               height: getSize(4),
                             ),
-                            BaseText(
-                              text: "Albert Flores,",
-                              fontSize: 18,
-                              maxLines: 1,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            Obx(() {
+                              return BaseText(
+                                text: controller.settingController
+                                    .managerDetailsResponse.value.fullname
+                                    .toString(),
+                                fontSize: 18,
+                                maxLines: 1,
+                                fontWeight: FontWeight.w600,
+                              );
+                            }),
                           ],
                         ),
                         InkWell(
@@ -164,14 +170,14 @@ class HomeView extends GetView<HomeController> {
               onTap: () {
                 controller.jobsResponse.value.todayJobs!.isNotEmpty
                     ? Get.toNamed(Routes.TODAY_JOBS,
-                        arguments: controller.jobsResponse.value.todayJobs)
+                    arguments: controller.jobsResponse.value.todayJobs)
                     : Get.toNamed(Routes.FUTURE_JOBS);
               },
               child: CommonContainerWithShadow(
                 height: getSize(74),
                 child: Padding(
                   padding:
-                      EdgeInsets.only(right: getSize(30), left: getSize(12)),
+                  EdgeInsets.only(right: getSize(30), left: getSize(12)),
                   child: Row(
                     children: [
                       BaseText(
@@ -184,7 +190,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       BaseText(
                         text: controller.jobsResponse.value.todayJobs?.length
-                                .toString() ??
+                            .toString() ??
                             "",
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -207,7 +213,7 @@ class HomeView extends GetView<HomeController> {
                 // Get.toNamed(Routes.FUTURE_JOBS);
                 controller.jobsResponse.value.futureJobs!.isNotEmpty
                     ? Get.toNamed(Routes.TODAY_JOBS,
-                        arguments: controller.jobsResponse.value.futureJobs)
+                    arguments: controller.jobsResponse.value.futureJobs)
                     : Get.toNamed(Routes.FUTURE_JOBS);
                 //controller.jobsResponse.value.futureJobs == null ? Get.toNamed(Routes.FUTURE_JOBS) :   Get.toNamed(Routes.TODAY_JOBS, arguments: controller.jobsResponse.value.futureJobs);
               },
@@ -215,7 +221,7 @@ class HomeView extends GetView<HomeController> {
                 height: getSize(74),
                 child: Padding(
                   padding:
-                      EdgeInsets.only(right: getSize(30), left: getSize(12)),
+                  EdgeInsets.only(right: getSize(30), left: getSize(12)),
                   child: Row(
                     children: [
                       BaseText(
@@ -228,7 +234,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       BaseText(
                         text: controller.jobsResponse.value.futureJobs?.length
-                                .toString() ??
+                            .toString() ??
                             "",
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

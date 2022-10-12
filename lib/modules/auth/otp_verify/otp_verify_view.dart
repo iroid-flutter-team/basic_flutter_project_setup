@@ -163,7 +163,7 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                   },
                   verificationFailed: (FirebaseAuthException e) {
                   },
-                  codeSent: (String verificationId, int? resendToken) {
+                  codeSent: (String verificationId, int? resendToken) {;
                   },
                   codeAutoRetrievalTimeout: (String verificationId) {
                   },
@@ -199,10 +199,10 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
         print("idToken========$idToken");
         if(idToken != null){
           controller.login(idToken);
-          Get.offAll(
-            MainTab(),
-            binding: MainBindings(),
-          );
+          // Get.offAll(
+          //   MainTab(),
+          //   binding: MainBindings(),
+          // );
         }
 
       },
