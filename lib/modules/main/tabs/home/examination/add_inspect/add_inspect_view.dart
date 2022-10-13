@@ -30,7 +30,7 @@ class AddInspectView extends GetView<AddInspectController> {
           Get.back();
           Get.delete<AddInspectController>();
         },
-        title: controller.questionModel?.title ?? "",
+        title: controller.title,
       ),
       body: _buildMainBody(context),
     );
@@ -45,89 +45,119 @@ class AddInspectView extends GetView<AddInspectController> {
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
-          Obx(
-            () {
-              return ListTile(
-                dense: true,
-                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                contentPadding: EdgeInsets.zero,
-                minLeadingWidth: getSize(20),
-                onTap: () {
-                  controller.isCheck.value = !controller.isCheck.value;
-                },
-                title: BaseText(
-                  text: "A. Examine your window caulking",
-                  fontSize: 14,
-                ),
-                leading: SizedBox(
-                  height: double.infinity,
-                  child: SvgPicture.asset(
-                    controller.isCheck.value
-                        ? SvgImageConstants.check
-                        : SvgImageConstants.square,
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: controller.questionModel?.checkList?.length,
+            itemBuilder: (context, index) {
+              return Obx(() {
+                return ListTile(
+                  dense: true,
+                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                  contentPadding: EdgeInsets.zero,
+                  minLeadingWidth: getSize(20),
+                  onTap: () {
+                    controller.questionModel?.checkList?[index].isChecked?.value = !(controller.questionModel!.checkList![index].isChecked!.value);
+                  },
+                  title: BaseText(
+                    text: controller.questionModel?.checkList?[index].option ??
+                        "",
+                    fontSize: 14,
                   ),
-                ),
-              );
-            },
-          ),
-          Obx(
-            () {
-              return ListTile(
-                dense: true,
-                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                contentPadding: EdgeInsets.zero,
-                minLeadingWidth: getSize(20),
-                onTap: () {
-                  controller.isCheck1.value = !controller.isCheck1.value;
-                },
-                title: BaseText(
-                  text: "B. Examine your window seals",
-                  fontSize: 14,
-                ),
-                leading: SizedBox(
-                  height: double.infinity,
-                  child: SvgPicture.asset(
-                    controller.isCheck1.value
-                        ? SvgImageConstants.check
-                        : SvgImageConstants.square,
+                  leading: SizedBox(
+                    height: double.infinity,
+                    child: SvgPicture.asset(
+                      controller.questionModel!.checkList![index].isChecked!.value
+                          ? SvgImageConstants.check
+                          : SvgImageConstants.square,
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
+                );
+              });
+            },),
+          // Obx(
+          //   () {
+          //     return ListTile(
+          //       dense: true,
+          //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+          //       contentPadding: EdgeInsets.zero,
+          //       minLeadingWidth: getSize(20),
+          //       onTap: () {
+          //         controller.isCheck.value = !controller.isCheck.value;
+          //       },
+          //       title: BaseText(
+          //         text: "A. Examine your window caulking",
+          //         fontSize: 14,
+          //       ),
+          //       leading: SizedBox(
+          //         height: double.infinity,
+          //         child: SvgPicture.asset(
+          //           controller.isCheck.value
+          //               ? SvgImageConstants.check
+          //               : SvgImageConstants.square,
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // Obx(
+          //   () {
+          //     return ListTile(
+          //       dense: true,
+          //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+          //       contentPadding: EdgeInsets.zero,
+          //       minLeadingWidth: getSize(20),
+          //       onTap: () {
+          //         controller.isCheck1.value = !controller.isCheck1.value;
+          //       },
+          //       title: BaseText(
+          //         text: "B. Examine your window seals",
+          //         fontSize: 14,
+          //       ),
+          //       leading: SizedBox(
+          //         height: double.infinity,
+          //         child: SvgPicture.asset(
+          //           controller.isCheck1.value
+          //               ? SvgImageConstants.check
+          //               : SvgImageConstants.square,
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ),
           SizedBox(
             height: getSize(30),
           ),
           controller.localImagePathList.isNotEmpty
               ? InspectAnimatedCard()
               : DottedBorder(
-                  borderType: BorderType.RRect,
-                  dashPattern: [8, 8],
-                  color: Color(0xffB7B7B7).withOpacity(0.75),
-                  radius: Radius.circular(getSize(24)),
-                  child: InspectAnimatedCard()
-                  // Container(
-                  //   height: getSize(140),
-                  //   width: Get.width,
-                  //   child: InkWell(
-                  //     onTap: (){
-                  //
-                  //     },
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         SvgPicture.asset(
-                  //           SvgImageConstants.add_photo,
-                  //         ),
-                  //         BaseText(
-                  //           text: "Take Photo",
-                  //           fontSize: 16,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  ),
+              borderType: BorderType.RRect,
+              dashPattern: [8, 8],
+              color: Color(0xffB7B7B7).withOpacity(0.75),
+              radius: Radius.circular(getSize(24)),
+              child: InspectAnimatedCard()
+            // Container(
+            //   height: getSize(140),
+            //   width: Get.width,
+            //   child: InkWell(
+            //     onTap: (){
+            //
+            //     },
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         SvgPicture.asset(
+            //           SvgImageConstants.add_photo,
+            //         ),
+            //         BaseText(
+            //           text: "Take Photo",
+            //           fontSize: 16,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          ),
           SizedBox(
             height: getSize(30),
           ),
@@ -196,36 +226,37 @@ class AddInspectView extends GetView<AddInspectController> {
           controller.chipsList.isEmpty
               ? Container()
               : Obx(
-                  () {
-                    print(
-                        "chipsList================${controller.chipsList.length}");
-                    return Wrap(
-                      spacing: 16,
-                      children: List.generate(
-                        controller.chipsList.length,
-                        (index) => InputChip(
-                          //selected: _selected[i],
-                          label: BaseText(
-                            text: controller.chipsList[index],
-                            textColor: ColorConstants.white,
-                            fontSize: 18,
-                          ),
-                          backgroundColor: Color(0XFF4293D4),
-                          elevation: 0,
-                          deleteIconColor: ColorConstants.white,
-                          deleteIcon: Icon(
-                            Icons.close,
-                            size: 18,
-                          ),
-                          onPressed: () {},
-                          onDeleted: () {
-                            controller.chipsList.removeAt(index);
-                          },
+                () {
+              print(
+                  "chipsList================${controller.chipsList.length}");
+              return Wrap(
+                spacing: 16,
+                children: List.generate(
+                  controller.chipsList.length,
+                      (index) =>
+                      InputChip(
+                        //selected: _selected[i],
+                        label: BaseText(
+                          text: controller.chipsList[index],
+                          textColor: ColorConstants.white,
+                          fontSize: 18,
                         ),
+                        backgroundColor: Color(0XFF4293D4),
+                        elevation: 0,
+                        deleteIconColor: ColorConstants.white,
+                        deleteIcon: Icon(
+                          Icons.close,
+                          size: 18,
+                        ),
+                        onPressed: () {},
+                        onDeleted: () {
+                          controller.chipsList.removeAt(index);
+                        },
                       ),
-                    );
-                  },
                 ),
+              );
+            },
+          ),
           SizedBox(
             height: getSize(30),
           ),
@@ -261,8 +292,10 @@ class AddInspectView extends GetView<AddInspectController> {
           ),
           BaseElevatedButton(
             onPressed: () async {
-             // print("QuestionModel123====${controller.questionModel?.notes}");
-              controller.questionModel!.questionSubmitted ? controller.updateAnswer(controller.answerId) :  controller.getAnswer(controller.questionModel?.id ?? 0);
+              // print("QuestionModel123====${controller.questionModel?.notes}");
+              controller.questionModel!.questionSubmitted ? controller
+                  .updateAnswer(controller.answerId) : controller.getAnswer(
+                  controller.questionModel?.id ?? 0);
 
               // controller.answerId == null
               //     ?  controller.getAnswer(controller.questionModel?.id ?? 0)
@@ -273,7 +306,9 @@ class AddInspectView extends GetView<AddInspectController> {
               // controller.questionModel?.imagePathList.addAll(imageUrlList);
             },
             child: BaseText(
-              text: controller.questionModel!.questionSubmitted ? "EDIT" : "ADD",
+              text: controller.questionModel!.questionSubmitted
+                  ? "EDIT"
+                  : "ADD",
             ),
           ),
           SizedBox(
@@ -288,30 +323,30 @@ class AddInspectView extends GetView<AddInspectController> {
     return Column(
       children: [
         Obx(
-          () {
+              () {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 controller.distanceValue.value == 0.0
                     ? _commonRatingImageView(SvgImageConstants.very_poor, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_very_poor, 30),
+                    SvgImageConstants.unselected_very_poor, 30),
                 controller.distanceValue.value == 1.0
                     ? _commonRatingImageView(SvgImageConstants.poor, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_poor, 30),
+                    SvgImageConstants.unselected_poor, 30),
                 controller.distanceValue.value == 2.0
                     ? _commonRatingImageView(SvgImageConstants.average, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_average, 30),
+                    SvgImageConstants.unselected_average, 30),
                 controller.distanceValue.value == 3.0
                     ? _commonRatingImageView(SvgImageConstants.good, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_good, 30),
+                    SvgImageConstants.unselected_good, 30),
                 controller.distanceValue.value == 4.0
                     ? _commonRatingImageView(SvgImageConstants.excellent, 40)
                     : _commonRatingImageView(
-                        SvgImageConstants.unselected_excellent, 30),
+                    SvgImageConstants.unselected_excellent, 30),
               ],
             );
           },
@@ -330,7 +365,7 @@ class AddInspectView extends GetView<AddInspectController> {
             overlayShape: RoundSliderOverlayShape(overlayRadius: 10.0),
           ),
           child: Obx(
-            () {
+                () {
               return Slider(
                 min: 0,
                 max: controller.values.length - 1,

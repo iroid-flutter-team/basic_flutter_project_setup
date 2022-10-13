@@ -202,7 +202,7 @@ class QuestionListWidget extends GetView<QuestionController> {
         ? InkWell(
             onTap: () async {
              // print("questionModel========${questionModel.title}");
-              var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId]);
+              var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId, questionModel.title]);
               if (res == 'success') {controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
               }
             },
@@ -227,12 +227,9 @@ class QuestionListWidget extends GetView<QuestionController> {
             //   _showDialog();
             // },
             onPressed: () async {
-              var res = await Get.toNamed(Routes.ADD_INSPECT,
-                  arguments: [questionModel, controller.jobId, -3]);
+              var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, -3, questionModel.title]);
               if (res == 'success') {
-                controller.getQuestion(
-                    controller.argumentData.examinationId ?? 0,
-                    controller.jobId);
+                controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
               }
             },
             child: BaseText(

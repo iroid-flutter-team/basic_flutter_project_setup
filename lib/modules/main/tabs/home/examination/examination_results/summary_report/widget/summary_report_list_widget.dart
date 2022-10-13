@@ -121,8 +121,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                   Obx(() {
                     return InkWell(
                       onTap: () {
-                        summaryReportModel.isMinor.value =
-                            !summaryReportModel.isMinor.value;
+                        summaryReportModel.isMinor.value = !summaryReportModel.isMinor.value;
                         summaryReportModel.isMajor.value = false;
                       },
                       child: SvgPicture.asset(
@@ -156,7 +155,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
           ),
           InputTextField(
             fillColor: ColorConstants.black,
-            controller: controller.suggestionsController,
+            controller: summaryReportModel.suggestionsController,
             textInputType: TextInputType.multiline,
             textInputAction: TextInputAction.newline,
             hintText: 'Add tips or suggestions',
@@ -174,7 +173,8 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                 getSize(8.0),
               ),
               onPressed: () {
-                controller.updateSummaryReport(18,summaryReportModel.id, summaryReportModel.recommendationValue.value, summaryReportModel.conditionValue.value );
+                controller.updateSummaryReport(18, summaryReportModel);
+                //controller.updateSummaryReport(18,summaryReportModel.id, summaryReportModel.recommendationValue.value, summaryReportModel.conditionValue.value, summaryReportModel.suggestionsController, summaryReportModel.isMinor.value);
               },
               child: BaseText(text: "SUBMIT"),
             ),

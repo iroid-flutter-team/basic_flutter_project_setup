@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class QuestionsResponse {
   int? questionId;
   String? title;
@@ -19,15 +21,15 @@ class QuestionsResponse {
     if (json['checklists'] != null) {
       checklists = <Checklists>[];
       json['checklists'].forEach((v) {
-        checklists!.add(Checklists.fromJson(v));
+        checklists!.add(new Checklists.fromJson(v));
       });
     }
     answer =
-    json['answer'] != null ? Answer.fromJson(json['answer']) : null;
+    json['answer'] != null ? new Answer.fromJson(json['answer']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['questionId'] = this.questionId;
     data['title'] = this.title;
     data['description'] = this.description;
@@ -44,21 +46,21 @@ class QuestionsResponse {
 class Checklists {
   int? checklistId;
   String? option;
-  bool? isChecked;
+  RxBool? isChecked = false.obs;
 
   Checklists({this.checklistId, this.option, this.isChecked});
 
   Checklists.fromJson(Map<String, dynamic> json) {
     checklistId = json['checklistId'];
     option = json['option'];
-    isChecked = json['isChecked'];
+    isChecked?.value = json['isChecked'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['checklistId'] = this.checklistId;
     data['option'] = this.option;
-    data['isChecked'] = this.isChecked;
+    data['isChecked'] = this.isChecked?.value;
     return data;
   }
 }
@@ -66,9 +68,9 @@ class Checklists {
 class Answer {
   int? answerId;
   String? notes;
-  var tags;
+  String? tags;
   String? location;
-  num? rating;
+  int? rating;
   List<Images>? images;
 
   Answer(
@@ -88,13 +90,13 @@ class Answer {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(Images.fromJson(v));
+        images!.add(new Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['answerId'] = this.answerId;
     data['notes'] = this.notes;
     data['tags'] = this.tags;
@@ -119,7 +121,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['imageId'] = this.imageId;
     data['image'] = this.image;
     return data;
@@ -142,7 +144,7 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['total'] = this.total;
     data['perPage'] = this.perPage;
     data['totalPage'] = this.totalPage;
@@ -150,3 +152,4 @@ class Meta {
     return data;
   }
 }
+

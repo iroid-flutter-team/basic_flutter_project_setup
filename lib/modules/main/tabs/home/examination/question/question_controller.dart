@@ -41,6 +41,8 @@ class QuestionController extends GetxController {
         checkListID: '',
         location: '',
         answerId: 1,
+        checkList: [],
+        option: '',
       ),
     );
     questionModelList.add(
@@ -61,7 +63,8 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
-        answerId: 2,
+        answerId: 2,  checkList: [],
+        option: '',
       ),
     );
     questionModelList.add(
@@ -82,6 +85,8 @@ class QuestionController extends GetxController {
         checkListID: '',
         location: '',
         answerId: 3,
+        checkList: [],
+        option: '',
       ),
     );
     questionModelList.add(
@@ -99,6 +104,8 @@ class QuestionController extends GetxController {
         checkListID: '',
         location: '',
         answerId: 4,
+        checkList: [],
+        option: '',
       ),
     );
 
@@ -122,6 +129,8 @@ class QuestionController extends GetxController {
         checkListID: '',
         location: '',
         answerId: 5,
+        checkList: [],
+        option: '',
       ),
     );
   }
@@ -136,11 +145,17 @@ class QuestionController extends GetxController {
   }
 
   getQuestion(int examinationId, int jobId) async {
+    //var checkList = [];
     var res = await apiRepository.getQuestion(examinationId, jobId);
     if (res != null && res.isNotEmpty) {
+      print("status============${res}");
       questionsResponse.value = res;
       if (questionsResponse.isNotEmpty) {
         questionModelList.clear();
+        // for(int i = 0; i < questionsResponse[i].checklists!.length; i++){
+        //   checkList.add(questionsResponse[i].checklists![i].isChecked);
+        //   print("isChecked===========${questionsResponse[i].checklists![i].isChecked}");
+        // }
         for (int i = 0; i < questionsResponse.length; i++) {
           questionModelList.add(
             QuestionModel(
@@ -161,6 +176,9 @@ class QuestionController extends GetxController {
               location: questionsResponse[i].answer?.location ?? "",
               answerId: questionsResponse[i].answer?.answerId ?? 0,
               questionSubmitted: questionsResponse[i].answer?.answerId != null ? true : false,
+              //isChecked: questionsResponse[i].checklists![i].isChecked ?? false,
+              checkList:  questionsResponse[i].checklists,
+              option:  "",
             ),
           );
           //print("questionsResponse[i].answer=============${questionsResponse[i].answer?.tags}");

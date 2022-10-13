@@ -13,7 +13,7 @@ class SummaryReportController extends GetxController {
   SummaryReportController({required this.apiRepository});
 
   final CarouselController carouselController = CarouselController();
-  TextEditingController suggestionsController = TextEditingController();
+ // TextEditingController suggestionsController = TextEditingController();
   final RxList<String> localImagePathList = <String>[].obs;
   var summaryReportModelList = <SummaryReportModel>[].obs;
   var summaryReportsResponse = <SummaryReportsResponse>[].obs;
@@ -191,32 +191,41 @@ class SummaryReportController extends GetxController {
     print("");
   }
 
-  updateSummaryReport(int jobId ,int answerId, recommendationValue, conditionValue) async {
+  updateSummaryReport(int jobId, SummaryReportModel summaryReportModel) async {
 
     var res = await apiRepository.updateSummaryReport(
         ({
-          "answerId": answerId,
-          "problem": 1,
-          "condition": getConditionIndex(conditionValue),
-          "recommendation": getRecommendationIndex(recommendationValue),
-          "tips": suggestionsController.text,
-        }), jobId);
-
+          "answerId": summaryReportModel.id,
+          "problem": summaryReportModel.isMajor.value == true ? 1 : 2,
+          "condition": getConditionIndex(summaryReportModel.conditionValue.value),
+          "recommendation": getRecommendationIndex(summaryReportModel.recommendationValue.value),
+          "tips": summaryReportModel.suggestionsController.text,
+        }),
+        jobId);
   }
 
-   getRecommendationIndex(String val){
-   switch(val){
-     case 'Repairs recommended':
-       return 1;
-       case 'Maintenance recommended':
-         return 2;
-     case 'Replace recommended':
-       return 3;
-   }
+  getProblem(String val){
+    switch (val) {
+      case "Major" :
+        return 1;
+      case "Minor" :
+        return 2;
+    }
   }
 
-  getConditionIndex(String val){
-    switch(val){
+  getRecommendationIndex(String val) {
+    switch (val) {
+      case 'Repairs recommended':
+        return 1;
+      case 'Maintenance recommended':
+        return 2;
+      case 'Replace recommended':
+        return 3;
+    }
+  }
+
+  getConditionIndex(String val) {
+    switch (val) {
       case 'Above':
         return 1;
       case 'Average':
@@ -225,9 +234,10 @@ class SummaryReportController extends GetxController {
         return 3;
     }
   }
+
   @override
   void onInit() {
-   // updateSummaryReport(18);
+    // updateSummaryReport(18);
     //getSummaryReport(18);
     super.onInit();
   }

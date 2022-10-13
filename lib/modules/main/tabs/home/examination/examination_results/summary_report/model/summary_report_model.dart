@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class SummaryReportModel {
@@ -16,6 +17,7 @@ class SummaryReportModel {
   final RxBool isRecommendationExpanded = false.obs;
   final RxString conditionValue = 'Condition'.obs;
   final RxString recommendationValue = 'Recommendation'.obs;
+  final suggestionsController = TextEditingController();
 
   SummaryReportModel({
     required this.title,

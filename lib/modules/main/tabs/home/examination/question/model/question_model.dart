@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../../../../../models/response/home/inspection/questions_response.dart';
+
 class QuestionModel {
   final int id;
   final int answerId;
@@ -15,8 +17,11 @@ class QuestionModel {
   // final String tip;
   //final int coin;
   final bool questionSubmitted;
+  final List<Checklists>? checkList;
+  final String option;
 
   QuestionModel({
+    required this.option,
     required this.checkListID,
     required this.notes,
     required this.tags,
@@ -30,5 +35,6 @@ class QuestionModel {
     // required this.tip,
     // required this.coin,
     required this.questionSubmitted,
+    required this.checkList,
   });
 }
