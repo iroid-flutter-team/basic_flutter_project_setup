@@ -62,19 +62,42 @@ class ApiRepository {
     }
   }
 
-  Future<List<QuestionsResponse>?> getQuestion(
-      int examinationId, int jobId) async {
+  // Future<List<QuestionsResponse>?> getQuestion(int examinationId, int jobId) async {
+  //   final res = await apiProvider
+  //       .getMethod("${ApiConstants.questions}/$examinationId/$jobId");
+  //   print("QuestionsResponse==============${res.data}");
+  //   if (res.data != null) {
+  //     List<dynamic> listData = res.data;
+  //     return listData
+  //         .map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>))
+  //         .toList();
+  //   }
+  //   return null;
+  // }
+
+  Future<CommonResponse?> getQuestion(int examinationId, int jobId) async {
     final res = await apiProvider
         .getMethod("${ApiConstants.questions}/$examinationId/$jobId");
     print("QuestionsResponse==============${res.data}");
     if (res.data != null) {
-      List<dynamic> listData = res.data;
-      return listData
-          .map((e) => QuestionsResponse.fromJson(e as Map<String, dynamic>))
-          .toList();
+      var responseData = res.data as List<dynamic>;
+      res.data = null;
+      res.listData = responseData.map((model) => QuestionsResponse.fromJson(model as Map<String, dynamic>)).toList();
+      return res;
     }
     return null;
   }
+
+  // var responseData = res.data as List<dynamic>;
+  // res.data = null;
+  //
+  // res.listData = responseData
+  //     .map((model) => NetworthModel.fromJson(model as Map<String, dynamic>))
+  //     .toList();
+  //
+  // return res;
+
+
 
   Future<CommonResponse?> examinationAnswer(FormData data) async {
     print("Data : ======$data");

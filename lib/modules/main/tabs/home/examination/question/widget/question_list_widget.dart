@@ -201,10 +201,12 @@ class QuestionListWidget extends GetView<QuestionController> {
     return questionModel.questionSubmitted
         ? InkWell(
             onTap: () async {
+
              // print("questionModel========${questionModel.title}");
               var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId, questionModel.title]);
               if (res == 'success') {controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
               }
+
             },
             child: CommonContainerWithShadow(
               width: getSize(186),
@@ -227,6 +229,9 @@ class QuestionListWidget extends GetView<QuestionController> {
             //   _showDialog();
             // },
             onPressed: () async {
+
+             // print("isCheckIndex===================${controller.questionModelList.indexOf(questionModel)}");
+              print("isLastIndex===================${controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1}");
               var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, -3, questionModel.title]);
               if (res == 'success') {
                 controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);

@@ -44,4 +44,5 @@ class SvgImageConstants {
   static const very_poor = "assets/images/svg/very_poor.svg";
   static const poor = "assets/images/svg/poor.svg";
   static const excellent = "assets/images/svg/excellent.svg";
+  static const verify_tick = "assets/images/svg/verify_tick.svg";
 }
