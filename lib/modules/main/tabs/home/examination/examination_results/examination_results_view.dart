@@ -32,12 +32,6 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          BaseText(
-            text: "dfgd",
-            //text: controller.resultsResponse.value.averageRat,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
           SizedBox(
             height: getSize(20),
           ),

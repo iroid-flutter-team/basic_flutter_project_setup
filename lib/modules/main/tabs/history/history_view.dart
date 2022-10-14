@@ -119,21 +119,41 @@ class HistoryView extends GetView<HistoryController> {
                         SizedBox(
                           width: getSize(20),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            BaseText(
-                              text: controller.historyResponse[index].fullname ==  null ? "Albert Flores" : controller.historyResponse[index].fullname.toString(),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            BaseText(
-                              text: controller.historyResponse[index].address == null ?"Los Angeles" : controller.historyResponse[index].address.toString(),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              textColor: ColorConstants.white.withOpacity(0.6),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BaseText(
+                                text: controller.historyResponse[index].fullname ==  null ? "Albert Flores" : controller.historyResponse[index].fullname.toString(),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    SvgImageConstants.location,
+                                  ),
+                                  SizedBox(
+                                    width: getSize(7),
+                                  ),
+                                  Expanded(
+                                    child: BaseText(
+                                      text: controller.historyResponse[index].address == null ?"Los Angeles" : controller.historyResponse[index].address.toString(),
+                                      fontWeight: FontWeight.w500,
+                                      textColor: Colors.white.withOpacity(0.6),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // BaseText(
+                              //   text: controller.historyResponse[index].address == null ?"Los Angeles" : controller.historyResponse[index].address.toString(),
+                              //   fontSize: 12,
+                              //   fontWeight: FontWeight.w500,
+                              //   textColor: ColorConstants.white.withOpacity(0.6),
+                              // ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

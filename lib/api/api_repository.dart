@@ -61,7 +61,6 @@ class ApiRepository {
       return null;
     }
   }
-
   // Future<List<QuestionsResponse>?> getQuestion(int examinationId, int jobId) async {
   //   final res = await apiProvider
   //       .getMethod("${ApiConstants.questions}/$examinationId/$jobId");
@@ -74,7 +73,6 @@ class ApiRepository {
   //   }
   //   return null;
   // }
-
   Future<CommonResponse?> getQuestion(int examinationId, int jobId) async {
     final res = await apiProvider
         .getMethod("${ApiConstants.questions}/$examinationId/$jobId");
@@ -96,8 +94,6 @@ class ApiRepository {
   //     .toList();
   //
   // return res;
-
-
 
   Future<CommonResponse?> examinationAnswer(FormData data) async {
     print("Data : ======$data");
@@ -201,20 +197,31 @@ class ApiRepository {
     return SettingNotificationResponse();
   }
 
-  Future<List<SummaryReportsResponse>?> getSummaryReport(int id) async {
-    final res =
-        await apiProvider.getMethod("${ApiConstants.summaryReports}/$id");
-    print("SummaryReportsResponse==============${res.data}");
+  // Future<List<SummaryReportsResponse>?> getSummaryReport(int id) async {
+  //   final res =
+  //       await apiProvider.getMethod("${ApiConstants.summaryReports}/$id");
+  //   print("SummaryReportsResponse==============${res.data}");
+  //   if (res.data != null) {
+  //     List<dynamic> listData = res.data;
+  //     return listData
+  //         .map(
+  //             (e) => SummaryReportsResponse.fromJson(e as Map<String, dynamic>))
+  //         .toList();
+  //     // return ExaminationResponse.fromJson(res.data);
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  Future<CommonResponse?> getSummaryReport(int id) async {
+    final res = await apiProvider.getMethod("${ApiConstants.summaryReports}/$id");
+    print("CommonResponse==============${res.data}");
     if (res.data != null) {
-      List<dynamic> listData = res.data;
-      return listData
-          .map(
-              (e) => SummaryReportsResponse.fromJson(e as Map<String, dynamic>))
-          .toList();
-      // return ExaminationResponse.fromJson(res.data);
-    } else {
-      return null;
+      var responseData = res.data as List<dynamic>;
+      res.data = null;
+      res.listData = responseData.map((model) => SummaryReportsResponse.fromJson(model as Map<String, dynamic>)).toList();
+      return res;
     }
+    return null;
   }
 
   Future<CommonResponse?> updateSummaryReport(

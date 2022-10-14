@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../../../../../../shared/constants/color_constants.dart';
+import '../../../../../../../../shared/dialog/summary_report_complete_dialog.dart';
 import '../../../../../../../../shared/utils/image_utils.dart';
 import '../../../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../../../shared/widgets/base_text.dart';
@@ -157,7 +158,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             fillColor: ColorConstants.black,
             controller: summaryReportModel.suggestionsController,
             textInputType: TextInputType.multiline,
-            textInputAction: TextInputAction.newline,
+            textInputAction: TextInputAction.done,
             hintText: 'Add tips or suggestions',
             maxLines: 6,
             minLines: 4,
@@ -173,7 +174,13 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                 getSize(8.0),
               ),
               onPressed: () {
-                controller.updateSummaryReport(18, summaryReportModel);
+               // print("lastButton======${controller.summaryReportModelList.lastIndexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 }");
+                controller.updateSummaryReport(controller.jobId, summaryReportModel);
+                controller.getSummaryReport(controller.jobId);
+                // if(controller.summaryReportModelList.lastIndexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 ){
+                //   controller.getSummaryReport(18);
+                //   _summaryReportCompleteDialog();
+                // }
                 //controller.updateSummaryReport(18,summaryReportModel.id, summaryReportModel.recommendationValue.value, summaryReportModel.conditionValue.value, summaryReportModel.suggestionsController, summaryReportModel.isMinor.value);
               },
               child: BaseText(text: "SUBMIT"),
@@ -379,6 +386,20 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
           );
         },
       ),
+    );
+  }
+
+  _summaryReportCompleteDialog() {
+    showDialog(
+      barrierColor: Colors.black26,
+      context: Get.context!,
+      builder: (context) {
+        return SummaryReportCompleteDialog(
+          continueCallBack: () {
+            Get.back();
+          },
+        );
+      },
     );
   }
 }

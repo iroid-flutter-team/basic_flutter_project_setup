@@ -34,7 +34,6 @@ class AddInspectController extends GetxController {
   var checkListId =''.obs;
 
   getAnswer(int id) async {
-
     printInfo(info: 'id :$id');
     // print("imageList987===============${localImagePathList.toList()}");
     var list = questionModel?.checkList?.where((element) => element.isChecked?.value == true).toList();
@@ -65,6 +64,7 @@ class AddInspectController extends GetxController {
     print("questionsResponse4354545===============$res");
     if (res != null) {
       Get.back(result: "success");
+      Get.delete<AddInspectController>();
       print("questionsResponse4354545===============$res");
     }
   }
@@ -110,6 +110,7 @@ class AddInspectController extends GetxController {
       locationController.text = questionModel?.location ?? "";
       distanceValue.value = questionModel!.rating.toDouble();
       localImagePathList.value = questionModel!.imagePathList;
+      //chipsList.value = [questionModel?.tags].cast<String>();
       chipsList.value = [questionModel?.tags].cast<String>();
     }
     print("chipsList123==========${chipsList.length}");

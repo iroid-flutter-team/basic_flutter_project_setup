@@ -26,7 +26,7 @@ class _AddTagDialogState extends State<AddTagDialog> {
   TextEditingController addTagController = TextEditingController();
   final double borderRadius = 25.0;
 
-  RxList values = [].obs;
+  RxList values = <String>[].obs;
   List<bool> selected = [];
   List<Widget> chips = [];
 

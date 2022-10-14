@@ -30,7 +30,7 @@ class AddInspectView extends GetView<AddInspectController> {
           Get.back();
           Get.delete<AddInspectController>();
         },
-        title: controller.title,
+        title: controller.questionModel?.title ?? "",
       ),
       body: _buildMainBody(context),
     );
@@ -192,7 +192,16 @@ class AddInspectView extends GetView<AddInspectController> {
                   AddTagDialog(),
                 );
                 if (res != null) {
-                  controller.chipsList = res;
+                  try {
+                    printInfo(info: 'res.length ==> ${res.length}');
+                    //var oldList = controller.chipsList;
+                    // controller.chipsList = res;
+                    controller.chipsList.addAll(res);
+                    printInfo(info: ' controller.chipsList ==> ${controller
+                        .chipsList}');
+                  }catch(ex){
+                    print("ex========${ex.toString()}");
+                  }
                 }
                 //showAddTagDialog();
               },

@@ -9,6 +9,7 @@ class CommonResponse<T> {
   Errors? errors;
   Meta? meta;
   bool? managerComppleteInspection;
+  bool? allReportSubmitted;
 
   CommonResponse({
     this.status,
@@ -19,6 +20,7 @@ class CommonResponse<T> {
     this.errors,
     this.meta,
     this.managerComppleteInspection,
+    this.allReportSubmitted,
   });
 
   CommonResponse.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class CommonResponse<T> {
     dioMessage = json['message'];
     data = json['data'];
     managerComppleteInspection = json['managerComppleteInspection'];
+    allReportSubmitted = json['allReportSubmitted'];
     print(data);
     errors = json['errors'] != null ? Errors.fromJson(json['errors']) : null;
     if (json.containsKey("meta") && json["meta"] != null) {
@@ -42,6 +45,7 @@ class CommonResponse<T> {
     data['data'] = data;
     data['errors'] = errors;
     data['managerComppleteInspection'] = managerComppleteInspection;
+    data['allReportSubmitted'] = allReportSubmitted;
     try {
       if (errors != null) {
         data['errors'] = errors?.toJson();

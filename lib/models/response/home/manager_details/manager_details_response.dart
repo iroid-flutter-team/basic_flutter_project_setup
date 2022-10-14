@@ -7,7 +7,7 @@ class ManagerDetailsResponse {
   double? longitude;
   String? address;
   String? phoneNumber;
-  double? avgRating;
+  num? avgRating;
 
   ManagerDetailsResponse(
       {this.managerId,

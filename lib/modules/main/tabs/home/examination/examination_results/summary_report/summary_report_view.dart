@@ -1,5 +1,7 @@
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/summary_report_controller.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/widget/summary_report_list_widget.dart';
+import 'package:align_flutter_app/routes/routes.dart';
+import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,23 +22,39 @@ class SummaryReportView extends GetView<SummaryReportController> {
 
   @override
   Widget build(BuildContext context) {
-    ExaminationModel? _examinationModel;
-    final Object? object = ModalRoute.of(context)?.settings.arguments;
-    if (object != null) {
-      _examinationModel = object as ExaminationModel;
-    }
+    // ExaminationModel? _examinationModel;
+    // final Object? object = ModalRoute.of(context)?.settings.arguments;
+    // if (object != null) {
+    //   _examinationModel = object as ExaminationModel;
+    // }
 
     return Scaffold(
       appBar: BaseAppBar(
+        onPress: () {
+          Get.back();
+          Get.delete<SummaryReportController>();
+        },
+        actions: [
+          InkWell(
+            onTap: (){
+              Get.until((route) => route.isFirst);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Image.asset(
+              PngImageConstants.homeSelected,
+      ),
+            ),
+          ),
+        ],
         title: "Summary report",
-        actions: [],
       ),
       body: _buildMainBody(),
     );
   }
 
   _buildMainBody() {
-    controller.getSummaryReport(18);
+    controller.getSummaryReport(controller.jobId);
     return ListView(
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,

@@ -26,4 +26,5 @@ class PngImageConstants {
   static const celling = "assets/images/png/celling.png";
   static const bez = "assets/images/png/bez.png";
   static const msg_user = "assets/images/png/msg_user.png";
+  static const answer_done = "assets/images/png/answer_done.png";
 }

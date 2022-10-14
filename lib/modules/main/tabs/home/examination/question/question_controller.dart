@@ -1,5 +1,7 @@
 import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
 import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
+import 'package:align_flutter_app/routes/routes.dart';
+import 'package:align_flutter_app/shared/dialog/answer_complete_dialog.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../../../api/api_repository.dart';
 import '../../../../../../shared/constants/string_constant.dart';
 import '../../../../../../shared/dialog/sign_out.dart';
+import '../../../../../../shared/dialog/summary_report_complete_dialog.dart';
 import 'model/question_model.dart';
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -152,8 +155,8 @@ class QuestionController extends GetxController {
     var res = await apiRepository.getQuestion(examinationId, jobId);
     if (res != null && res.listData != null) {
       questionsResponse.value = res.listData as List<QuestionsResponse>;
-      if(res.managerComppleteInspection == true){
-        _showSignOutDialog();
+      if(res.managerComppleteInspection == true) {
+        _answerCompleteDialog();
       }
       if (questionsResponse.isNotEmpty) {
         questionModelList.clear();
@@ -192,23 +195,14 @@ class QuestionController extends GetxController {
     }
   }
 
-  _showSignOutDialog() {
+  _answerCompleteDialog() {
     showDialog(
       barrierColor: Colors.black26,
       context: Get.context!,
       builder: (context) {
-        return CustomAlertDialog(
-          title: StringConstants.signOutAlertMessage,
-          cancelCallBack: () {
-            Get.back();
-          },
-          signOutCallBack: () {
-            Get.back();
-           // controller.logOutUser();
-            // Get.offAll(
-            //   SignInWithEmailScreen(),
-            //   binding: SignInWithEmailBindings(),
-            // );
+        return AnswerCompleteDialog(
+          continueCallBack: () {
+            Get.toNamed(Routes.EXAMINATION_RESULT , arguments: jobId);
           },
         );
       },

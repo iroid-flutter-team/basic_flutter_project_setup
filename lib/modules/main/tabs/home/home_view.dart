@@ -69,7 +69,7 @@ class HomeView extends GetView<HomeController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.toNamed(Routes.EXAMINATION_RESULT);
+                            Get.toNamed(Routes.MESSAGE);
                           },
                           child: SvgPicture.asset(
                             SvgImageConstants.message1,

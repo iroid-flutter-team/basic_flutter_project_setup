@@ -67,7 +67,7 @@ class SettingView extends GetView<SettingController> {
             RatingBar.builder(
               itemSize: getSize(16),
               initialRating:
-                  controller.managerDetailsResponse.value.avgRating ?? 0,
+                  controller.managerDetailsResponse.value.avgRating?.toDouble() ?? 0,
               minRating: 1,
               direction: Axis.horizontal,
               allowHalfRating: true,

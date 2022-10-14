@@ -1,21 +1,23 @@
 import 'dart:ui';
+
+import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../constants/color_constants.dart';
 import '../constants/svg_image_constant.dart';
 import '../utils/math_utils.dart';
 import '../widgets/base_elevated_button.dart';
 import '../widgets/base_text.dart';
 
-class EmailVerifyDialog extends StatelessWidget {
-  const EmailVerifyDialog({
+class AnswerCompleteDialog extends StatelessWidget {
+  const AnswerCompleteDialog({
     Key? key,
-    required this.email,
     required this.continueCallBack,
   }) : super(key: key);
 
   final VoidCallback continueCallBack;
-  final String email;
 
   final double borderRadius = 25.0;
 
@@ -60,27 +62,29 @@ class EmailVerifyDialog extends StatelessWidget {
                     topLeft: Radius.circular(borderRadius),
                     topRight: Radius.circular(borderRadius),
                   ),
-                  child: SvgPicture.asset(
-                    SvgImageConstants.verify_tick,
+                  child: Image.asset(
+                    PngImageConstants.answer_done,
                   ),
                 ),
                 SizedBox(
                   height: getSize(30.0),
                 ),
                 BaseText(
-                  text: 'Your email address was successfully\nverified.',
+                  text: 'Congratulations',
                   textAlign: TextAlign.center,
-                  fontSize: 14,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                   textColor: ColorConstants.white.withOpacity(0.8),
                 ),
                 SizedBox(
                   height: getSize(10.0),
                 ),
                 BaseText(
-                  text: email,
-                  fontWeight: FontWeight.w600,
+                  text: "You have successfully completed examination",
+                  fontWeight: FontWeight.w500,
+                  textColor: Colors.white.withOpacity(0.8),
                   textAlign: TextAlign.center,
-                  fontSize: 16,
+                  fontSize: 12,
                 ),
                 SizedBox(
                   height: getSize(33.0),
@@ -93,7 +97,7 @@ class EmailVerifyDialog extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: BaseText(text: 'CONTINUE'),
+                    child: BaseText(text: 'DONE'),
                   ),
                 ),
                 SizedBox(

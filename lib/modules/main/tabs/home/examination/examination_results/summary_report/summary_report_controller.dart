@@ -1,10 +1,13 @@
+import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
 import 'package:align_flutter_app/models/response/home/summary_reports/summary_reports_response.dart';
 import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_results/summary_report/model/recommendation_model.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../../api/api_repository.dart';
+import '../../../../../../../shared/dialog/summary_report_complete_dialog.dart';
 import '../../question/model/question_model.dart';
 import 'model/summary_report_model.dart';
 
@@ -156,14 +159,17 @@ class SummaryReportController extends GetxController {
   }
 
   getSummaryReport(int jobId) async {
+
     var res = await apiRepository.getSummaryReport(jobId);
-    if (res != null && res.isNotEmpty) {
-      summaryReportsResponse.value = res;
+    if (res != null && res.listData != null) {
+      summaryReportsResponse.value = res.listData as List<SummaryReportsResponse>;
+      if(summaryReportModelList.lastIndexOf(summaryReportsResponse) == summaryReportModelList.length - 1  && res.allReportSubmitted == true){
+
+      }
       if (summaryReportsResponse.isNotEmpty) {
         summaryReportModelList.clear();
         for (int i = 0; i < summaryReportsResponse.length; i++) {
-          print(
-              "summaryReportsResponse[i].images==================${summaryReportsResponse[i].images!.map((e) => e.image ?? '').toList()}");
+        //  print("summaryReportsResponse[i].images==================${summaryReportsResponse[i].images!.map((e) => e.image ?? '').toList()}");
           summaryReportModelList.add(
             SummaryReportModel(
               id: summaryReportsResponse[i].answerId!,
@@ -202,6 +208,7 @@ class SummaryReportController extends GetxController {
           "tips": summaryReportModel.suggestionsController.text,
         }),
         jobId);
+    //print("res===========+${res?.dioMessage}");
   }
 
   getProblem(String val){
@@ -233,6 +240,20 @@ class SummaryReportController extends GetxController {
       case 'Below':
         return 3;
     }
+  }
+
+  _summaryReportCompleteDialog() {
+    showDialog(
+      barrierColor: Colors.black26,
+      context: Get.context!,
+      builder: (context) {
+        return SummaryReportCompleteDialog(
+          continueCallBack: () {
+           // Get.back();
+          },
+        );
+      },
+    );
   }
 
   @override
