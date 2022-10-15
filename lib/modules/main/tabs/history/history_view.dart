@@ -128,10 +128,14 @@ class HistoryView extends GetView<HistoryController> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
+                              SizedBox(
+                                height: getSize(2),
+                              ),
                               Row(
                                 children: [
                                   SvgPicture.asset(
                                     SvgImageConstants.location,
+                                    height: getSize(9),
                                   ),
                                   SizedBox(
                                     width: getSize(7),

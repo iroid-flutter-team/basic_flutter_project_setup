@@ -1,10 +1,10 @@
 class NotificationResponse {
   int? notificationId;
   String? title;
-  Null? message;
-  Null? type;
+  String? message;
+  int? type;
   int? readAt;
-  Null? createdAt;
+  int? createdAt;
 
   NotificationResponse(
       {this.notificationId,

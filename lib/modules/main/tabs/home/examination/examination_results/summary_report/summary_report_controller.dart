@@ -162,10 +162,12 @@ class SummaryReportController extends GetxController {
 
     var res = await apiRepository.getSummaryReport(jobId);
     if (res != null && res.listData != null) {
-      summaryReportsResponse.value = res.listData as List<SummaryReportsResponse>;
-      if(summaryReportModelList.lastIndexOf(summaryReportsResponse) == summaryReportModelList.length - 1  && res.allReportSubmitted == true){
 
-      }
+      summaryReportsResponse.value = res.listData as List<SummaryReportsResponse>;
+      // print("first======${summaryReportsResponse.length}");
+      // print("first123======${summaryReportModelList.indexOf(summaryReportsResponse)}");
+      // print("first12356======${summaryReportModelList.length}");
+      // print("first123676767======${summaryReportModelList.indexOf(summaryReportsResponse) == summaryReportModelList.length - 1 }");
       if (summaryReportsResponse.isNotEmpty) {
         summaryReportModelList.clear();
         for (int i = 0; i < summaryReportsResponse.length; i++) {
@@ -193,11 +195,15 @@ class SummaryReportController extends GetxController {
           );
         }
       }
+      if(res.allReportSubmitted == true){
+        _summaryReportCompleteDialog(
+        );
+      }
     }
     print("");
   }
 
-  updateSummaryReport(int jobId, SummaryReportModel summaryReportModel) async {
+  updateSummaryReport(int id, SummaryReportModel summaryReportModel) async {
 
     var res = await apiRepository.updateSummaryReport(
         ({
@@ -207,7 +213,15 @@ class SummaryReportController extends GetxController {
           "recommendation": getRecommendationIndex(summaryReportModel.recommendationValue.value),
           "tips": summaryReportModel.suggestionsController.text,
         }),
-        jobId);
+        id);
+    // if(res != null && res.dioMessage == "success"){
+    //   print("lastButton12333======${summaryReportModelList.indexOf(summaryReportsResponse)}");
+    //   print("lastButton12333======${summaryReportModelList.length}");
+    //   print("lastButton12333======${summaryReportModelList.indexOf(summaryReportsResponse) == summaryReportModelList.length - 1 }");
+    //   if(summaryReportModelList.lastIndexOf(summaryReportsResponse) == summaryReportModelList.length - 1 ){
+    //     getSummaryReport(jobId);
+    //   }
+    // }
     //print("res===========+${res?.dioMessage}");
   }
 
@@ -249,12 +263,12 @@ class SummaryReportController extends GetxController {
       builder: (context) {
         return SummaryReportCompleteDialog(
           continueCallBack: () {
-           // Get.back();
+            Get.until((route) => route.isFirst);
           },
         );
       },
     );
-  }
+   }
 
   @override
   void onInit() {

@@ -69,7 +69,8 @@ class QuestionController extends GetxController {
         rating: 1,
         checkListID: '',
         location: '',
-        answerId: 2,  checkList: [],
+        answerId: 2,
+        checkList: [],
         option: '',
       ),
     );
@@ -156,7 +157,7 @@ class QuestionController extends GetxController {
     if (res != null && res.listData != null) {
       questionsResponse.value = res.listData as List<QuestionsResponse>;
       if(res.managerComppleteInspection == true) {
-        _answerCompleteDialog();
+       _answerCompleteDialog();
       }
       if (questionsResponse.isNotEmpty) {
         questionModelList.clear();
@@ -177,7 +178,7 @@ class QuestionController extends GetxController {
                       .map((e) => e.image ?? '')
                       .toList(),
               question: questionsResponse[i].description!,
-              tags: questionsResponse[i].answer?.tags ?? '',
+              tags:  questionsResponse[i].answer?.tags ?? '',
               notes: questionsResponse[i].answer?.notes ?? '',
               rating: questionsResponse[i].answer?.rating ?? 0,
               checkListID: '',

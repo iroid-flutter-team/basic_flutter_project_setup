@@ -24,7 +24,7 @@ class AddInspectController extends GetxController {
   final RxList<int> values = [0, 1, 2, 3, 4].obs;
   RxList chipsList = <String>[].obs;
   List<Widget> chips = [];
-  var questionsResponse = <QuestionsResponse>[].obs;
+ // var questionsResponse = <QuestionsResponse>[].obs;
   QuestionModel? questionModel;
   //int index = -1;
   //var questionID = Get.arguments as QuestionModel;
@@ -45,6 +45,11 @@ class AddInspectController extends GetxController {
     //   }
     //   //checkListId = questionModel?.checkList?[i].checklistId;
     // }
+    String tags = "";
+    for(int i =0; i< chipsList.length; i++){
+      tags = '${tags + chipsList[i]},';
+    }
+
     print("checkListId.value===============${checkListId.value}");
     final formData = FormData({
       'questionId': questionModel?.id ?? 0,
@@ -54,7 +59,7 @@ class AddInspectController extends GetxController {
               filename: 'document.png', contentType: "image/png"))
           .toList(),
       'notes': addNoteController.text,
-      'tags': chipsList,
+      'tags': tags,
       'location': locationController.text,
       'rating': distanceValue,
       'checklistIds': checkListId.value,
@@ -64,7 +69,7 @@ class AddInspectController extends GetxController {
     print("questionsResponse4354545===============$res");
     if (res != null) {
       Get.back(result: "success");
-      Get.delete<AddInspectController>();
+     // Get.delete<AddInspectController>();
       print("questionsResponse4354545===============$res");
     }
   }
@@ -79,6 +84,11 @@ class AddInspectController extends GetxController {
         tempList.add(localImagePathList[i]);
       }
     }
+    String tags = "";
+
+    for(int i =0; i< chipsList.length; i++){
+      tags = '${tags + chipsList[i]},';
+    }
     print("tempList=========${tempList.map((e) => e)}");
     // for(int i = 0; i < questionModel!.checkList!.length; i++ ){
     //   checkListId.add(questionModel?.checkList?[i]);
@@ -87,7 +97,7 @@ class AddInspectController extends GetxController {
     final formData = FormData({
       // 'images': localImagePathList,
       'notes': addNoteController.text,
-      'tags': chipsList,
+      'tags': tags,
       'location': locationController.text,
       'rating': distanceValue,
       'checklistIds': checkListId.value,
@@ -106,12 +116,16 @@ class AddInspectController extends GetxController {
     questionModel = Get.arguments[0] as QuestionModel;
     //print("questionModeltitile123 ===========${questionModel?.title}");
     if (questionModel != null) {
+
+      final List<String>? tagList =  questionModel?.tags.split(',');
+      tagList?.removeWhere((element) => element.isEmpty);
+     // print("tagList12345=======${tagList?.length}");
       addNoteController.text = questionModel?.notes ?? "";
       locationController.text = questionModel?.location ?? "";
       distanceValue.value = questionModel!.rating.toDouble();
       localImagePathList.value = questionModel!.imagePathList;
       //chipsList.value = [questionModel?.tags].cast<String>();
-      chipsList.value = [questionModel?.tags].cast<String>();
+      chipsList.value = tagList!.cast<String>();
     }
     print("chipsList123==========${chipsList.length}");
     //print("addNoteController==========${questionModel!.imagePathList}");

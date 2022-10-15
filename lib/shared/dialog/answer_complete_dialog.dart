@@ -97,7 +97,7 @@ class AnswerCompleteDialog extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: BaseText(text: 'DONE'),
+                    child: BaseText(text: 'CONTINUE'),
                   ),
                 ),
                 SizedBox(

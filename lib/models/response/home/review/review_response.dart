@@ -3,7 +3,7 @@ class ReviewResponse {
   int? managerId;
   int? userId;
   String? description;
-  double? rating;
+  num? rating;
   String? userFullName;
   String? userProfileImage;
   int? createdAt;

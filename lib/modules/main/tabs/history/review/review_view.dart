@@ -50,9 +50,7 @@ class ReviewView extends GetView<ReviewController> {
                               border: Border.all(
                                   color: ColorConstants.white, width: 1),
                               image: DecorationImage(
-                                  image: controller.reviewResponse[index]
-                                              .userProfileImage !=
-                                          null
+                                  image: controller.reviewResponse[index].userProfileImage != null
                                       ? NetworkImage(
                                           controller.reviewResponse[index]
                                               .userProfileImage
@@ -128,7 +126,7 @@ class ReviewView extends GetView<ReviewController> {
       children: [
         RatingBar.builder(
           itemSize: getSize(16),
-          initialRating: reviewResponse.rating ?? 0.0,
+          initialRating: reviewResponse.rating?.toDouble() ?? 0,
           minRating: 1,
           direction: Axis.horizontal,
           allowHalfRating: true,

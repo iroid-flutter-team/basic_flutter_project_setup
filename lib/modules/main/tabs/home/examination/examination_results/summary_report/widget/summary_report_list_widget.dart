@@ -173,10 +173,16 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
               borderRadius: BorderRadius.circular(
                 getSize(8.0),
               ),
-              onPressed: () {
-               // print("lastButton======${controller.summaryReportModelList.lastIndexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 }");
+              onPressed: ()  {
+                // print("lastButton12======${controller.summaryReportModelList.indexOf(summaryReportModel)}");
+                // print("lastButton1234======${controller.summaryReportModelList.length}");
+                // print("lastButton======${controller.summaryReportModelList.indexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 }");
                 controller.updateSummaryReport(controller.jobId, summaryReportModel);
-                controller.getSummaryReport(controller.jobId);
+                if(controller.summaryReportModelList.indexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 ){
+                  controller.getSummaryReport(controller.jobId);
+                  //_summaryReportCompleteDialog()
+                }
+               // controller.getSummaryReport(controller.jobId);
                 // if(controller.summaryReportModelList.lastIndexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 ){
                 //   controller.getSummaryReport(18);
                 //   _summaryReportCompleteDialog();
@@ -263,8 +269,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
 
             child: ListTile(
               onTap: () {
-                summaryReportModel.conditionValue.value =
-                    summaryReportModel.condition[index];
+                summaryReportModel.conditionValue.value = summaryReportModel.condition[index];
                 //controller.tag.value = controller.toDoListTagsResponse[index].name.toString();
                 // controller.tagValue.value.selection =
                 //     TextSelection.fromPosition(
