@@ -111,7 +111,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                         text: controller.listData[index].user?.fullname
                                 .toString() ??
                             "",
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                       Spacer(),
@@ -158,6 +158,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                         ),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
+                        textColor: ColorConstants.white.withOpacity(0.8),
                       ),
                       SizedBox(
                         width: getSize(32),
@@ -171,6 +172,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                         ),
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
+                        textColor: ColorConstants.white.withOpacity(0.8),
                       ),
                     ],
                   ),
@@ -200,6 +202,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                             "",
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
+                        textColor: ColorConstants.white.withOpacity(0.8),
                       ),
                     ],
                   ),

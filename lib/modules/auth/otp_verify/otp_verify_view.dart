@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -22,7 +23,10 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
   final String verify;
   final TextEditingController phoneController;
   final TextEditingController countryCodeController;
-  const OtpVerifyView({Key? key, required this.verify, required this.phoneController, required this.countryCodeController}) : super(key: key);
+
+  const OtpVerifyView(
+      {Key? key, required this.verify, required this.phoneController, required this.countryCodeController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,53 +38,56 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
   _buildMainBody() {
     return GestureDetector(
       onTap: () {},
-      child: Form(
-        key: controller.formKey,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: getSize(30),
-            right: getSize(30),
-            bottom: getSize(40),
-            top: getSize(50),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    BaseText(
-                      //textAlign: TextAlign.center,
-                      text: "Verification code",
-                      fontSize: 32,
-                    ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
-                    BaseText(
-                      textAlign: TextAlign.center,
-                      text: "Please type the verification code sent to",
-                      fontSize: 14,
-                      textColor: ColorConstants.white.withOpacity(0.6),
-                    ),
-                    BaseText(
-                      textAlign: TextAlign.center,
-                      text: "${countryCodeController.text} ${phoneController.text}",
-                      fontSize: 14,
-                    ),
-                  ],
+      child: Obx(() {
+        return Form(
+          key: controller.formKey,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(30),
+              right: getSize(30),
+              bottom: getSize(40),
+              top: getSize(50),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      BaseText(
+                        //textAlign: TextAlign.center,
+                        text: "Verification code",
+                        fontSize: 32,
+                      ),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      BaseText(
+                        textAlign: TextAlign.center,
+                        text: "Please type the verification code sent to",
+                        fontSize: 14,
+                        textColor: ColorConstants.white.withOpacity(0.6),
+                      ),
+                      BaseText(
+                        textAlign: TextAlign.center,
+                        text: "${countryCodeController.text} ${phoneController
+                            .text}",
+                        fontSize: 14,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: getSize(40),
-              ),
-              _buildOtpView(),
-              Spacer(),
-              _buttonSendOTP(),
-            ],
+                SizedBox(
+                  height: getSize(40),
+                ),
+                _buildOtpView(),
+                Spacer(),
+                _buttonSendOTP(),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -134,7 +141,10 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                 ],
               ),
               onChanged: (pin) {
-                controller.code = pin;
+                controller.otpValue.value = pin;
+                if (controller.otpValue.value.length < 6) {
+                  controller.buttonClickable.value = false;
+                }
                 // print("Changed: " + pin);
                 // controller.otpValue.value = pin;
                 // if (controller.otpValue.value.length < 5) {
@@ -142,6 +152,7 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                 // }
               },
               onCompleted: (pin) {
+                controller.buttonClickable.value = true;
                 // print("Completed: " + pin);
                 // controller.buttonClickable.value = true;
               },
@@ -156,17 +167,16 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
           child: Align(
             alignment: Alignment.centerRight,
             child: InkWell(
-              onTap: ()async{
+              onTap: () async {
                 await FirebaseAuth.instance.verifyPhoneNumber(
-                  phoneNumber: countryCodeController.text + phoneController.text,
-                  verificationCompleted: (PhoneAuthCredential credential) {
+                  phoneNumber: countryCodeController.text +
+                      phoneController.text,
+                  verificationCompleted: (PhoneAuthCredential credential) {},
+                  verificationFailed: (FirebaseAuthException e) {},
+                  codeSent: (String verificationId, int? resendToken) {
+                    ;
                   },
-                  verificationFailed: (FirebaseAuthException e) {
-                  },
-                  codeSent: (String verificationId, int? resendToken) {;
-                  },
-                  codeAutoRetrievalTimeout: (String verificationId) {
-                  },
+                  codeAutoRetrievalTimeout: (String verificationId) {},
                 );
               },
               // onTap: (controller.resendOtpTime.value == 0 &&
@@ -188,28 +198,30 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
   }
 
   _buttonSendOTP() {
-    return BaseElevatedButton(
-      width: Get.width,
-      onPressed: () async {
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verify, smsCode: controller.code);
-        // Sign the user in (or link) with the credential
-        var res = await controller.auth.signInWithCredential(credential);
-        var idToken = await res.user?.getIdToken();
-        print("idToken========$idToken");
-        if(idToken != null){
-          controller.login(idToken);
-          // Get.offAll(
-          //   MainTab(),
-          //   binding: MainBindings(),
-          // );
-        }
-
-      },
-      child: BaseText(
-        text: "SUBMIT",
-        textColor: ColorConstants.white,
-        fontWeight: FontWeight.w700,
+    return Opacity(
+      opacity: controller.buttonClickable.value ? 1 : 0.2,
+      child: BaseElevatedButton(
+        width: Get.width,
+        onPressed: () async {
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: verify, smsCode: controller.otpValue.value);
+          // Sign the user in (or link) with the credential
+          var res = await controller.auth.signInWithCredential(credential);
+          var idToken = await res.user?.getIdToken();
+          print("idToken========$idToken");
+          if (idToken != null) {
+            controller.login(idToken);
+            // Get.offAll(
+            //   MainTab(),
+            //   binding: MainBindings(),
+            // );
+          }
+        },
+        child: BaseText(
+          text: "SUBMIT",
+          textColor: ColorConstants.white,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

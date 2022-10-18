@@ -67,6 +67,7 @@ class SignInWithPhoneNumberScreen
                       textAlign: TextAlign.center,
                       text: "Enter your phone number to verify \nyour account",
                       fontSize: 14,
+                      textColor: ColorConstants.white.withOpacity(0.6),
                     ),
                   ],
                 ),
@@ -102,9 +103,20 @@ class SignInWithPhoneNumberScreen
               width: getSize(65),
               child: InputTextField(
                 controller: controller.countryController,
-                textInputType: TextInputType.text,
+                textInputType: TextInputType.number,
                 enable: true,
                 textInputAction: TextInputAction.next,
+               // prefixText: '+',
+                maxLength: 3,
+                counterText: "",
+                validator: (value) {
+                  //print("controller.phoneController========${value}");
+                  if (value == "000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                    return '';
+                  }
+                  return null;
+                },
+
               ),
             ),
             SizedBox(
@@ -112,8 +124,9 @@ class SignInWithPhoneNumberScreen
             ),
             Expanded(
               child: InputTextField(
+
                 controller: controller.phoneNumberController,
-                textInputType: TextInputType.number,
+                textInputType: TextInputType.phone,
                 hintText: StringConstants.hintPhoneNumber,
                 enable: true,
                 //  prefixIcon: Padding(padding: EdgeInsets.all(12.0), child: SvgPicture.asset(getAssetsSVGImg('email'),),),
@@ -139,7 +152,9 @@ class SignInWithPhoneNumberScreen
     return BaseElevatedButton(
       width: Get.width,
       onPressed: () async{
-        controller.checkManagerExist();
+        if (controller.formKey.currentState!.validate()){
+          controller.checkManagerExist();
+        }
         // await FirebaseAuth.instance.verifyPhoneNumber(
         //   phoneNumber: controller.countryController.text + controller.phoneNumberController.text,
         //

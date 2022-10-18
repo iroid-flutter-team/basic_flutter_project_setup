@@ -1,4 +1,5 @@
 import 'package:align_flutter_app/routes/app_pages.dart';
+import 'package:align_flutter_app/shared/constants/color_constants.dart';
 import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,6 +36,15 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
           SizedBox(
             height: getSize(20),
           ),
+          BaseText(
+            text: "Report",
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            textColor: ColorConstants.white.withOpacity(0.6),
+          ),
+          SizedBox(
+            height: getSize(10),
+          ),
           CommonContainerWithShadow(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -63,6 +73,7 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
             text: "Results",
             fontSize: 12,
             fontWeight: FontWeight.w600,
+            textColor: ColorConstants.white.withOpacity(0.6),
           ),
           SizedBox(
             height: getSize(10),

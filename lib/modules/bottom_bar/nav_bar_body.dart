@@ -43,10 +43,13 @@ class NavBarBody extends StatelessWidget {
     printInfo(info: 'bottomPadding = $bottomPadding');
 
     return SafeArea(
-      child: Container(
-        height: bottomPadding == 0 ? getSize(75) : getSize(64) /*+ bottomPadding*/,
-        alignment: Alignment.center,
-        child: _buildRow(),
+      child: Padding(
+        padding:  EdgeInsets.only(left: 8.0, right: 8.0),
+        child: Container(
+          height: bottomPadding == 0 ? getSize(75) : getSize(64) /*+ bottomPadding*/,
+          alignment: Alignment.center,
+          child: _buildRow(),
+        ),
       ),
     );
   }
@@ -57,7 +60,6 @@ class NavBarBody extends StatelessWidget {
       children: barItems.map(
         (dynamic item) {
           final int buttonIndex = barItems.indexOf(item);
-
           return item is NavBarItem
               ? Expanded(
                 child: NavBarButton(
@@ -76,7 +78,10 @@ class NavBarBody extends StatelessWidget {
                   ),
               )
               : Padding(
-                    padding: EdgeInsets.zero,
+                    padding: EdgeInsets.only(
+                      right: buttonIndex == 2 ? 20 : 0 ,
+                          left: buttonIndex == 1 ? 0 : 20
+                    ),
                     child: item,
 
               );

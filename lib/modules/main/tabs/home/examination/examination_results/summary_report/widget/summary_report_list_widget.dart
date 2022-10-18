@@ -87,14 +87,15 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             child: Padding(
               padding: EdgeInsets.only(
                   left: getSize(20),
-                  top: getSize(11),
-                  bottom: getSize(11),
-                  right: getSize(11)),
+                  top: getSize(12),
+                  bottom: getSize(12),
+                  right: getSize(16)),
               child: Row(
                 children: [
                   BaseText(
                     text: "Problem",
-                    fontSize: 12,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                   Spacer(),
                   Obx(() {
@@ -233,14 +234,16 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          left: getSize(10.0),
-                          right: getSize(10.0),
-                          top: getSize(10.0),
+                          left: getSize(18.0),
+                          right: getSize(18.0),
                         ),
                         child: Divider(
                           height: 1,
                           color: ColorConstants.white.withOpacity(0.3),
                         ),
+                      ),
+                      SizedBox(
+                        height: getSize(10),
                       ),
                       _buildTagList(summaryReportModel),
                     ],
@@ -332,14 +335,16 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          left: getSize(10.0),
-                          right: getSize(10.0),
-                          top: getSize(10.0),
+                          left: getSize(18.0),
+                          right: getSize(18.0),
                         ),
                         child: Divider(
                           height: 1,
                           color: ColorConstants.white.withOpacity(0.3),
                         ),
+                      ),
+                      SizedBox(
+                        height: getSize(10),
                       ),
                       _buildRecommendationList(summaryReportModel),
                     ],

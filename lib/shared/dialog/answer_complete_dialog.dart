@@ -64,6 +64,7 @@ class AnswerCompleteDialog extends StatelessWidget {
                   ),
                   child: Image.asset(
                     PngImageConstants.answer_done,
+                    height: getSize(178),
                   ),
                 ),
                 SizedBox(
@@ -79,12 +80,15 @@ class AnswerCompleteDialog extends StatelessWidget {
                 SizedBox(
                   height: getSize(10.0),
                 ),
-                BaseText(
-                  text: "You have successfully completed examination",
-                  fontWeight: FontWeight.w500,
-                  textColor: Colors.white.withOpacity(0.8),
-                  textAlign: TextAlign.center,
-                  fontSize: 12,
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0),
+                  child: BaseText(
+                    text: "You have successfully completed examination",
+                    fontWeight: FontWeight.w500,
+                    textColor: Colors.white.withOpacity(0.8),
+                    textAlign: TextAlign.center,
+                    fontSize: 12,
+                  ),
                 ),
                 SizedBox(
                   height: getSize(33.0),
@@ -94,7 +98,7 @@ class AnswerCompleteDialog extends StatelessWidget {
                   onPressed: () {
                     continueCallBack();
                   },
-                  borderRadius: BorderRadius.circular(15.0),
+                  //borderRadius: BorderRadius.circular(20.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: BaseText(text: 'CONTINUE'),

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../../../../../routes/app_pages.dart';
 import '../../../../../../../shared/constants/color_constants.dart';
+import '../../../../../../../shared/constants/png_image_constant.dart';
 import '../../../../../../../shared/constants/string_constant.dart';
 import '../../../../../../../shared/constants/svg_image_constant.dart';
 import '../../../../../../../shared/utils/image_utils.dart';
@@ -29,7 +30,7 @@ class QuestionListWidget extends GetView<QuestionController> {
               (questionModel) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return CommonContainerWithShadow(
+                    return controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1  && controller.managerComppleteInspection == true ? congratulationView(): CommonContainerWithShadow(
                       width: Get.width,
                       margin: EdgeInsets.symmetric(
                         horizontal: getSize(10.0),
@@ -69,7 +70,7 @@ class QuestionListWidget extends GetView<QuestionController> {
         children: [
           BaseText(text: questionModel.title),
           SizedBox(
-            height: getSize(20.0),
+            height: getSize(24.0),
           ),
           AnimatedCard(
             questionModel: questionModel,
@@ -138,22 +139,25 @@ class QuestionListWidget extends GetView<QuestionController> {
             ],
           ),
           SizedBox(
-            height: getSize(12),
+            height: getSize(14),
           ),
-          CommonLinearProgressWidget(
-            width: Get.width - getSize(146),
-            total: 100,
-            remaining: questionModel.rating == 0
-                ? 15
-                : questionModel.rating == 1
-                    ? 35
-                    : questionModel.rating == 2
-                        ? 55
-                        : questionModel.rating == 3
-                            ? 75
-                            : questionModel.rating == 4
-                                ? 100
-                                : 0,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.0),
+            child: CommonLinearProgressWidget(
+              width: Get.width - getSize(160),
+              total: 100,
+              remaining: questionModel.rating == 0
+                  ? 1
+                  : questionModel.rating == 1
+                      ? 27
+                      : questionModel.rating == 2
+                          ? 51
+                          : questionModel.rating == 3
+                              ? 75
+                              : questionModel.rating == 4
+                                  ? 100
+                                  : 0,
+            ),
           ),
           // SliderTheme(
           //   data: SliderThemeData(
@@ -180,10 +184,10 @@ class QuestionListWidget extends GetView<QuestionController> {
           //   ),
           // ),
           SizedBox(
-            height: getSize(16),
+            height: getSize(17),
           ),
           Padding(
-            padding: EdgeInsets.only(right: getSize(10), left: getSize(10)),
+            padding: EdgeInsets.only(right: getSize(14), left: getSize(12),),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
@@ -253,7 +257,7 @@ class QuestionListWidget extends GetView<QuestionController> {
 
   commonCircle({required int index, required QuestionModel questionModel}) {
     return Container(
-      margin: EdgeInsets.only(right: 5, left: 5),
+      margin: EdgeInsets.only(right: 0, left: 2),
       height: 8,
       width: 8,
       decoration: BoxDecoration(
@@ -262,6 +266,87 @@ class QuestionListWidget extends GetView<QuestionController> {
             : ColorConstants.white.withOpacity(0.4),
         borderRadius: BorderRadius.circular(50),
         // border: Border.all(color: ColorConstants.white),
+      ),
+    );
+  }
+
+
+  congratulationView(){
+    return Container(
+      // padding: EdgeInsets.all(getSize(0.0)),
+      decoration: BoxDecoration(
+          color: ColorConstants.dialogBlack,
+          borderRadius: BorderRadius.circular(
+            getSize(20),
+          ),
+          border: Border.all(
+            color: ColorConstants.dialogBorderGreen,
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 0),
+              blurRadius: 25,
+              color: ColorConstants.dialogBorderGreen.withOpacity(0.6),
+            ),
+          ]),
+      child: Padding(
+        padding: EdgeInsets.only(top: 40, bottom: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              child: Image.asset(
+                PngImageConstants.answer_done,
+                height: getSize(178),
+              ),
+            ),
+            SizedBox(
+              height: getSize(30.0),
+            ),
+            BaseText(
+              text: 'Congratulations',
+              textAlign: TextAlign.center,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              textColor: ColorConstants.white.withOpacity(0.8),
+            ),
+            SizedBox(
+              height: getSize(10.0),
+            ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 8.0),
+              child: BaseText(
+                text: "You have successfully completed examination",
+                fontWeight: FontWeight.w500,
+                textColor: Colors.white.withOpacity(0.8),
+                textAlign: TextAlign.center,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(
+              height: getSize(33.0),
+            ),
+            BaseElevatedButton(
+              width: getSize(214.0),
+              onPressed: () {
+                Get.back();
+              },
+              //borderRadius: BorderRadius.circular(20.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: BaseText(text: 'CONTINUE'),
+              ),
+            ),
+            SizedBox(
+              height: getSize(10.0),
+            ),
+          ],
+        ),
       ),
     );
   }

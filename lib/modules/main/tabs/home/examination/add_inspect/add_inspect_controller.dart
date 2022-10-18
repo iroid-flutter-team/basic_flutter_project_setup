@@ -69,7 +69,7 @@ class AddInspectController extends GetxController {
     print("questionsResponse4354545===============$res");
     if (res != null) {
       Get.back(result: "success");
-     // Get.delete<AddInspectController>();
+      Get.delete<AddInspectController>();
       print("questionsResponse4354545===============$res");
     }
   }
@@ -101,10 +101,10 @@ class AddInspectController extends GetxController {
       'location': locationController.text,
       'rating': distanceValue,
       'checklistIds': checkListId.value,
-      //'images' : tempList.map((e) => MultipartFile(e, filename: 'document.png', contentType: "image/png")).toList(),
+      'images' : tempList.map((e) => MultipartFile(e, filename: 'document.png', contentType: "image/png")).toList(),
     });
     var res = await apiRepository.updateAnswer(formData, id);
-    if (res != null) {
+    if (res != null && res.dioMessage != null) {
       Get.back(result: "success");
     }
   }

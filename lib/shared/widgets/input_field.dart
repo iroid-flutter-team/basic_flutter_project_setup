@@ -9,6 +9,7 @@ class InputTextField extends StatelessWidget {
   final String? initialValue;
   final String? labelText;
   final String? hintText;
+  final String? counterText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
@@ -37,6 +38,7 @@ class InputTextField extends StatelessWidget {
     this.prefixIcon,
     this.fillColor,
     this.suffixIcon,
+    this.counterText,
     this.validator,
     this.textColor,
     required this.controller,
@@ -140,6 +142,7 @@ class InputTextField extends StatelessWidget {
                   horizontal: getSize(20),
                 ),
             hintText: hintText,
+            counterText: counterText,
             fillColor: fillColor ?? ColorConstants.darkContainerBlack,
             errorMaxLines: errorMaxLines ?? 1,
             filled: true,
@@ -156,6 +159,9 @@ class InputTextField extends StatelessWidget {
               fontWeight: FontWeight.w400,
               //letterSpacing: 0.5,
               color: ColorConstants.white.withOpacity(0.5),
+            ),
+            prefixStyle: TextStyle(
+                color: ColorConstants.white,
             ),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

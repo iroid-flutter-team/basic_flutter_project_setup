@@ -172,9 +172,12 @@ class HistoryView extends GetView<HistoryController> {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          SvgImageConstants.calendar,
-                          height: 20,
+                        Opacity(
+                          opacity: 0.8,
+                          child: SvgPicture.asset(
+                            SvgImageConstants.calendar,
+                            height: 20,
+                          ),
                         ),
                         SizedBox(
                           width: getSize(8),
@@ -186,17 +189,20 @@ class HistoryView extends GetView<HistoryController> {
                           fontWeight: FontWeight.w500,
                         ),
                         SizedBox(
-                          width: getSize(36),
+                          width: getSize(74),
                         ),
-                        SvgPicture.asset(
-                          SvgImageConstants.clock,
-                          height: 20,
+                        Opacity(
+                          opacity: 0.8,
+                          child: SvgPicture.asset(
+                            SvgImageConstants.clock,
+                            height: 20,
+                          ),
                         ),
                         SizedBox(
                           width: getSize(8),
                         ),
                         BaseText(
-                          text: DateFormat('hh:mm').format(DateTime.fromMillisecondsSinceEpoch(controller.historyResponse[index].inspectionDate?.toInt() ?? 0),),
+                          text: DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(controller.historyResponse[index].inspectionDate?.toInt() ?? 0),),
                           textColor: ColorConstants.white.withOpacity(0.8),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -208,7 +214,7 @@ class HistoryView extends GetView<HistoryController> {
                     ),
                     CommonContainerWithShadow(
                       height: getSize(40),
-                      width: getSize(288),
+                      width: Get.width,
                       backgroundColor: ColorConstants.black,
                       child: Center(
                         child: BaseText(

@@ -73,7 +73,7 @@ class SummaryReportCompleteDialog extends StatelessWidget {
                   textColor: ColorConstants.white.withOpacity(0.8),
                 ),
                 SizedBox(
-                  height: getSize(10.0),
+                  height: getSize(20.0),
                 ),
                 BaseText(
                   text: "You have successfully completed inspection",

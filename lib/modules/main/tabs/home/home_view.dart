@@ -57,9 +57,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             Obx(() {
                               return BaseText(
-                                text: controller.settingController
-                                    .managerDetailsResponse.value.fullname
-                                    .toString(),
+                                text: "${controller.settingController.managerDetailsResponse.value.fullname.toString()},",
                                 fontSize: 18,
                                 maxLines: 1,
                                 fontWeight: FontWeight.w600,

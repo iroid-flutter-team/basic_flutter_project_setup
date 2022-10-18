@@ -208,9 +208,9 @@ class SettingView extends GetView<SettingController> {
     return FlutterSwitch(
       inactiveColor: ColorConstants.switchBlack.withOpacity(0.3),
       activeColor: ColorConstants.circleBlue,
-      width: getSize(60.0),
-      height: getSize(30.0),
-      toggleSize: getSize(30.0),
+      width: getSize(48.0),
+      height: getSize(26.0),
+      toggleSize: getSize(24.0),
       value: controller.switchValue.value,
       borderRadius: getSize(30.0),
       padding: 1.2,

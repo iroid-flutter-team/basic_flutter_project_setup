@@ -127,7 +127,7 @@ class _NavBarButtonState extends State<NavBarButton>
                     ),
                   ),
                   child: BaseText(
-                    text: widget.index == 0 ? "Home" :widget.index == 1 ? "History" : widget.index == 3 ? "Notification" : widget.index == 4 ? "Setting" : "",
+                    text: widget.index == 0 ? "Home" :widget.index == 1 ? "History" : widget.index == 3 ? "Notification" : widget.index == 4 ? "Settings" : "",
                     fontSize: widget.index == 3 ? 12 : 12,
                     fontWeight: FontWeight.w500,
                   ),

@@ -19,12 +19,12 @@ class OtpVerifyController extends GetxController {
   //SignInWithPhoneNumberController signInWithPhoneNumberController = Get.put(SignInWithPhoneNumberController(repository: Get.find()));
   final FirebaseAuth auth = FirebaseAuth.instance;
   final prefs = Get.find<SharedPreferences>();
-
+  RxBool buttonClickable = false.obs;
   OtpFieldController otpController = OtpFieldController();
   final formKey = GlobalKey<FormState>();
    Timer? timer;
   var resendOtpTime = 0.obs;
-  var code = "";
+  var otpValue = "".obs;
   var loginResponse = LoginResponse().obs;
 
   @override

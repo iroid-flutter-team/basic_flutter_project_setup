@@ -175,7 +175,7 @@ class AddInspectView extends GetView<AddInspectController> {
             InputTextField(
               controller: controller.addNoteController,
               textInputType: TextInputType.multiline,
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.next,
               maxLines: 8,
               minLines: 7,
               // validator: (value) {
@@ -194,6 +194,7 @@ class AddInspectView extends GetView<AddInspectController> {
                 onTap: () async {
                   var res = await Get.dialog(
                     AddTagDialog(),
+                    barrierDismissible: false,
                   );
                   if (res != null) {
                     try {

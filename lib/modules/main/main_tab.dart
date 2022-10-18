@@ -188,14 +188,13 @@ import 'main_controller.dart';
 // // }
 // }
 
-
 class MainTab extends GetView<MainController> {
   const MainTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => WillPopScope(
+      () => WillPopScope(
         onWillPop: () async {
           return false;
           // final isFirstRouteInCurrentTab = !(await controller
@@ -245,7 +244,7 @@ class MainTab extends GetView<MainController> {
     return SlidingClippedNavBar(
       backgroundColor: Colors.transparent,
       onButtonPressed: (index) =>
-      index == 2 ? null : controller.switchTab(index),
+          index == 2 ? null : controller.switchTab(index),
       iconSize: getSize(24),
       activeColor: Colors.white,
       selectedIndex: controller.currentTabIndex.value,
@@ -258,7 +257,11 @@ class MainTab extends GetView<MainController> {
             normalIcon: SvgImageConstants.task,
             selectedIcon: PngImageConstants.taskSelected,
             title: 'Task'),
-        buildCenterBulbWidget(),
+        SizedBox(
+          width: getSize(48),
+          //color: Colors.red,
+          child: buildCenterBulbWidget(),
+        ),
         _buildBarItem(
             normalIcon: SvgImageConstants.notification,
             selectedIcon: PngImageConstants.notificationSelected,
@@ -273,8 +276,8 @@ class MainTab extends GetView<MainController> {
 
   _buildBarItem(
       {required String normalIcon,
-        required String selectedIcon,
-        required String title}) {
+      required String selectedIcon,
+      required String title}) {
     return NavBarItem(
       normalIcon: SvgPicture.asset(
         normalIcon,
@@ -293,8 +296,8 @@ class MainTab extends GetView<MainController> {
   buildCenterBulbWidget() {
     return Container(
       height: getSize(48),
-      //width: Get.width/5,
-      width: getSize(44),
+      width: Get.width / 5,
+      // width: getSize(44),
       decoration: ShapeDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -353,8 +356,6 @@ class MainTab extends GetView<MainController> {
 //   );
 // }
 }
-
-
 
 // class MainTab extends GetView<MainController> {
 //   const MainTab({Key? key}) : super(key: key);

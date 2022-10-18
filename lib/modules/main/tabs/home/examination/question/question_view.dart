@@ -132,7 +132,7 @@ class QuestionView extends GetView<QuestionController> {
           ),
           child: Obx(() {
             return BaseText(
-              text: getPageNavigationText(),
+              text: controller.getPageNavigationText(),
               fontSize: 18,
               fontWeight: FontWeight.w500,
             );
@@ -173,33 +173,34 @@ class QuestionView extends GetView<QuestionController> {
     );
   }
 
-  String getPageNavigationText() {
-    int currentQuestion = controller.currentQuestion.value + 1;
-    int totalQuestion = controller.questionModelList.length;
-    return '$currentQuestion Out of $totalQuestion';
-  }
-  _showSignOutDialog() {
-    showDialog(
-      barrierColor: Colors.black26,
-      context: Get.context!,
-      builder: (context) {
-        return CustomAlertDialog(
-          title: StringConstants.signOutAlertMessage,
-          cancelCallBack: () {
-            Get.back();
-          },
-          signOutCallBack: () {
-            Get.back();
-            // controller.logOutUser();
-            // Get.offAll(
-            //   SignInWithEmailScreen(),
-            //   binding: SignInWithEmailBindings(),
-            // );
-          },
-        );
-      },
-    );
-  }
+  // String getPageNavigationText() {
+  //   int currentQuestion = controller.currentQuestion.value + 1;
+  //   int totalQuestion = controller.questionModelList.length;
+  //   return '$currentQuestion Out of $totalQuestion';
+  // }
+
+  // _showSignOutDialog() {
+  //   showDialog(
+  //     barrierColor: Colors.black26,
+  //     context: Get.context!,
+  //     builder: (context) {
+  //       return CustomAlertDialog(
+  //         title: StringConstants.signOutAlertMessage,
+  //         cancelCallBack: () {
+  //           Get.back();
+  //         },
+  //         signOutCallBack: () {
+  //           Get.back();
+  //           // controller.logOutUser();
+  //           // Get.offAll(
+  //           //   SignInWithEmailScreen(),
+  //           //   binding: SignInWithEmailBindings(),
+  //           // );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 }
 
 // class QuestionView extends GetView<QuestionController> {

@@ -38,8 +38,8 @@ class AboutMeView extends GetView<SettingController> {
             BaseElevatedButton(
               width: Get.width,
               onPressed: () {
-                controller.updateManagerDetails();
-                Get.back();
+               // Get.back(result: "success");
+               controller.updateManagerDetails();
               },
               child: BaseText(
                 text: "Save",

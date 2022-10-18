@@ -60,7 +60,9 @@ class FutureJobsView extends GetView<HomeController> {
             padding: EdgeInsets.symmetric(horizontal: getSize(30)),
             child: BaseElevatedButton(
               width: Get.width,
-              onPressed: () {},
+              onPressed: () {
+                Get.until((route) => route.isFirst);
+              },
               child: BaseText(
                 text: "Go to dashboard",
               ),

@@ -8,7 +8,7 @@ class StringConstants {
   static const String createNewAccount = 'Create a new account';
   static const String name = 'Name';
   static const String emailAddress = 'Email Address';
-  static const String hintPhoneNumber = 'Enter PhoneNumber';
+  static const String hintPhoneNumber = 'Enter Phone Number';
   static const String mobileNumder = 'Mobile Number';
   static const String enterMobileNumber = 'Please enter your mobile number';
   static const String enterUserName = 'Please enter your name';
