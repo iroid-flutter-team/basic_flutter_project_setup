@@ -39,7 +39,7 @@ class AddInspectView extends GetView<AddInspectController> {
   _buildMainBody(BuildContext context) {
     return Obx(() {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: getSize(30),),
+        padding: EdgeInsets.symmetric(horizontal: getSize(25),),
         child: ListView(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
@@ -172,18 +172,21 @@ class AddInspectView extends GetView<AddInspectController> {
             SizedBox(
               height: getSize(6),
             ),
-            InputTextField(
-              controller: controller.addNoteController,
-              textInputType: TextInputType.multiline,
-              textInputAction: TextInputAction.next,
-              maxLines: 8,
-              minLines: 7,
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return 'Please enter details.';
-              //   }
-              //   return null;
-              // },
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 1.0),
+              child: InputTextField(
+                controller: controller.addNoteController,
+                textInputType: TextInputType.multiline,
+                textInputAction: TextInputAction.next,
+                maxLines: 8,
+                minLines: 7,
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter details.';
+                //   }
+                //   return null;
+                // },
+              ),
             ),
             SizedBox(
               height: getSize(20),
@@ -281,21 +284,24 @@ class AddInspectView extends GetView<AddInspectController> {
             SizedBox(
               height: getSize(6),
             ),
-            InputTextField(
-              controller: controller.locationController,
-              textInputType: TextInputType.multiline,
-              textInputAction: TextInputAction.done,
-              maxLines: 3,
-              minLines: 1,
-              onTap: () {
-                AppFocus.unfocus(context);
-              },
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return 'Please enter details.';
-              //   }
-              //   return null;
-              // },
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 1.0),
+              child: InputTextField(
+                controller: controller.locationController,
+                textInputType: TextInputType.multiline,
+                textInputAction: TextInputAction.done,
+                maxLines: 3,
+                minLines: 1,
+                onTap: () {
+                  AppFocus.unfocus(context);
+                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter details.';
+                //   }
+                //   return null;
+                // },
+              ),
             ),
             SizedBox(
               height: getSize(30),

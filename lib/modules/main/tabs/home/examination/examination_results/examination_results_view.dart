@@ -233,6 +233,7 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
                                             ? "Excellent condition"
                                             : "",
                         fontSize: 14,
+                        textColor: ColorConstants.white.withOpacity(0.8),
                       ),
                       SizedBox(
                         height: getSize(30),

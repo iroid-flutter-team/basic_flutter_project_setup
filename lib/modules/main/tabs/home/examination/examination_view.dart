@@ -61,7 +61,7 @@ class ExaminationView extends GetView<ExaminationController> {
 
   _buildListView() {
     return Expanded(
-      child: ListView.builder(
+      child: ListView. builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemCount: controller.examinationResponse.length,

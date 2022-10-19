@@ -101,11 +101,13 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
               text: 'Enter OTP',
               textColor: Colors.white,
             ),
-            BaseText(
-              text: controller.showResendTime(),
-              //text: '${double.parse((controller.start.value).toStringAsFixed(2))}',
-              textColor: Colors.white,
-            ),
+            Obx(() {
+              return BaseText(
+                text: controller.showResendTime(),
+                //text: '${double.parse((controller.start.value).toStringAsFixed(2))}',
+                textColor: Colors.white,
+              );
+            }),
           ],
         ),
         SizedBox(
@@ -174,7 +176,6 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
                   verificationCompleted: (PhoneAuthCredential credential) {},
                   verificationFailed: (FirebaseAuthException e) {},
                   codeSent: (String verificationId, int? resendToken) {
-                    ;
                   },
                   codeAutoRetrievalTimeout: (String verificationId) {},
                 );

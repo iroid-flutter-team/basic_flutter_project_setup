@@ -174,7 +174,7 @@ class QuestionController extends GetxController {
       if (res.managerComppleteInspection == true) {
          questionModelList.add(
            QuestionModel(
-             id: 5,
+             id: 6,
              title: 'Air conditioner 1',
              imagePathList: [
                'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -186,21 +186,21 @@ class QuestionController extends GetxController {
              // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
              questionSubmitted: true,
              tags: 'demo',
-             notes: '',
+             notes: 'ioi',
              rating: 1,
-             checkListID: '',
-             location: '',
+             checkListID: '2',
+             location: 'iuoio',
              answerId: 5,
              checkList: [],
-             option: '',
+             option: 'ghjhj',
            ),
          );
-
          print("questionModewl LIst=============${questionModelList.length}");
-
         //_answerCompleteDialog();
       }
+      print("questionsResponse.length=============${questionModelList.length}");
       if (questionsResponse.isNotEmpty) {
+        print("questionsResponse=============${questionsResponse.length}");
         questionModelList.clear();
         // for(int i = 0; i < questionsResponse[i].checklists!.length; i++){
         //   checkList.add(questionsResponse[i].checklists![i].isChecked);
@@ -213,11 +213,7 @@ class QuestionController extends GetxController {
               title: questionsResponse[i].title!,
               imagePathList: questionsResponse[i].answer!.images == null
                   ? []
-                  : questionsResponse[i]
-                      .answer!
-                      .images!
-                      .map((e) => e.image ?? '')
-                      .toList(),
+                  : questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
               question: questionsResponse[i].description!,
               tags: questionsResponse[i].answer?.tags ?? '',
               notes: questionsResponse[i].answer?.notes ?? '',
@@ -232,8 +228,8 @@ class QuestionController extends GetxController {
               option: "",
             ),
           );
-          //print("questionsResponse[i].answer=============${questionsResponse[i].answer?.tags}");
         }
+        print("questionsResponse[i].answer=============${questionModelList.length}");
       }
     }
   }

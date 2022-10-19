@@ -54,7 +54,7 @@ class SignInWithPhoneNumberController extends GetxController{
   //   )}';
   // }
 
-
+  int timeValue = 0;
 
   checkManagerExist() async{
      var res = await repository.checkManagerExist(
@@ -65,8 +65,9 @@ class SignInWithPhoneNumberController extends GetxController{
       if(res?.dioMessage == "success"){
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: countryController.text + phoneNumberController.text,
-
+          timeout: Duration(seconds: 60),
           verificationCompleted: (PhoneAuthCredential credential) {
+
            // print("token===================${credential.token}");
             EasyLoading.showToast("Success");
           },
@@ -85,6 +86,7 @@ class SignInWithPhoneNumberController extends GetxController{
       }
 
    }
+
 
   @override
   void onInit() {

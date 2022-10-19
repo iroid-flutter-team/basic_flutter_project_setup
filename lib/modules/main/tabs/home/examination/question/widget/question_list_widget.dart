@@ -22,15 +22,15 @@ class QuestionListWidget extends GetView<QuestionController> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "questionModelList=============${controller.questionModelList.length}");
+    print("questionModelList=============${controller.questionModelList.length}");
     return Obx(() => controller.questionModelList.isNotEmpty
         ? CarouselSlider(
             items: controller.questionModelList.map(
               (questionModel) {
+                print("questionModelList1234=============${controller.questionModelList.length}");
                 return Builder(
                   builder: (BuildContext context) {
-                    return controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1  && controller.managerComppleteInspection == true ? congratulationView(): CommonContainerWithShadow(
+                    return controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1    && controller.managerComppleteInspection == true ? congratulationView(): CommonContainerWithShadow(
                       width: Get.width,
                       margin: EdgeInsets.symmetric(
                         horizontal: getSize(10.0),
@@ -144,7 +144,7 @@ class QuestionListWidget extends GetView<QuestionController> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.0),
             child: CommonLinearProgressWidget(
-              width: Get.width - getSize(160),
+              width: Get.width - getSize(166),
               total: 100,
               remaining: questionModel.rating == 0
                   ? 1
@@ -205,7 +205,6 @@ class QuestionListWidget extends GetView<QuestionController> {
     return questionModel.questionSubmitted
         ? InkWell(
             onTap: () async {
-
              // print("questionModel========${questionModel.title}");
               var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId, questionModel.title]);
               if (res == 'success') {controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);

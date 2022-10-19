@@ -50,9 +50,7 @@ class OtpVerifyController extends GetxController {
 
   showResendTime() {
     String strDigits(int n) => n.toString().padLeft(2, '0');
-    return '00 : ${strDigits(
-          resendOtpTime.value.remainder(60),
-        )}';
+    return '00 : ${strDigits(resendOtpTime.value.remainder(60),)}';
   }
 
   login(String token) async {
@@ -72,6 +70,7 @@ class OtpVerifyController extends GetxController {
 
   @override
   void onInit() {
+    startTimer();
     super.onInit();
   }
 }
