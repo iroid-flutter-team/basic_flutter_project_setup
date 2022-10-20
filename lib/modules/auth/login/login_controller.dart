@@ -15,6 +15,8 @@ class SignInWithPhoneNumberController extends GetxController{
   final ApiRepository repository;
   SignInWithPhoneNumberController({required this.repository});
 
+  RxBool isValidPhoneNumber = true.obs;
+
   //
    final formKey = GlobalKey<FormState>();
    //Timer? timer;
@@ -65,7 +67,6 @@ class SignInWithPhoneNumberController extends GetxController{
       if(res?.dioMessage == "success"){
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: countryController.text + phoneNumberController.text,
-          timeout: Duration(seconds: 60),
           verificationCompleted: (PhoneAuthCredential credential) {
 
            // print("token===================${credential.token}");

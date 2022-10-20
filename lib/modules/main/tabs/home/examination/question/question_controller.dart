@@ -35,118 +35,118 @@ class QuestionController extends GetxController {
   RxBool argumentValue = true.obs;
   var managerComppleteInspection;
 
-  initQuestions() {
-    questionModelList.clear();
-
-    questionModelList.add(
-      QuestionModel(
-        id: 1,
-        title: 'Windows',
-        imagePathList: [],
-        question:
-            'Inspect the unit to make sure it’s in good working condition?',
-        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false,
-        tags: 'demo',
-        notes: '',
-        rating: 1,
-        checkListID: '',
-        location: '',
-        answerId: 1,
-        checkList: [],
-        option: '',
-      ),
-    );
-    questionModelList.add(
-      QuestionModel(
-        id: 2,
-        title: 'Air conditioner 2',
-        imagePathList: [
-          'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-          'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-          'https://via.placeholder.com/500',
-        ],
-        question:
-            'Inspect the unit to make sure it’s in good working condition?',
-        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: true,
-        tags: 'demo',
-        notes: '',
-        rating: 1,
-        checkListID: '',
-        location: '',
-        answerId: 2,
-        checkList: [],
-        option: '',
-      ),
-    );
-    questionModelList.add(
-      QuestionModel(
-        id: 3,
-        title: 'Air conditioner 3',
-        imagePathList: [
-          'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-          'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
-        ],
-        question:
-            'Inspect the unit to make sure it’s in good working condition?',
-        // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: true,
-        tags: 'demo',
-        notes: '',
-        rating: 1,
-        checkListID: '',
-        location: '',
-        answerId: 3,
-        checkList: [],
-        option: '',
-      ),
-    );
-    questionModelList.add(
-      QuestionModel(
-        id: 4,
-        title: 'Air conditioner 4',
-        imagePathList: [],
-        question:
-            'Inspect the unit to make sure it’s in good working condition?',
-        //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-        questionSubmitted: false,
-        tags: 'demo',
-        notes: '',
-        rating: 1,
-        checkListID: '',
-        location: '',
-        answerId: 4,
-        checkList: [],
-        option: '',
-      ),
-    );
-
-    questionModelList.add(
-      QuestionModel(
-        id: 5,
-        title: 'Air conditioner 1',
-        imagePathList: [
-          'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-          'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-          //'https://via.placeholder.com/500',
-        ],
-        question:
-            'Inspect the unit to make sure it’s in good working condition?',
-        // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-
-        questionSubmitted: true,
-        tags: 'demo',
-        notes: '',
-        rating: 1,
-        checkListID: '',
-        location: '',
-        answerId: 5,
-        checkList: [],
-        option: '',
-      ),
-    );
-  }
+  // initQuestions() {
+  //   questionModelList.clear();
+  //
+  //   questionModelList.add(
+  //     QuestionModel(
+  //       id: 1,
+  //       title: 'Windows',
+  //       imagePathList: [],
+  //       question:
+  //           'Inspect the unit to make sure it’s in good working condition?',
+  //       //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+  //       questionSubmitted: false,
+  //       tags: 'demo',
+  //       notes: '',
+  //       rating: 1,
+  //       checkListID: '',
+  //       location: '',
+  //       answerId: 1,
+  //       checkList: [],
+  //       option: '',
+  //     ),
+  //   );
+  //   questionModelList.add(
+  //     QuestionModel(
+  //       id: 2,
+  //       title: 'Air conditioner 2',
+  //       imagePathList: [
+  //         'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+  //         'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
+  //         'https://via.placeholder.com/500',
+  //       ],
+  //       question:
+  //           'Inspect the unit to make sure it’s in good working condition?',
+  //       //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+  //       questionSubmitted: true,
+  //       tags: 'demo',
+  //       notes: '',
+  //       rating: 1,
+  //       checkListID: '',
+  //       location: '',
+  //       answerId: 2,
+  //       checkList: [],
+  //       option: '',
+  //     ),
+  //   );
+  //   questionModelList.add(
+  //     QuestionModel(
+  //       id: 3,
+  //       title: 'Air conditioner 3',
+  //       imagePathList: [
+  //         'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
+  //         'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
+  //       ],
+  //       question:
+  //           'Inspect the unit to make sure it’s in good working condition?',
+  //       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+  //       questionSubmitted: true,
+  //       tags: 'demo',
+  //       notes: '',
+  //       rating: 1,
+  //       checkListID: '',
+  //       location: '',
+  //       answerId: 3,
+  //       checkList: [],
+  //       option: '',
+  //     ),
+  //   );
+  //   questionModelList.add(
+  //     QuestionModel(
+  //       id: 4,
+  //       title: 'Air conditioner 4',
+  //       imagePathList: [],
+  //       question:
+  //           'Inspect the unit to make sure it’s in good working condition?',
+  //       //tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+  //       questionSubmitted: false,
+  //       tags: 'demo',
+  //       notes: '',
+  //       rating: 1,
+  //       checkListID: '',
+  //       location: '',
+  //       answerId: 4,
+  //       checkList: [],
+  //       option: '',
+  //     ),
+  //   );
+  //
+  //   questionModelList.add(
+  //     QuestionModel(
+  //       id: 5,
+  //       title: 'Air conditioner 1',
+  //       imagePathList: [
+  //         'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+  //         'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+  //         //'https://via.placeholder.com/500',
+  //       ],
+  //       question:
+  //           'Inspect the unit to make sure it’s in good working condition?',
+  //       // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+  //
+  //       questionSubmitted: true,
+  //       tags: 'demo',
+  //       notes: '',
+  //       rating: 1,
+  //       checkListID: '',
+  //       location: '',
+  //       answerId: 5,
+  //       checkList: [],
+  //       option: '',
+  //     ),
+  //   );
+  // }
 
   addImagePath({required String imagePath}) {
     /* questionModelList[currentQuestion.value].localImagePathList
@@ -157,11 +157,15 @@ class QuestionController extends GetxController {
     //print('localImagePathList.length = ${questionModelList[currentQuestion.value].localImagePathList.length}');
   }
 
-  String getPageNavigationText() {
+  String getPageNavigationText({required index}) {
     int cQuestion = currentQuestion.value + 1;
     int totalQuestion = questionModelList.length;
 
-    return '$cQuestion Out of $totalQuestion';
+    if( questionModelList.length -1  ==  index){
+      return "Done";
+    } else {
+      return '$cQuestion Out of $totalQuestion';
+    }
   }
 
   getQuestion(int examinationId, int jobId) async {
@@ -171,36 +175,8 @@ class QuestionController extends GetxController {
       questionsResponse.value = res.listData as List<QuestionsResponse>;
       managerComppleteInspection = res.managerComppleteInspection;
       print("managerComppleteInspection==========$managerComppleteInspection}");
-      if (res.managerComppleteInspection == true) {
-         questionModelList.add(
-           QuestionModel(
-             id: 6,
-             title: 'Air conditioner 1',
-             imagePathList: [
-               'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-               'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-               //'https://via.placeholder.com/500',
-             ],
-             question:
-             'Inspect the unit to make sure it’s in good working condition?',
-             // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
-             questionSubmitted: true,
-             tags: 'demo',
-             notes: 'ioi',
-             rating: 1,
-             checkListID: '2',
-             location: 'iuoio',
-             answerId: 5,
-             checkList: [],
-             option: 'ghjhj',
-           ),
-         );
-         print("questionModewl LIst=============${questionModelList.length}");
-        //_answerCompleteDialog();
-      }
       print("questionsResponse.length=============${questionModelList.length}");
       if (questionsResponse.isNotEmpty) {
-        print("questionsResponse=============${questionsResponse.length}");
         questionModelList.clear();
         // for(int i = 0; i < questionsResponse[i].checklists!.length; i++){
         //   checkList.add(questionsResponse[i].checklists![i].isChecked);
@@ -213,7 +189,11 @@ class QuestionController extends GetxController {
               title: questionsResponse[i].title!,
               imagePathList: questionsResponse[i].answer!.images == null
                   ? []
-                  : questionsResponse[i].answer!.images!.map((e) => e.image ?? '').toList(),
+                  : questionsResponse[i]
+                      .answer!
+                      .images!
+                      .map((e) => e.image ?? '')
+                      .toList(),
               question: questionsResponse[i].description!,
               tags: questionsResponse[i].answer?.tags ?? '',
               notes: questionsResponse[i].answer?.notes ?? '',
@@ -229,11 +209,41 @@ class QuestionController extends GetxController {
             ),
           );
         }
-        print("questionsResponse[i].answer=============${questionModelList.length}");
+        if (res.managerComppleteInspection == true) {
+          questionModelList.add(
+            QuestionModel(
+              id: 6,
+              title: 'dilip',
+              imagePathList: [
+                'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+                'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+                //'https://via.placeholder.com/500',
+              ],
+              question:
+                  'Inspect the unit to make sure it’s in good working condition?',
+              // tip: 'Tip: Do not fully cover your air conditioning unit during the winter.',
+              questionSubmitted: true,
+              tags: 'demo',
+              notes: 'ioi',
+              rating: 1,
+              checkListID: '2',
+              location: 'iuoio',
+              answerId: 5,
+              checkList: [],
+              option: 'ghjhj',
+            ),
+          );
+          print(
+              "questionModewl LIst=============${questionModelList.map((element) => element.title).toList()}");
+          //_answerCompleteDialog();
+        }
+        print(
+            "questionsResponse[i].answer=============${questionModelList.length}");
       }
     }
   }
-  congratulationView(){
+
+  congratulationView() {
     return Container(
       // padding: EdgeInsets.all(getSize(0.0)),
       decoration: BoxDecoration(
@@ -281,7 +291,7 @@ class QuestionController extends GetxController {
               height: getSize(10.0),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: BaseText(
                 text: "You have successfully completed examination",
                 fontWeight: FontWeight.w500,

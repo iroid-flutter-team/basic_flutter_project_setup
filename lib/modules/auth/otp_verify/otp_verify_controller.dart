@@ -34,7 +34,7 @@ class OtpVerifyController extends GetxController {
   }
 
   void startTimer() {
-    resendOtpTime.value = 60;
+    resendOtpTime.value = 20;
     const oneSec = Duration(seconds: 1);
     timer = Timer.periodic(
       oneSec,

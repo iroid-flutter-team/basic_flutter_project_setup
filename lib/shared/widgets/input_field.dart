@@ -142,6 +142,7 @@ class InputTextField extends StatelessWidget {
                   horizontal: getSize(20),
                 ),
             hintText: hintText,
+            prefixText: prefixText,
             counterText: counterText,
             fillColor: fillColor ?? ColorConstants.darkContainerBlack,
             errorMaxLines: errorMaxLines ?? 1,

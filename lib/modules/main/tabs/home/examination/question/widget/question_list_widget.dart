@@ -27,10 +27,10 @@ class QuestionListWidget extends GetView<QuestionController> {
         ? CarouselSlider(
             items: controller.questionModelList.map(
               (questionModel) {
-                print("questionModelList1234=============${controller.questionModelList.length}");
+                print("questionModelList1234=============${controller.questionModelList.map((element) => element.id)}");
                 return Builder(
                   builder: (BuildContext context) {
-                    return controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1    && controller.managerComppleteInspection == true ? congratulationView(): CommonContainerWithShadow(
+                    return controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length - 1    && controller.managerComppleteInspection == true ? congratulationView(): CommonContainerWithShadow(
                       width: Get.width,
                       margin: EdgeInsets.symmetric(
                         horizontal: getSize(10.0),
@@ -290,7 +290,7 @@ class QuestionListWidget extends GetView<QuestionController> {
             ),
           ]),
       child: Padding(
-        padding: EdgeInsets.only(top: 40, bottom: 16),
+        padding: EdgeInsets.only(top: 40, bottom: 16 ,left: 14, right:  14),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -327,15 +327,12 @@ class QuestionListWidget extends GetView<QuestionController> {
                 fontSize: 12,
               ),
             ),
-            SizedBox(
-              height: getSize(33.0),
-            ),
+            Spacer(),
             BaseElevatedButton(
               width: getSize(214.0),
               onPressed: () {
-                Get.back();
+                Get.toNamed(Routes.EXAMINATION_RESULT, arguments: controller.jobId);
               },
-              //borderRadius: BorderRadius.circular(20.0),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: BaseText(text: 'CONTINUE'),

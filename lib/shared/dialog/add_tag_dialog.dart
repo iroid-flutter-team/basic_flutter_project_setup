@@ -83,7 +83,7 @@ class _AddTagDialogState extends State<AddTagDialog> {
                     fontSize: 14,
                   ),
                   SizedBox(
-                    height: getSize(6),
+                    height: getSize(8),
                   ),
                   InputTextField(
                     controller: addTagController,

@@ -161,7 +161,7 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
             textInputType: TextInputType.multiline,
             textInputAction: TextInputAction.done,
             hintText: 'Add tips or suggestions',
-            maxLines: 6,
+            maxLines: 4,
             minLines: 4,
           ),
           SizedBox(

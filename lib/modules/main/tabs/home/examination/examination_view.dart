@@ -16,6 +16,7 @@ import '../../../../../shared/utils/math_utils.dart';
 import '../../../../../shared/widgets/base_text.dart';
 import '../../../../../shared/widgets/common_appbar.dart';
 import '../../../../../shared/widgets/common_container_shadow.dart';
+import '../../../../../shared/widgets/common_linear_progress.dart';
 import '../../../../../shared/widgets/common_listtile_with_image.dart';
 import 'model/examination_model.dart';
 
@@ -76,7 +77,7 @@ class ExaminationView extends GetView<ExaminationController> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(12)),
       child: CommonListTileWithImage(
-        total: 100,
+        //total: 1.0,
         image: Image.network(
           examinationResponse.iconImage.toString(),
           height: getSize(39),
@@ -106,7 +107,7 @@ class ExaminationView extends GetView<ExaminationController> {
               width: getSize(88),
             ),
             BaseText(
-              text: '6/25',
+              text: '${examinationResponse.totalAnswered}/${examinationResponse.totalQuestions}',
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -115,7 +116,7 @@ class ExaminationView extends GetView<ExaminationController> {
         ),
         height: getSize(73),
         width: getSize(66),
-        percentage: 10.0,
+        percentage: examinationResponse.totalAnswered!.toDouble() / examinationResponse.totalQuestions!.toDouble(),
         gradientContainerColor: examinationResponse.gradientContainerColor,
         onClickCallback: examinationResponse.isLocked ?? false
             ? null
@@ -125,8 +126,17 @@ class ExaminationView extends GetView<ExaminationController> {
                   arguments: [examinationResponse, controller.jobId, -3],
                 );
               },
-        progressBar: null,
+        progressBar: getLinearProgress(examinationResponse),
       ),
+    );
+  }
+  Widget getLinearProgress(ExaminationResponse examinationResponse) {
+    return CommonLinearProgressWidget(
+      width: getSize(100),
+      remaining: examinationResponse.totalAnswered!.toDouble(),
+      total: examinationResponse.totalQuestions!.toDouble(),
+      // remaining: examinationResponse.totalAnswered?.toDouble() ?? 0.0 ,
+      // total: examinationResponse.totalQuestions?.toDouble() ?? 0.0,
     );
   }
 }

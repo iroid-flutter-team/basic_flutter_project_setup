@@ -42,7 +42,7 @@ class AddInspectView extends GetView<AddInspectController> {
         padding: EdgeInsets.symmetric(horizontal: getSize(25),),
         child: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: ClampingScrollPhysics(),
           children: [
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
@@ -170,7 +170,7 @@ class AddInspectView extends GetView<AddInspectController> {
               fontSize: 14,
             ),
             SizedBox(
-              height: getSize(6),
+              height: getSize(8),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 1.0),
@@ -282,7 +282,7 @@ class AddInspectView extends GetView<AddInspectController> {
               fontSize: 14,
             ),
             SizedBox(
-              height: getSize(6),
+              height: getSize(8),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 1.0),

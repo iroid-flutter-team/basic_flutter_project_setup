@@ -132,7 +132,7 @@ class QuestionView extends GetView<QuestionController> {
           ),
           child: Obx(() {
             return BaseText(
-              text: controller.getPageNavigationText(),
+              text: controller.getPageNavigationText(index: controller.currentQuestion.value),
               fontSize: 18,
               fontWeight: FontWeight.w500,
             );

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -99,45 +98,65 @@ class SignInWithPhoneNumberScreen
         ),
         Row(
           children: [
-            SizedBox(
-              width: getSize(65),
-              child: InputTextField(
-                controller: controller.countryController,
-                textInputType: TextInputType.number,
-                enable: true,
-                textInputAction: TextInputAction.next,
-               // prefixText: '+',
-                maxLength: 3,
-                counterText: "",
-                validator: (value) {
-                  //print("controller.phoneController========${value}");
-                  if (value == "000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
-                    return '';
-                  }
-                  return null;
-                },
-
-              ),
-            ),
+            Obx(() {
+              return Container(
+                width: getSize(65),
+                padding: EdgeInsets.only(
+                    bottom:
+                        controller.isValidPhoneNumber.value ? 0 : getSize(20)),
+                child: InputTextField(
+                  controller: controller.countryController,
+                  textInputType: TextInputType.number,
+                  enable: true,
+                  textInputAction: TextInputAction.next,
+                  // prefixText: '+',
+                  maxLength: 3,
+                  counterText: "",
+                  validator: (value) {
+                    //print("controller.phoneController========${value}");
+                    if (value == "000" ||
+                        value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                      return '';
+                    }
+                    return null;
+                  },
+                ),
+              );
+            }),
             SizedBox(
               width: getSize(10),
             ),
             Expanded(
               child: InputTextField(
-
                 controller: controller.phoneNumberController,
                 textInputType: TextInputType.phone,
                 hintText: StringConstants.hintPhoneNumber,
                 enable: true,
                 //  prefixIcon: Padding(padding: EdgeInsets.all(12.0), child: SvgPicture.asset(getAssetsSVGImg('email'),),),
                 textInputAction: TextInputAction.done,
-                validator: (value) {
-                  //print("controller.phoneController========${value}");
-                  if (value == "000-000-0000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                onChanged: (value){
+                  if (value == "000-000-0000" ||
+                      value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                    controller.isValidPhoneNumber.value = false;
                     return 'please enter valid number';
-                  } else if (value!.length < 10) {
+                  } else if (value.length > 10) {
+                    controller.isValidPhoneNumber.value = false;
                     return "mobile number must be 10 digit";
                   }
+                  controller.isValidPhoneNumber.value = true;
+                  return null;
+                },
+                validator: (value) {
+                  //print("controller.phoneController========${value}");
+                  if (value == "000-000-0000" ||
+                      value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                    //controller.isValidPhoneNumber.value = false;
+                    return 'please enter valid number';
+                  } else if (value!.length > 10) {
+                   // controller.isValidPhoneNumber.value = false;
+                    return "mobile number must be 10 digit";
+                  }
+                 // controller.isValidPhoneNumber.value = true;
                   return null;
                 },
               ),
@@ -151,8 +170,8 @@ class SignInWithPhoneNumberScreen
   _buttonSendOTP() {
     return BaseElevatedButton(
       width: Get.width,
-      onPressed: () async{
-        if (controller.formKey.currentState!.validate()){
+      onPressed: () async {
+        if (controller.formKey.currentState!.validate()) {
           controller.checkManagerExist();
         }
         // await FirebaseAuth.instance.verifyPhoneNumber(

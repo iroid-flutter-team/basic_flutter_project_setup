@@ -34,19 +34,6 @@ class SummaryReportView extends GetView<SummaryReportController> {
           Get.back();
           Get.delete<SummaryReportController>();
         },
-        actions: [
-          InkWell(
-            onTap: (){
-              Get.until((route) => route.isFirst);
-            },
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Image.asset(
-              PngImageConstants.homeSelected,
-      ),
-            ),
-          ),
-        ],
         title: "Summary report",
       ),
       body: _buildMainBody(),
@@ -56,7 +43,7 @@ class SummaryReportView extends GetView<SummaryReportController> {
   _buildMainBody() {
     controller.getSummaryReport(controller.jobId);
     return ListView(
-      physics: BouncingScrollPhysics(),
+      physics: ClampingScrollPhysics(),
       shrinkWrap: true,
       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

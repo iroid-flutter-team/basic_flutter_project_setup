@@ -64,7 +64,7 @@ class FutureJobsView extends GetView<HomeController> {
                 Get.until((route) => route.isFirst);
               },
               child: BaseText(
-                text: "Go to dashboard",
+                text: "GO TO DASHBOARD",
               ),
             ),
           ),
