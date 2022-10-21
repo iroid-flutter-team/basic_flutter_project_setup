@@ -29,7 +29,7 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: BaseAppBar(
-          title: "Setting",
+          title: "Settings",
           leading: Container(),
         ),
         body: SmartRefresher(
