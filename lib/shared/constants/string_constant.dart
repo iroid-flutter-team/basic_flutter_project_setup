@@ -3,7 +3,7 @@ class StringConstants {
   static const String assetsTODO = '';
   static const String videoUrl =
       'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
-  static const String termsAndCondition = 'Terms and Condition';
+  static const String termsAndCondition = 'Terms & Condition';
   static const String hiThere = 'Hi there!';
   static const String createNewAccount = 'Create a new account';
   static const String name = 'Name';

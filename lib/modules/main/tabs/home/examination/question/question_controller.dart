@@ -1,5 +1,6 @@
 import 'package:align_flutter_app/models/response/home/inspection/examination_response.dart';
 import 'package:align_flutter_app/models/response/home/inspection/questions_response.dart';
+import 'package:align_flutter_app/modules/main/tabs/home/examination/examination_controller.dart';
 import 'package:align_flutter_app/routes/routes.dart';
 import 'package:align_flutter_app/shared/dialog/answer_complete_dialog.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -34,7 +35,7 @@ class QuestionController extends GetxController {
   var questionId;
   RxBool argumentValue = true.obs;
   var managerComppleteInspection;
-
+  ExaminationController examinationController = Get.put(ExaminationController(apiRepository: Get.find()));
   // initQuestions() {
   //   questionModelList.clear();
   //
@@ -161,7 +162,7 @@ class QuestionController extends GetxController {
     int cQuestion = currentQuestion.value + 1;
     int totalQuestion = questionModelList.length;
 
-    if( questionModelList.length -1  ==  index){
+    if( questionModelList.length -1  ==  index && managerComppleteInspection ==  true){
       return "Done";
     } else {
       return '$cQuestion Out of $totalQuestion';

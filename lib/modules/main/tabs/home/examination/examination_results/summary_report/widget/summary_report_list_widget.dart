@@ -4,6 +4,7 @@ import 'package:align_flutter_app/shared/widgets/base_elevated_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -61,6 +62,9 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
   }
 
   _buildItem(SummaryReportModel summaryReportModel) {
+
+    final formKey = GlobalKey<FormState>();
+
     return Padding(
       padding: EdgeInsets.all(
         getSize(16.0),
@@ -155,17 +159,28 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
           SizedBox(
             height: getSize(10),
           ),
-          InputTextField(
-            fillColor: ColorConstants.black,
-            controller: summaryReportModel.suggestionsController,
-            textInputType: TextInputType.multiline,
-            textInputAction: TextInputAction.done,
-            hintText: 'Add tips or suggestions',
-            maxLines: 4,
-            minLines: 4,
+          Form(
+            key: formKey,
+            child: InputTextField(
+              fillColor: ColorConstants.black,
+              controller: summaryReportModel.suggestionsController,
+              textInputType: TextInputType.multiline,
+              textInputAction: TextInputAction.done,
+              hintText: 'Add tips or suggestions',
+              maxLines: 4,
+              minLines: 4,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter details.';
+                }else if (value.trim().isEmpty) {
+                  return 'Please enter details.';
+                }
+                return null;
+              },
+            ),
           ),
           SizedBox(
-            height: getSize(18),
+            height: getSize(20),
           ),
           Center(
             child: BaseElevatedButton(
@@ -175,14 +190,25 @@ class SummaryReportListWidget extends GetView<SummaryReportController> {
                 getSize(8.0),
               ),
               onPressed: ()  {
-                // print("lastButton12======${controller.summaryReportModelList.indexOf(summaryReportModel)}");
-                // print("lastButton1234======${controller.summaryReportModelList.length}");
-                // print("lastButton======${controller.summaryReportModelList.indexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 }");
-                controller.updateSummaryReport(controller.jobId, summaryReportModel);
+
+                if(formKey.currentState!.validate() && summaryReportModel.conditionValue.value != 'Condition'
+                    && summaryReportModel.recommendationValue.value != 'Recommendation'
+                   &&(summaryReportModel.isMajor.value==true||summaryReportModel.isMinor.value == true)
+                ){
+                  controller.updateSummaryReport(controller.jobId, summaryReportModel);
+                }else{
+                  EasyLoading.showToast("please enter value");
+                }
+
+
+
                 if(controller.summaryReportModelList.indexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 ){
                   controller.getSummaryReport(controller.jobId);
                   //_summaryReportCompleteDialog()
                 }
+                // print("lastButton12======${controller.summaryReportModelList.indexOf(summaryReportModel)}");
+                // print("lastButton1234======${controller.summaryReportModelList.length}");
+                // print("lastButton======${controller.summaryReportModelList.indexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 }");
                // controller.getSummaryReport(controller.jobId);
                 // if(controller.summaryReportModelList.lastIndexOf(summaryReportModel) == controller.summaryReportModelList.length - 1 ){
                 //   controller.getSummaryReport(18);

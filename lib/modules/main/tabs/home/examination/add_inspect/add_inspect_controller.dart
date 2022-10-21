@@ -20,6 +20,7 @@ class AddInspectController extends GetxController {
   RxInt divisionValue = 4.obs;
   TextEditingController addNoteController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   final RxList<String> localImagePathList = <String>[].obs;
   final RxList<int> values = [0, 1, 2, 3, 4].obs;
   RxList chipsList = <String>[].obs;
@@ -67,7 +68,7 @@ class AddInspectController extends GetxController {
     //print("formData123===============${formData.length}");
     var res = await apiRepository.examinationAnswer(formData);
     print("questionsResponse4354545===============$res");
-    if (res != null) {
+    if (res != null && res.dioMessage != null) {
       Get.back(result: "success");
       Get.delete<AddInspectController>();
       print("questionsResponse4354545===============$res");

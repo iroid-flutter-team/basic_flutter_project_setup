@@ -40,302 +40,306 @@ class AddInspectView extends GetView<AddInspectController> {
     return Obx(() {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: getSize(25),),
-        child: ListView(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          children: [
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: controller.questionModel?.checkList?.length,
-              itemBuilder: (context, index) {
-                return Obx(() {
-                  return ListTile(
-                    dense: true,
-                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                    contentPadding: EdgeInsets.zero,
-                    minLeadingWidth: getSize(20),
-                    onTap: () {
-                      controller.questionModel?.checkList?[index].isChecked
-                          ?.value =
-                      !(controller.questionModel!.checkList![index].isChecked!
-                          .value);
-                    },
-                    title: BaseText(
-                      text: controller.questionModel?.checkList?[index]
-                          .option ??
-                          "",
-                      fontSize: 14,
-                    ),
-                    leading: SizedBox(
-                      height: double.infinity,
-                      child: SvgPicture.asset(
-                        controller.questionModel!.checkList![index].isChecked!
-                            .value
-                            ? SvgImageConstants.check
-                            : SvgImageConstants.square,
+        child: Form(
+          key: controller.formKey,
+          child:ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            children: [
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.questionModel?.checkList?.length,
+                itemBuilder: (context, index) {
+                  return Obx(() {
+                    return ListTile(
+                      dense: true,
+                      visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                      contentPadding: EdgeInsets.zero,
+                      minLeadingWidth: getSize(20),
+                      onTap: () {
+                        controller.questionModel?.checkList?[index].isChecked
+                            ?.value =
+                        !(controller.questionModel!.checkList![index].isChecked!
+                            .value);
+                      },
+                      title: BaseText(
+                        text: controller.questionModel?.checkList?[index]
+                            .option ??
+                            "",
+                        fontSize: 14,
                       ),
-                    ),
-                  );
-                });
-              },),
-            // Obx(
-            //   () {
-            //     return ListTile(
-            //       dense: true,
-            //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-            //       contentPadding: EdgeInsets.zero,
-            //       minLeadingWidth: getSize(20),
-            //       onTap: () {
-            //         controller.isCheck.value = !controller.isCheck.value;
-            //       },
-            //       title: BaseText(
-            //         text: "A. Examine your window caulking",
-            //         fontSize: 14,
-            //       ),
-            //       leading: SizedBox(
-            //         height: double.infinity,
-            //         child: SvgPicture.asset(
-            //           controller.isCheck.value
-            //               ? SvgImageConstants.check
-            //               : SvgImageConstants.square,
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            // Obx(
-            //   () {
-            //     return ListTile(
-            //       dense: true,
-            //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-            //       contentPadding: EdgeInsets.zero,
-            //       minLeadingWidth: getSize(20),
-            //       onTap: () {
-            //         controller.isCheck1.value = !controller.isCheck1.value;
-            //       },
-            //       title: BaseText(
-            //         text: "B. Examine your window seals",
-            //         fontSize: 14,
-            //       ),
-            //       leading: SizedBox(
-            //         height: double.infinity,
-            //         child: SvgPicture.asset(
-            //           controller.isCheck1.value
-            //               ? SvgImageConstants.check
-            //               : SvgImageConstants.square,
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            SizedBox(
-              height: getSize(30),
-            ),
-            controller.localImagePathList.isNotEmpty
-                ? InspectAnimatedCard()
-                : DottedBorder(
-                borderType: BorderType.RRect,
-                dashPattern: [8, 8],
-                color: Color(0xffB7B7B7).withOpacity(0.75),
-                radius: Radius.circular(getSize(24)),
-                child: InspectAnimatedCard()
-              // Container(
-              //   height: getSize(140),
-              //   width: Get.width,
-              //   child: InkWell(
-              //     onTap: (){
-              //
-              //     },
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         SvgPicture.asset(
-              //           SvgImageConstants.add_photo,
+                      leading: SizedBox(
+                        height: double.infinity,
+                        child: SvgPicture.asset(
+                          controller.questionModel!.checkList![index].isChecked!
+                              .value
+                              ? SvgImageConstants.check
+                              : SvgImageConstants.square,
+                        ),
+                      ),
+                    );
+                  });
+                },),
+              // Obx(
+              //   () {
+              //     return ListTile(
+              //       dense: true,
+              //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              //       contentPadding: EdgeInsets.zero,
+              //       minLeadingWidth: getSize(20),
+              //       onTap: () {
+              //         controller.isCheck.value = !controller.isCheck.value;
+              //       },
+              //       title: BaseText(
+              //         text: "A. Examine your window caulking",
+              //         fontSize: 14,
+              //       ),
+              //       leading: SizedBox(
+              //         height: double.infinity,
+              //         child: SvgPicture.asset(
+              //           controller.isCheck.value
+              //               ? SvgImageConstants.check
+              //               : SvgImageConstants.square,
               //         ),
-              //         BaseText(
-              //           text: "Take Photo",
-              //           fontSize: 16,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
+              //       ),
+              //     );
+              //   },
               // ),
-            ),
-            SizedBox(
-              height: getSize(30),
-            ),
-            BaseText(
-              text: "Add note",
-              fontSize: 14,
-            ),
-            SizedBox(
-              height: getSize(8),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 1.0),
-              child: InputTextField(
-                controller: controller.addNoteController,
-                textInputType: TextInputType.multiline,
-                textInputAction: TextInputAction.next,
-                maxLines: 8,
-                minLines: 7,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please enter details.';
-                //   }
-                //   return null;
-                // },
+              // Obx(
+              //   () {
+              //     return ListTile(
+              //       dense: true,
+              //       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              //       contentPadding: EdgeInsets.zero,
+              //       minLeadingWidth: getSize(20),
+              //       onTap: () {
+              //         controller.isCheck1.value = !controller.isCheck1.value;
+              //       },
+              //       title: BaseText(
+              //         text: "B. Examine your window seals",
+              //         fontSize: 14,
+              //       ),
+              //       leading: SizedBox(
+              //         height: double.infinity,
+              //         child: SvgPicture.asset(
+              //           controller.isCheck1.value
+              //               ? SvgImageConstants.check
+              //               : SvgImageConstants.square,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              SizedBox(
+                height: getSize(30),
               ),
-            ),
-            SizedBox(
-              height: getSize(20),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                onTap: () async {
-                  var res = await Get.dialog(
-                    AddTagDialog(),
-                    barrierDismissible: false,
-                  );
-                  if (res != null) {
-                    try {
-                      printInfo(info: 'res.length ==> ${res.length}');
-                      //var oldList = controller.chipsList;
-                      // controller.chipsList = res;
-                      controller.chipsList.addAll(res);
-                      printInfo(info: ' controller.chipsList ==> ${controller
-                          .chipsList}');
-                    } catch (ex) {
-                      print("ex========${ex.toString()}");
+              controller.localImagePathList.isNotEmpty
+                  ? InspectAnimatedCard()
+                  : DottedBorder(
+                  borderType: BorderType.RRect,
+                  dashPattern: [8, 8],
+                  color: Color(0xffB7B7B7).withOpacity(0.75),
+                  radius: Radius.circular(getSize(24)),
+                  child: InspectAnimatedCard()
+                // Container(
+                //   height: getSize(140),
+                //   width: Get.width,
+                //   child: InkWell(
+                //     onTap: (){
+                //
+                //     },
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         SvgPicture.asset(
+                //           SvgImageConstants.add_photo,
+                //         ),
+                //         BaseText(
+                //           text: "Take Photo",
+                //           fontSize: 16,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+              ),
+              SizedBox(
+                height: getSize(30),
+              ),
+              BaseText(
+                text: "Add note",
+                fontSize: 14,
+              ),
+              SizedBox(
+                height: getSize(8),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 1.0),
+                child: InputTextField(
+                  controller: controller.addNoteController,
+                  textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.next,
+                  maxLines: 8,
+                  minLines: 7,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter details.';
+                    }else if (value.trim().isEmpty) {
+                      return 'Please enter details.';
                     }
-                  }
-                  //showAddTagDialog();
-                },
-                child: CommonContainerWithShadow(
-                  height: getSize(30),
-                  width: getSize(112),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(14),
-                      vertical: getSize(6),
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(SvgImageConstants.add),
-                        SizedBox(
-                          width: getSize(9),
-                        ),
-                        BaseText(
-                          text: "Add Tag",
-                          fontSize: 14,
-                        ),
-                      ],
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: getSize(20),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  onTap: () async {
+                    var res = await Get.dialog(
+                      AddTagDialog(),
+                      barrierDismissible: false,
+                    );
+                    if (res != null) {
+                      try {
+                        printInfo(info: 'res.length ==> ${res.length}');
+                        //var oldList = controller.chipsList;
+                        // controller.chipsList = res;
+                        controller.chipsList.addAll(res);
+                        printInfo(info: ' controller.chipsList ==> ${controller
+                            .chipsList}');
+                      } catch (ex) {
+                        print("ex========${ex.toString()}");
+                      }
+                    }
+                    //showAddTagDialog();
+                  },
+                  child: CommonContainerWithShadow(
+                    height: getSize(30),
+                    width: getSize(112),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(14),
+                        vertical: getSize(6),
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(SvgImageConstants.add),
+                          SizedBox(
+                            width: getSize(9),
+                          ),
+                          BaseText(
+                            text: "Add Tag",
+                            fontSize: 14,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: getSize(10),
-            ),
-            controller.chipsList.isNotEmpty
-                ? Obx(
-                  () {
-                print(
-                    "chipsList================${controller.chipsList.length}");
-                return Wrap(
-                  spacing: 16,
-                  children: List.generate(
-                    controller.chipsList.length,
-                        (index) =>
-                        InputChip(
-                          //selected: _selected[i],
-                          label: BaseText(
-                            text: controller.chipsList[index],
-                            textColor: ColorConstants.white,
-                            fontSize: 18,
+              SizedBox(
+                height: getSize(10),
+              ),
+              controller.chipsList.isNotEmpty
+                  ? Obx(
+                    () {
+                  print(
+                      "chipsList================${controller.chipsList.length}");
+                  return Wrap(
+                    spacing: 16,
+                    children: List.generate(
+                      controller.chipsList.length,
+                          (index) =>
+                          InputChip(
+                            //selected: _selected[i],
+                            label: BaseText(
+                              text: controller.chipsList[index],
+                              textColor: ColorConstants.white,
+                              fontSize: 18,
+                            ),
+                            backgroundColor: Color(0XFF4293D4),
+                            elevation: 0,
+                            deleteIconColor: ColorConstants.white,
+                            deleteIcon: Icon(
+                              Icons.close,
+                              size: 18,
+                            ),
+                            onPressed: () {},
+                            onDeleted: () {
+                              controller.chipsList.removeAt(index);
+                            },
                           ),
-                          backgroundColor: Color(0XFF4293D4),
-                          elevation: 0,
-                          deleteIconColor: ColorConstants.white,
-                          deleteIcon: Icon(
-                            Icons.close,
-                            size: 18,
-                          ),
-                          onPressed: () {},
-                          onDeleted: () {
-                            controller.chipsList.removeAt(index);
-                          },
-                        ),
-                  ),
-                );
-              },
-            )
-                : Container(),
-            SizedBox(
-              height: getSize(30),
-            ),
-            BaseText(
-              text: "Assign room / location",
-              fontSize: 14,
-            ),
-            SizedBox(
-              height: getSize(8),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 1.0),
-              child: InputTextField(
-                controller: controller.locationController,
-                textInputType: TextInputType.multiline,
-                textInputAction: TextInputAction.done,
-                maxLines: 3,
-                minLines: 1,
-                onTap: () {
-                  AppFocus.unfocus(context);
+                    ),
+                  );
                 },
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please enter details.';
-                //   }
-                //   return null;
-                // },
+              )
+                  : Container(),
+              SizedBox(
+                height: getSize(30),
               ),
-            ),
-            SizedBox(
-              height: getSize(30),
-            ),
-            _buildReviewSliderView(),
-            SizedBox(
-              height: getSize(30),
-            ),
-            BaseElevatedButton(
-              onPressed: () async {
-                // print("QuestionModel123====${controller.questionModel?.notes}");
-                controller.questionModel!.questionSubmitted ? controller
-                    .updateAnswer(controller.answerId) : controller.getAnswer(
-                    controller.questionModel?.id ?? 0);
-
-                // controller.answerId == null
-                //     ?  controller.getAnswer(controller.questionModel?.id ?? 0)
-                //     : controller.updateAnswer(controller.answerId);
-                // controller.questionController.getQuestion( controller.examinationId ,controller.jobId, );
-                //Get.toNamed(Routes.EXAMINATION_RESULT);
-                // List<String> imageUrlList = await  controller.getAnswer(controller.questionModel?.id ?? 0);
-                // controller.questionModel?.imagePathList.addAll(imageUrlList);
-              },
-              child: BaseText(
-                text: controller.questionModel!.questionSubmitted
-                    ? "EDIT"
-                    : "ADD",
+              BaseText(
+                text: "Assign room / location",
+                fontSize: 14,
               ),
-            ),
-            SizedBox(
-              height: getSize(20),
-            ),
-          ],
-        ),
+              SizedBox(
+                height: getSize(8),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 1.0),
+                child: InputTextField(
+                  controller: controller.locationController,
+                  textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.done,
+                  maxLines: 3,
+                  minLines: 1,
+                  onTap: () {
+                    AppFocus.unfocus(context);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter details.';
+                    }else if (value.trim().isEmpty) {
+                      return 'Please enter details.';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: getSize(30),
+              ),
+              _buildReviewSliderView(),
+              SizedBox(
+                height: getSize(30),
+              ),
+              BaseElevatedButton(
+                onPressed: () async {
+                  if (controller.formKey.currentState!.validate()) {
+                    controller.questionModel!.questionSubmitted ? controller
+                        .updateAnswer(controller.answerId) : controller.getAnswer(
+                        controller.questionModel?.id ?? 0);
+                  }
+                  // print("QuestionModel123====${controller.questionModel?.notes}");
+                  // controller.questionModel!.questionSubmitted ? controller
+                  //     .updateAnswer(controller.answerId) : controller.getAnswer(
+                  //     controller.questionModel?.id ?? 0);
+                },
+                child: BaseText(
+                  text: controller.questionModel!.questionSubmitted
+                      ? "EDIT"
+                      : "ADD",
+                ),
+              ),
+              SizedBox(
+                height: getSize(20),
+              ),
+            ],
+          ),
+        )
       );
     });
   }
@@ -345,6 +349,7 @@ class AddInspectView extends GetView<AddInspectController> {
       children: [
         Obx(
               () {
+
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

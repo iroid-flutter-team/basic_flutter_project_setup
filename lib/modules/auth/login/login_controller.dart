@@ -68,7 +68,9 @@ class SignInWithPhoneNumberController extends GetxController{
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: countryController.text + phoneNumberController.text,
           verificationCompleted: (PhoneAuthCredential credential) {
-
+             // if(credential.smsCode == "Otp Successfully"){
+             //   print('Otp Successfully');
+             // }
            // print("token===================${credential.token}");
             EasyLoading.showToast("Success");
           },
@@ -76,6 +78,7 @@ class SignInWithPhoneNumberController extends GetxController{
               EasyLoading.showToast("Failed");
           },
           codeSent: (String verificationId, int? resendToken) {
+            EasyLoading.showToast("OTP Send Successfully");
             Get.offAll(
               OtpVerifyView(verify: verificationId, countryCodeController: countryController, phoneController: phoneNumberController,),
               binding: OtpVerifyBindings(),

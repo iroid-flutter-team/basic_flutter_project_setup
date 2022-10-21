@@ -147,7 +147,10 @@ class SettingController extends GetxController {
     }
     var res = await apiRepository.updateUserDetail(formData);
     if (res != null && res.dioMessage != null) {
-      getManagerDetails();
+      Future.delayed(const Duration(seconds: 1), () {
+        getManagerDetails();
+      });
+
     }
   }
 

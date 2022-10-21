@@ -1,11 +1,10 @@
 import 'package:align_flutter_app/routes/app_pages.dart';
 import 'package:align_flutter_app/shared/constants/color_constants.dart';
-import 'package:align_flutter_app/shared/constants/png_image_constant.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
 import '../../../../../../../shared/utils/math_utils.dart';
 import '../../../../../../shared/constants/svg_image_constant.dart';
 import '../../../../../../shared/widgets/base_elevated_button.dart';
@@ -50,70 +49,7 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: getSize(14), vertical: getSize(22)),
-                child: Column(
-                  children: [
-                    // SvgPicture.asset(
-                    //   controller.resultsResponse.value.averageRating == 0
-                    //       ? SvgImageConstants.very_poor :    controller.resultsResponse.value.averageRating ==
-                    //       1
-                    //       ? SvgImageConstants.poor
-                    //       :   controller.resultsResponse.value.averageRating ==
-                    //       2
-                    //       ? SvgImageConstants.average
-                    //       :    controller.resultsResponse.value.averageRating ==
-                    //       3
-                    //       ? SvgImageConstants.good
-                    //       :    controller.resultsResponse.value.averageRating ==
-                    //       4 ||
-                    //       controller.resultsResponse.value.averageRating==
-                    //           4.5
-                    //       ? SvgImageConstants.excellent
-                    //       : SvgImageConstants.good,
-                    //   height: getSize(20),
-                    // ),
-                    if (controller.resultsResponse.value.averageRating > 0 ||
-                        controller.resultsResponse.value.averageRating < 1)
-                      SvgPicture.asset(
-                        SvgImageConstants.very_poor,
-                      )
-                    else
-                      if (controller.resultsResponse.value.averageRating >
-                          1 ||
-                          controller.resultsResponse.value.averageRating < 2)
-                        SvgPicture.asset(
-                          SvgImageConstants.poor,
-                        )
-                      else
-                        if (controller.resultsResponse.value.averageRating >
-                            2 ||
-                            controller.resultsResponse.value.averageRating < 3)
-                          SvgPicture.asset(SvgImageConstants.average)
-                        else
-                          if (controller.resultsResponse.value.averageRating >
-                              3 ||
-                              controller.resultsResponse.value.averageRating <
-                                  4)
-                            SvgPicture.asset(
-                              SvgImageConstants.good,
-                            )
-                          else
-                            if (controller.resultsResponse.value.averageRating >
-                                4 ||
-                                controller.resultsResponse.value.averageRating <
-                                    5)
-                              SvgPicture.asset(
-                                SvgImageConstants.excellent,
-                              ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
-                    BaseText(
-                      text: "current condition of the home is good",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    )
-                  ],
-                ),
+                child: getAverageData(),
               ),
             ),
             SizedBox(
@@ -128,11 +64,10 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
             SizedBox(
               height: getSize(10),
             ),
-            Obx(() {
-              return controller.resultsResponse.value.results?.length != null
+               controller.resultsResponse.value.results?.length != null
                   ? _buildListView()
-                  : Container();
-            }),
+                  : Container(),
+
             SizedBox(
               height: getSize(20),
             ),
@@ -151,6 +86,51 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
         ),
       );
     });
+  }
+
+  Widget getAverageData() {
+    var averageRating = controller.resultsResponse.value.averageRating;
+    print("averageRating=====$averageRating");
+
+    if (averageRating == null) {
+      return Container();
+    }
+
+    var emojiImage = '';
+    var text = '';
+
+    if (averageRating >= 0 && averageRating <= 1) {
+      emojiImage = SvgImageConstants.very_poor;
+      text = "current condition of the home is very poor";
+    } else if (averageRating >= 1 && averageRating <= 2) {
+      emojiImage = SvgImageConstants.poor;
+      text = "current condition of the home is poor";
+    } else if (averageRating >= 2 && averageRating <= 3) {
+      emojiImage = SvgImageConstants.average;
+      text = "current condition of the home is average";
+    } else if (averageRating >= 3 && averageRating <= 4) {
+      emojiImage = SvgImageConstants.good;
+      text = "current condition of the home is good";
+    } else if (averageRating >= 4 && averageRating <= 5) {
+      emojiImage = SvgImageConstants.excellent;
+      text = "current condition of the home is excellent";
+    }else{
+      return Container();
+    }
+    return Column(
+      children: [
+        SvgPicture.asset(emojiImage),
+        SizedBox(
+          height: getSize(20)
+        ),
+        BaseText(
+          text: text,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        )
+      ],
+    );
+
   }
 
   _buildListView() {
@@ -178,8 +158,8 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
                       borderRadius: BorderRadius.circular(14),
                       image: DecorationImage(
                           image: NetworkImage(controller.resultsResponse.value
-                              .results?[index].images?[0].image
-                              .toString() ??
+                                  .results?[index].images?[0].image
+                                  .toString() ??
                               ""),
                           fit: BoxFit.cover),
                     ),
@@ -207,42 +187,43 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
                             BaseText(
                               //text: "dscds",
                               text: controller.resultsResponse.value
-                                  .results?[index].title
-                                  .toString() ??
+                                      .results?[index].title
+                                      .toString() ??
                                   "",
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
                             ),
                             SvgPicture.asset(
-                              controller.resultsResponse.value.results?[index].rating ==
-                                  0
+                              controller.resultsResponse.value.results?[index]
+                                          .rating ==
+                                      0
                                   ? SvgImageConstants.very_poor
                                   : controller.resultsResponse.value
-                                  .results?[index].rating ==
-                                  1
-                                  ? SvgImageConstants.poor
-                                  : controller.resultsResponse.value
-                                  .results?[index].rating ==
-                                  2
-                                  ? SvgImageConstants.average
-                                  : controller.resultsResponse.value
-                                  .results?[index].rating ==
-                                  3
-                                  ? SvgImageConstants.good
-                                  : controller
-                                  .resultsResponse
-                                  .value
-                                  .results?[index]
-                                  .rating ==
-                                  4 ||
-                                  controller
-                                      .resultsResponse
-                                      .value
-                                      .results?[index]
-                                      .rating ==
-                                      4.5
-                                  ? SvgImageConstants.excellent
-                                  : SvgImageConstants.good,
+                                              .results?[index].rating ==
+                                          1
+                                      ? SvgImageConstants.poor
+                                      : controller.resultsResponse.value
+                                                  .results?[index].rating ==
+                                              2
+                                          ? SvgImageConstants.average
+                                          : controller.resultsResponse.value
+                                                      .results?[index].rating ==
+                                                  3
+                                              ? SvgImageConstants.good
+                                              : controller
+                                                              .resultsResponse
+                                                              .value
+                                                              .results?[index]
+                                                              .rating ==
+                                                          4 ||
+                                                      controller
+                                                              .resultsResponse
+                                                              .value
+                                                              .results?[index]
+                                                              .rating ==
+                                                          4.5
+                                                  ? SvgImageConstants.excellent
+                                                  : SvgImageConstants.good,
                               height: getSize(20),
                             ),
                           ],
@@ -253,35 +234,35 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
                       ),
                       BaseText(
                         text: controller.resultsResponse.value.results?[index]
-                            .rating ==
-                            0
+                                    .rating ==
+                                0
                             ? "Very poor conditon"
                             : controller.resultsResponse.value.results?[index]
-                            .rating ==
-                            1
-                            ? "Poor condition"
-                            : controller.resultsResponse.value
-                            .results?[index].rating ==
-                            2
-                            ? "Average condition"
-                            : controller.resultsResponse.value
-                            .results?[index].rating ==
-                            3
-                            ? "Good condition"
-                            : controller
-                            .resultsResponse
-                            .value
-                            .results?[index]
-                            .rating ==
-                            4 ||
-                            controller
-                                .resultsResponse
-                                .value
-                                .results?[index]
-                                .rating ==
-                                4.5
-                            ? "Excellent condition"
-                            : "",
+                                        .rating ==
+                                    1
+                                ? "Poor condition"
+                                : controller.resultsResponse.value
+                                            .results?[index].rating ==
+                                        2
+                                    ? "Average condition"
+                                    : controller.resultsResponse.value
+                                                .results?[index].rating ==
+                                            3
+                                        ? "Good condition"
+                                        : controller
+                                                        .resultsResponse
+                                                        .value
+                                                        .results?[index]
+                                                        .rating ==
+                                                    4 ||
+                                                controller
+                                                        .resultsResponse
+                                                        .value
+                                                        .results?[index]
+                                                        .rating ==
+                                                    4.5
+                                            ? "Excellent condition"
+                                            : "",
                         fontSize: 14,
                         textColor: ColorConstants.white.withOpacity(0.8),
                       ),
@@ -327,19 +308,18 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
 
   comment(String name) {
     switch (name) {
-      case "DIlip" : // Enter this block if mark == 0
+      case "DIlip": // Enter this block if mark == 0
         break;
-      case "Yash" : // Enter this block if mark == 0
+      case "Yash": // Enter this block if mark == 0
         break;
-      case "Ravi" : // Enter this block if mark == 0
+      case "Ravi": // Enter this block if mark == 0
         break;
-      case "Zenith" : // Enter this block if mark == 0
+      case "Zenith": // Enter this block if mark == 0
         break;
-      case "Gauta," : // Enter this block if mark == 0
+      case "Gauta,": // Enter this block if mark == 0
         break;
-      default :
+      default:
         return "";
     }
   }
-
 }

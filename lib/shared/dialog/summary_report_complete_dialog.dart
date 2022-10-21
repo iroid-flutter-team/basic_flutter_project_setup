@@ -80,6 +80,7 @@ class SummaryReportCompleteDialog extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   fontSize: 12,
+                  textColor: Colors.white.withOpacity(0.6),
                 ),
                 SizedBox(
                   height: getSize(33.0),

@@ -31,6 +31,10 @@ class QuestionView extends GetView<QuestionController> {
     return Scaffold(
       appBar: BaseAppBar(
         title: controller.argumentData.name ?? "",
+        onPress: (){
+          controller.examinationController.getExamination(controller.jobId);
+          Get.back();
+        },
         actions: [],
       ),
       body: _buildMainBody(controller.argumentData),

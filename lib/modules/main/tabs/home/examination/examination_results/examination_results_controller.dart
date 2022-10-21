@@ -45,14 +45,12 @@ List<ExaminationResultsModel> examinationResultsModel = [
       if(res != null){
         resultsResponse.value = res;
       }
-     // print("resultsResponse=========${resultsResponse.value.results?.length}");
-      //print("resultsResponseIMage=========${resultsResponse.value.results![1].images?[1].image.toString()}");
    }
 
 
  @override
   void onInit() {
-    getResults(18);
+    getResults(jobId);
     super.onInit();
   }
 }

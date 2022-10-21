@@ -40,7 +40,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
         shrinkWrap: true,
         children: [
           SizedBox(
-            height: getSize(20),
+            height: getSize(10),
           ),
           BaseText(
             textAlign: TextAlign.center,
@@ -165,7 +165,7 @@ class TodayJobsView extends GetView<TodayJobsController> {
                         width: getSize(32),
                       ),
                       BaseText(
-                        text: DateFormat('hh:mm').format(
+                        text: DateFormat('hh:mm a').format(
                           DateTime.fromMillisecondsSinceEpoch(controller
                                   .listData[index].inspectionDate
                                   ?.toInt() ??
@@ -197,13 +197,15 @@ class TodayJobsView extends GetView<TodayJobsController> {
                       SizedBox(
                         width: getSize(7),
                       ),
-                      BaseText(
-                        text: controller.listData[index].user?.address
-                                .toString() ??
-                            "",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        textColor: ColorConstants.white.withOpacity(0.8),
+                      Expanded(
+                        child: BaseText(
+                          text: controller.listData[index].user?.address
+                                  .toString() ??
+                              "",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          textColor: ColorConstants.white.withOpacity(0.8),
+                        ),
                       ),
                     ],
                   ),

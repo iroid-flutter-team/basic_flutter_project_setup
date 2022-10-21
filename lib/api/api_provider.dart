@@ -31,11 +31,14 @@ class ApiProvider extends BaseProvider {
       printInfo(info: "POST RESPONSE ======= ${response.body}");
 
       if (response.body != null && response.statusCode == 200) {
+        printInfo(info: "POST RESPONSE ======= 1111");
         commonResponse = CommonResponse.fromJson(response.body);
         if (commonResponse.dioMessage != null) {
+          printInfo(info: "POST RESPONSE ======= 2222");
           await EasyLoading.showToast(commonResponse.dioMessage!);
         }
       } else {
+        printInfo(info: "POST RESPONSE ======= 3333");
         EasyLoading.dismiss();
         await EasyLoading.showToast(commonResponse.dioMessage ?? "Null");
       }

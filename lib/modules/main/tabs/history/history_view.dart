@@ -135,7 +135,7 @@ class HistoryView extends GetView<HistoryController> {
                                 children: [
                                   SvgPicture.asset(
                                     SvgImageConstants.location,
-                                    height: getSize(9),
+                                    height: getSize(12),
                                   ),
                                   SizedBox(
                                     width: getSize(7),

@@ -84,7 +84,7 @@ class QuestionListWidget extends GetView<QuestionController> {
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: getSize(20.0),
+            height: getSize(30.0),
           ),
           _buildLinearProgressView(questionModel),
           // Obx(() {
@@ -207,7 +207,10 @@ class QuestionListWidget extends GetView<QuestionController> {
             onTap: () async {
              // print("questionModel========${questionModel.title}");
               var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, questionModel.answerId, questionModel.title]);
-              if (res == 'success') {controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+              if (res == 'success') {
+                Future.delayed(const Duration(seconds: 1), () {
+                  controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+                });
               }
 
             },
@@ -237,7 +240,9 @@ class QuestionListWidget extends GetView<QuestionController> {
               print("isLastIndex===================${controller.questionModelList.indexOf(questionModel) == controller.questionModelList.length -1}");
               var res = await Get.toNamed(Routes.ADD_INSPECT, arguments: [questionModel, controller.jobId, -3, questionModel.title]);
               if (res == 'success') {
-                controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+                Future.delayed(const Duration(seconds: 1), () {
+                  controller.getQuestion(controller.argumentData.examinationId ?? 0, controller.jobId);
+                });
               }
             },
             child: BaseText(
@@ -322,7 +327,7 @@ class QuestionListWidget extends GetView<QuestionController> {
               child: BaseText(
                 text: "You have successfully completed examination",
                 fontWeight: FontWeight.w500,
-                textColor: Colors.white.withOpacity(0.8),
+                textColor: Colors.white.withOpacity(0.6),
                 textAlign: TextAlign.center,
                 fontSize: 12,
               ),

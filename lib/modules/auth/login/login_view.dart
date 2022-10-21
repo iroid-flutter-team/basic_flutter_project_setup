@@ -103,10 +103,10 @@ class SignInWithPhoneNumberScreen
                 width: getSize(65),
                 padding: EdgeInsets.only(
                     bottom:
-                        controller.isValidPhoneNumber.value ? 0 : getSize(20)),
+                        controller.isValidPhoneNumber.value ? 0 : getSize(22)),
                 child: InputTextField(
                   controller: controller.countryController,
-                  textInputType: TextInputType.number,
+                  textInputType: TextInputType.text,
                   enable: true,
                   textInputAction: TextInputAction.next,
                   // prefixText: '+',
@@ -135,26 +135,24 @@ class SignInWithPhoneNumberScreen
                 //  prefixIcon: Padding(padding: EdgeInsets.all(12.0), child: SvgPicture.asset(getAssetsSVGImg('email'),),),
                 textInputAction: TextInputAction.done,
                 onChanged: (value){
-                  if (value == "000-000-0000" ||
-                      value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                  if (value == "000-000-0000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
                     controller.isValidPhoneNumber.value = false;
                     return 'please enter valid number';
-                  } else if (value.length > 10) {
+                  } else if (value.isEmpty || value.length > 10) {
                     controller.isValidPhoneNumber.value = false;
-                    return "mobile number must be 10 digit";
+                    return "please enter valid mobile number";
                   }
                   controller.isValidPhoneNumber.value = true;
                   return null;
                 },
                 validator: (value) {
                   //print("controller.phoneController========${value}");
-                  if (value == "000-000-0000" ||
-                      value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
+                  if (value == "000-000-0000" || value == r'(^(?:[+0]9)?[0-9]{10,12}$)') {
                     //controller.isValidPhoneNumber.value = false;
                     return 'please enter valid number';
-                  } else if (value!.length > 10) {
+                  } else if (value!.isEmpty || value.length > 10) {
                    // controller.isValidPhoneNumber.value = false;
-                    return "mobile number must be 10 digit";
+                    return "please enter valid mobile number";
                   }
                  // controller.isValidPhoneNumber.value = true;
                   return null;
@@ -173,6 +171,8 @@ class SignInWithPhoneNumberScreen
       onPressed: () async {
         if (controller.formKey.currentState!.validate()) {
           controller.checkManagerExist();
+        }else{
+          controller.isValidPhoneNumber.value = false;
         }
         // await FirebaseAuth.instance.verifyPhoneNumber(
         //   phoneNumber: controller.countryController.text + controller.phoneNumberController.text,

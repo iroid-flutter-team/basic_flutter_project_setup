@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/models/response/common_response.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -204,8 +205,10 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
       child: BaseElevatedButton(
         width: Get.width,
         onPressed: () async {
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verify, smsCode: controller.otpValue.value);
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verify, smsCode: controller.otpValue.value);
+          if(credential.token == null){
+            EasyLoading.showToast("Invalid otp");
+          }
           // Sign the user in (or link) with the credential
           var res = await controller.auth.signInWithCredential(credential);
           var idToken = await res.user?.getIdToken();

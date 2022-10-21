@@ -120,7 +120,7 @@ class AnimatedCard extends GetView<QuestionController> {
         width: Get.width,
         height: getSize(140),
         child: Center(
-          child: BaseText(text: '',),
+          child: BaseText(text: 'View Photo',),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   children: [
