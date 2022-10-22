@@ -205,23 +205,50 @@ class OtpVerifyView extends GetView<OtpVerifyController> {
       child: BaseElevatedButton(
         width: Get.width,
         onPressed: () async {
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verify, smsCode: controller.otpValue.value);
-          if(credential.token == null){
+
+
+          try{
+            print("otpValue===========${controller.otpValue.value}");
+            PhoneAuthCredential credential =  PhoneAuthProvider.credential(verificationId: verify, smsCode: controller.otpValue.value);
+            print("credentialTtoken=============${credential.token}");
+
+
+            // Sign the user in (or link) with the credential
+            UserCredential userCredential = await controller.auth.signInWithCredential(credential);
+            print("userCredential=============${userCredential}");
+
+            if(userCredential.user!=null){
+              var idToken = await userCredential.user?.getIdToken();
+              if(idToken != null) {
+                controller.login(idToken);
+                // Get.offAll(
+                //   MainTab(),
+                //   binding: MainBindings(),
+                // );
+              }
+              }else{
+                EasyLoading.showToast("Invalid otp");
+              }
+
+            // var idToken = await userCredential.user?.getIdToken();
+            // print("idToken========$idToken");
+            // if (idToken != null) {
+            //   controller.login(idToken);
+            //   // Get.offAll(
+            //   //   MainTab(),
+            //   //   binding: MainBindings(),
+            //   // );
+            // }else{
+            //   EasyLoading.showToast("Invalid otp");
+            // }
+
+          }catch(ex){
+            printInfo(info: 'Exception ==> ${ex.toString()}');
             EasyLoading.showToast("Invalid otp");
           }
-          // Sign the user in (or link) with the credential
-          var res = await controller.auth.signInWithCredential(credential);
-          if(res.credential != null){
-            var idToken = await res.user?.getIdToken();
-            print("idToken========$idToken");
-            if (idToken != null) {
-              controller.login(idToken);
-              // Get.offAll(
-              //   MainTab(),
-              //   binding: MainBindings(),
-              // );
-            }
-          }
+
+
+
         },
         child: BaseText(
           text: "SUBMIT",

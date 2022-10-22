@@ -2,6 +2,7 @@ import 'package:align_flutter_app/routes/app_pages.dart';
 import 'package:align_flutter_app/shared/constants/color_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -73,7 +74,12 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
             ),
             BaseElevatedButton(
               onPressed: () {
-                Get.toNamed(Routes.SUMMARY_REPORT, arguments: controller.jobId);
+
+                if(controller.resultsResponse.value.averageRating>3){
+                  EasyLoading.showToast("Your current home condition is good, so we unable to create summary report ");
+                }else{
+                  Get.toNamed(Routes.SUMMARY_REPORT, arguments: controller.jobId);
+                }
               },
               child: BaseText(
                 text: "GO TO SUMMARY REPORT",
@@ -101,19 +107,19 @@ class ExaminationResultsView extends GetView<ExaminationResultsController> {
 
     if (averageRating >= 0 && averageRating <= 1) {
       emojiImage = SvgImageConstants.very_poor;
-      text = "current condition of the home is very poor";
-    } else if (averageRating >= 1 && averageRating <= 2) {
+      text = "Current condition of the home is very poor";
+    } else if (averageRating > 1 && averageRating <= 2) {
       emojiImage = SvgImageConstants.poor;
-      text = "current condition of the home is poor";
-    } else if (averageRating >= 2 && averageRating <= 3) {
+      text = "Current condition of the home is poor";
+    } else if (averageRating > 2 && averageRating <= 3) {
       emojiImage = SvgImageConstants.average;
-      text = "current condition of the home is average";
-    } else if (averageRating >= 3 && averageRating <= 4) {
+      text = "Current condition of the home is average";
+    } else if (averageRating > 3 && averageRating <= 4) {
       emojiImage = SvgImageConstants.good;
-      text = "current condition of the home is good";
-    } else if (averageRating >= 4 && averageRating <= 5) {
+      text = "Current condition of the home is good";
+    } else if (averageRating > 4 && averageRating <= 5) {
       emojiImage = SvgImageConstants.excellent;
-      text = "current condition of the home is excellent";
+      text = "Current condition of the home is excellent";
     }else{
       return Container();
     }
