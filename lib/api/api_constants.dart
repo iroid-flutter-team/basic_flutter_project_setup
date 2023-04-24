@@ -1,28 +1,56 @@
 class ApiConstants {
-  static const baseUrl =
-      'https://demo.iroidsolutions.com/2meeters/public/api/v1/';
-  static const register = 'register';
-  static const login = 'login';
-  static const verifyOtp = 'verify/otp';
-  static const resendOtp = 'resend/otp';
-  static const forgotPassword = 'forgot-password';
-  static const forgotPasswordVerifyOtp = 'forgot-password/verify/otp';
-  static const resetPassword = 'reset/password';
-  static const socialLogin = 'social-login';
-  static const refreshToken = 'refresh-token';
-  static const gender = 'gender';
-  static const addInfo = 'add/info';
-  static const logout = 'logout';
-  static const addBasicInfo = 'add-basic-info';
-  static const addPhotoInfo = 'add-photo';
-  static const addProfilePhoto = 'profile-pic';
-  static const deletePhoto = 'delete-photo';
+  static const baseUrl = 'https://demo.iroidsolutions.com:7005/api/v1/';
 
-  static const addAdditionalInfo = 'add-additional-info';
-  static const addPrompt = 'add-prompt';
-  static const getPrompt = 'prompt';
-  static const userInfo = 'user-info';
-  static const privacy = 'privacy';
-  static const onlineUser = 'online-user';
-  static const userCheckIn = 'place-visit';
+//auth
+
+  static const login = 'auth/login';
+  static const register = 'auth/register';
+  static const logout = 'auth/logout';
+
+  //user
+  static const getUsers = 'users';
+
+  //forgot Password
+  static const forgotPassword = 'auth/forgot-password';
+
+  //category
+  static const getCategory = 'category';
+
+  //brands
+  static const getBrands = 'brand';
+  static const getProductFromBrand = 'product/product-listing';
+  static const product = 'product';
+  static const searchProduct = 'product/search-list';
+  //review
+  static const getReview = 'product/reviews';
+
+  //check version
+  static const checkVersion = 'check-version';
+
+  //Reward Verification
+
+  static const bankVerification = 'stripe/bankVerification';
+  static const stripeVerification = 'stripe/verification';
+
+  //state list
+  static const stateList = 'stripe/state-listing';
+
+  //contact support
+  static const contactSupport = 'contact-support';
+
+  //stripe payment
+  static const getCheckOutProduct = 'stripe/checkout-product';
+  static const createCard = 'stripe/card';
+  static const getUserCard = 'stripe/card-listing';
+  static const stripePaymentInvoice = 'stripe/payment-invoice';
+
+  //delete Account
+  static const deleteAccount = 'users/delete-account';
+
+  //purchase product
+
+  static const productPurchaseList = 'product/purchase-listing';
+  static const productPurchaseDetail = 'product/purchase-product-details';
+  static const keepProduct = 'keep-return/product-keep';
+  static const returnProduct = 'keep-return/product-return';
 }

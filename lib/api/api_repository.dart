@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import 'api.dart';
 
 class ApiRepository {
