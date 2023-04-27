@@ -1,3 +1,4 @@
+import 'package:align_flutter_app/helper/socket_chat_helper.dart';
 import 'package:align_flutter_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -34,7 +35,7 @@ void main() async {
       DeviceOrientation.portraitDown,
     ],
   );
-
+  // SocketService.connectSocket();
   runApp(App());
   configLoading();
 }

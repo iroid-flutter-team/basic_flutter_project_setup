@@ -85,7 +85,7 @@ class SocketService {
   static receivedMessage() {
     try {
       socket.on(SocketConstants.newMessageListener, (data) {
-        // printInfo(info: "${SocketConstants.newMessageListener} : $data}");
+        Get.printInfo(info: "${SocketConstants.newMessageListener} : $data}");
         Map<String, dynamic> receivedMessageData = {
           'roomId': data['roomId'],
           'senderId': senderId.value,

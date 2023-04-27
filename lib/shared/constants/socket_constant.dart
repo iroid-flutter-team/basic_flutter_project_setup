@@ -1,6 +1,7 @@
 class SocketConstants {
   //static const String socketUrl = "http://demo.iroidsolutions.com:7010"; // Company Demo Server
-  static const String socketUrl = ""; //Please ennter url here
+  static const String socketUrl =
+      "http://134.209.145.75:3100"; //Please ennter url here
 
   static const String updateStatusToOnline = "UpdateStatusToOnline"; // emit
   static const String statusOnlineListener = "statusOnline"; // listener
