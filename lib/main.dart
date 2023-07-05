@@ -15,7 +15,7 @@ import 'shared/constants/constants.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
-  await DenpendencyInjection.init();
+  await DependencyInjection.init();
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.dark.copyWith(

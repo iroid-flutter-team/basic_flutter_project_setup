@@ -21,7 +21,7 @@ FutureOr<Request> requestInterceptor(request) async {
   if (token != null && token.isNotEmpty) {
     request.headers['Authorization'] = 'Bearer $token';
   }
-  if (DenpendencyInjection.showLoader.value) {
+  if (DependencyInjection.showLoader.value) {
     EasyLoading.show(status: 'loading...');
   }
 

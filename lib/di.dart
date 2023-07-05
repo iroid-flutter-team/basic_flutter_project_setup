@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'shared/services/storage_service.dart';
 
-class DenpendencyInjection {
+class DependencyInjection {
   static final prefs = Get.find<SharedPreferences>();
   static var isBusinessMode = false.obs;
   static var showLoader = true.obs;
