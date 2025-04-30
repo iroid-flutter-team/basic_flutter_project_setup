@@ -1,25 +1,23 @@
 class SocketConstants {
-  //static const String socketUrl = "http://demo.iroidsolutions.com:7010"; // Company Demo Server
-  static const String socketUrl = ""; //Please ennter url here
+  static const String socketUrl = "https://dev.iroidsolutions.com:3003";
+  static const String createStream = "create_stream"; // when user create stream
+  static const String newStream = "new_stream"; // Audeince join stream
+  static const String joinStream = "join_stream"; // when user join stream
+  static const String joinStreamListener =
+      "join_stream_listener"; // when user join stream
 
-  static const String updateStatusToOnline = "UpdateStatusToOnline"; // emit
-  static const String statusOnlineListener = "statusOnline"; // listener
+  static const String closeStream = "close_stream"; // when user close stream
+  static const String streamClosedListener =
+      "stream_closed_by_host"; // when stream is closed
 
-  static const String createRoom = "createRoom"; // emit
-  static const String roomConnectedListener = "roomConnected"; // listener
+  //like
+  static const String likeStream = "like";
+  static const String likeStreamListener = "new_like";
 
-  static const String sendMessage = "sendMessage"; // emit
-  static const String newMessageListener = "newMessage"; // listener
+  //message
+  static const String comment = "comment";
+  static const String commentListener = "new_comment";
 
-  static const String readMessage = "ReadMessage"; // emit
-
-  static const String disconnect = "disconnect";
-
-  static const String displayTyping = "DisplayTyping"; //display typing
-
-  static const String typing = "typing"; // typing
-
-  static const String removeTyping = "removeTyping"; //display typing
-
-  static const String removeTypingMessage = "removeTypingMessage"; // typing
+  //payment
+  static const String payment = "payment";
 }

@@ -1,35 +1,39 @@
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'shared/services/storage_service.dart';
 
 class DependencyInjection {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   static final prefs = Get.find<SharedPreferences>();
-  static var isBusinessMode = false.obs;
   static var showLoader = true.obs;
+  static var deviceId = '';
+
   static Future<void> init() async {
     await Get.putAsync(() => StorageService().init());
-    // if (prefs.getString(StorageConstants.profileType) == null) {
-    //   await prefs.setString(
-    //       StorageConstants.profileType, StringConstant.casual);
-    // }
-
-    /// getUserData();
-
-    ///  getTheme();
+    // await getUserData();
+    // getDeviceId();
   }
 
-  // static var userResponse = UserResponse().obs;
+  static getUserData() {}
 
-  // static getUserData() {
-  //   if (prefs.getString(StorageConstants.userData) != null) {
-  //     userResponse.value = UserResponse.fromJson(
-  //       jsonDecode(
-  //         prefs.getString(StorageConstants.userData)!,
-  //       ),
-  //     );
+  static getUserApi() async {}
 
-  //     print("UserData : ${userResponse.toJson()}");
-  //   }
-  // }
+  static logOut() async {}
+
+  static getDeviceId() async {
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+      deviceId = androidDeviceInfo.id;
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+      deviceId = iosDeviceInfo.identifierForVendor ?? '';
+    }
+  }
 }

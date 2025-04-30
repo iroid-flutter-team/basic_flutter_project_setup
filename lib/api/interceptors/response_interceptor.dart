@@ -1,14 +1,13 @@
 import 'dart:async';
-
-import 'package:align_flutter_app/models/response/common_response.dart';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:grape_vender_app/models/response/common_response.dart';
 
 FutureOr<dynamic> responseInterceptor(
-    Request request, Response response) async {
+  Request request,
+  Response response,
+) async {
   CommonResponse commonResponse = CommonResponse();
   print('Request: URL ${request.method.toUpperCase()}: ${request.url}');
   print('Request: Headers ${request.headers}');

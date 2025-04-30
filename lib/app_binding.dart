@@ -1,6 +1,5 @@
-import 'package:align_flutter_app/network/network_manger.dart';
 import 'package:get/get.dart';
-
+import 'package:grape_vender_app/network/network_manger.dart';
 import 'api/api.dart';
 
 class AppBinding extends Bindings {

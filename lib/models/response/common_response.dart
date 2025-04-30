@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class CommonResponse<T> {
-  bool? status;
+  bool? success;
   String? dioMessage;
   T? data;
   List<T>? listData;
@@ -9,7 +9,7 @@ class CommonResponse<T> {
   Meta? meta;
 
   CommonResponse({
-    this.status,
+    this.success,
     this.dioMessage,
     this.data,
     this.listData,
@@ -18,7 +18,7 @@ class CommonResponse<T> {
   });
 
   CommonResponse.fromJson(Map<String, dynamic> json) {
-    status = json['success'];
+    success = json['success'];
     dioMessage = json['message'];
     data = json['data'];
     print(data);
@@ -30,7 +30,7 @@ class CommonResponse<T> {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = status;
+    data['success'] = success;
     data['message'] = dioMessage;
     data['data'] = data;
     data['errors'] = errors;
@@ -83,14 +83,15 @@ class Errors {
   List<String>? qrCode;
   List<String>? referralByUser;
 
-  Errors(
-      {this.firstName,
-      this.lastName,
-      this.email,
-      this.birthDate,
-      this.lookingFor,
-      this.gender,
-      this.lookingGender});
+  Errors({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.birthDate,
+    this.lookingFor,
+    this.gender,
+    this.lookingGender,
+  });
 
   Errors.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name']?.cast<String>();
@@ -212,32 +213,40 @@ class Meta {
   int? currentPage;
   int? from;
   int? to;
+  double? currentBalance;
 
-  Meta(
-      {this.total,
-      this.lastPage,
-      this.perPage,
-      this.currentPage,
-      this.from,
-      this.to});
+  Meta({
+    this.total,
+    this.lastPage,
+    this.perPage,
+    this.currentPage,
+    this.from,
+    this.to,
+    this.currentBalance,
+  });
 
   Meta.fromJson(Map<String, dynamic> json) {
     total = json['total'];
-    lastPage = json['lastPage'];
+    lastPage = json['last_page'];
     perPage = json['perPage'];
-    currentPage = json['currentPage'];
+    currentPage = json['current_page'];
     from = json['from'];
     to = json['to'];
+    currentBalance =
+        json['current_balance'] != null
+            ? double.parse(json['current_balance'].toString())
+            : 0;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['total'] = total;
-    data['lastPage'] = lastPage;
+    data['last_page'] = lastPage;
     data['perPage'] = perPage;
-    data['currentPage'] = currentPage;
+    data['current_page'] = currentPage;
     data['from'] = from;
     data['to'] = to;
+    data['current_balance'] = currentBalance;
     return data;
   }
 }

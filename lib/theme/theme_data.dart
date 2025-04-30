@@ -7,6 +7,10 @@ class ThemeConfig {
     // print("primaryColor : ${Theme.of(Get.context!).primaryColor}");
     return ThemeData(
       fontFamily: 'Poppins',
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: Colors.transparent, // Removes unwanted background
+        elevation: 0, // Removes shadow if any
+      ),
       // brightness: brightness,
 
       //scaffoldBackgroundColor: ColorConstants.white,

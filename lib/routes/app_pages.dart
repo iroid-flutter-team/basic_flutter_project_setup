@@ -1,17 +1,16 @@
-import 'package:get/get.dart';
-
-import '../modules/main/main_binding.dart';
-import '../modules/main/main_tab.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:grape_vender_app/modules/splash/splash_binding.dart';
+import 'package:grape_vender_app/modules/splash/splash_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   static final routes = [
     GetPage(
-      name: Routes.MAIN,
-      page: () => MainTab(),
-      binding: MainBindings(),
-      children: [],
+      name: Routes.SPLASH,
+      page: () => SplashView(),
+      binding: SplashBinding(),
+      children: const [],
     ),
   ];
 }

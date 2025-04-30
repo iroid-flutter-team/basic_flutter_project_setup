@@ -1,16 +1,19 @@
-import 'package:align_flutter_app/shared/constants/color_constants.dart';
-import 'package:align_flutter_app/shared/utils/math_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:grape_vender_app/shared/constants/color_constants.dart';
+import 'package:grape_vender_app/shared/utils/math_utils.dart';
 
 class BaseText extends StatelessWidget {
   final String text;
   final double fontSize;
   final bool isUpperCase;
+  final bool showFullText;
+
   final TextAlign textAlign;
   final FontWeight? fontWeight;
   final TextStyle? style;
   final TextOverflow? overflow;
   final Color? textColor;
+  final Color? decorationColor;
   final double? letterSpacing;
   final TextDecoration? textDecoration;
   final int? maxLines;
@@ -18,7 +21,7 @@ class BaseText extends StatelessWidget {
   final double? lineHeight;
   final List<Shadow>? shadows;
   const BaseText({
-    Key? key,
+    super.key,
     required this.text,
     this.textAlign = TextAlign.start,
     this.style,
@@ -27,28 +30,32 @@ class BaseText extends StatelessWidget {
     this.textDecoration = TextDecoration.none,
     this.fontSize = 16,
     this.isUpperCase = false,
+    this.decorationColor,
     this.fontWeight,
     this.letterSpacing,
     this.maxLines = 5,
-    this.fontFamily = 'Poppins',
+    this.fontFamily = 'SFPro',
     this.lineHeight,
     this.shadows,
-  }) : super(key: key);
+    this.showFullText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       isUpperCase ? text.toUpperCase() : text,
       textAlign: textAlign,
-      textScaleFactor: 1.0,
-      overflow: overflow,
-      maxLines: maxLines,
-      style: style ??
+      textScaler: const TextScaler.linear(1),
+      overflow: showFullText ? null : overflow,
+      maxLines: showFullText ? null : maxLines,
+      style:
+          style ??
           TextStyle(
             height: lineHeight,
             shadows: shadows,
             color: textColor ?? ColorConstants.black,
             decoration: textDecoration,
+            decorationColor: decorationColor ?? ColorConstants.primary,
             fontFamily: fontFamily,
             fontSize: getFontSize(fontSize),
             letterSpacing: letterSpacing ?? 0.5,
